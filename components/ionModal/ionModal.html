@@ -1,0 +1,18 @@
+<template name="ionModal">
+  <div class="modal-backdrop">
+    <div class="modal-wrapper">
+      <div class="modal">
+
+        <div class="bar bar-header bar-stable">
+          <button data-dismiss="modal" class="button button-icon"><i class="icon ion-ios-close-empty"></i></button>
+          <h2 class="title">{{title}}</h2>
+        </div>
+
+        <div class="content has-header">
+          {{> UI.contentBlock}}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</template>
