@@ -12,43 +12,43 @@ Package.onUse(function(api) {
     "components/ionBody/ionBody.html",
     "components/ionBody/ionBody.js",
 
-    "components/ionBody/ionContent.html",
-    "components/ionBody/ionContent.js",
+    "components/ionContent/ionContent.html",
+    "components/ionContent/ionContent.js",
 
-    "components/ionBody/ionFooterBar.html",
-    "components/ionBody/ionFooterBar.js",
+    "components/ionFooterBar/ionFooterBar.html",
+    "components/ionFooterBar/ionFooterBar.js",
 
-    "components/ionBody/ionHeaderBar.html",
-    "components/ionBody/ionHeaderBar.js",
+    "components/ionHeaderBar/ionHeaderBar.html",
+    "components/ionHeaderBar/ionHeaderBar.js",
 
-    "components/ionBody/ionIcon.html",
-    "components/ionBody/ionIcon.js",
+    "components/ionIcon/ionIcon.html",
+    "components/ionIcon/ionIcon.js",
 
-    "components/ionBody/ionItem.html",
-    "components/ionBody/ionItem.js",
+    "components/ionItem/ionItem.html",
+    "components/ionItem/ionItem.js",
 
-    "components/ionBody/ionList.html",
-    "components/ionBody/ionList.js",
+    "components/ionList/ionList.html",
+    "components/ionList/ionList.js",
 
-    "components/ionBody/ionModal.html",
-    "components/ionBody/ionModal.js",
+    "components/ionModal/ionModal.html",
+    "components/ionModal/ionModal.js",
 
-    "components/ionBody/ionNavView.html",
-    "components/ionBody/ionNavView.js",
+    "components/ionNavView/ionNavView.html",
+    "components/ionNavView/ionNavView.js",
 
-    "components/ionBody/ionPane.html",
-    "components/ionBody/ionPane.js",
+    "components/ionPane/ionPane.html",
+    "components/ionPane/ionPane.js",
 
-    "components/ionBody/ionRadio.html",
-    "components/ionBody/ionRadio.js",
+    "components/ionRadio/ionRadio.html",
+    "components/ionRadio/ionRadio.js",
 
-    "components/ionBody/ionSubheaderBar.html",
-    "components/ionBody/ionSubheaderBar.js",
+    "components/ionSubheaderBar/ionSubheaderBar.html",
+    "components/ionSubheaderBar/ionSubheaderBar.js",
 
-    "components/ionBody/ionTabs.html",
-    "components/ionBody/ionTabs.js",
+    "components/ionTabs/ionTabs.html",
+    "components/ionTabs/ionTabs.js",
 
-    "components/ionBody/ionView.html",
-    "components/ionBody/ionView.js"
+    "components/ionView/ionView.html",
+    "components/ionView/ionView.js"
   ], "client");
 });
