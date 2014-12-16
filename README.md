@@ -2,6 +2,8 @@
 
 # meteor-ionic
 
+**Alpha - not ready for production**
+
 ### Build [Ionic](http://ionicframework.com/) apps in [Meteor](https://www.meteor.com/)!
 
 This is an attempt at **real Ionic and Meteor integration**. This is not just Ionic's CSS framework wrapped in a Meteor package. It aims to be a complete port of [Ionic’s Angular directives](http://ionicframework.com/docs/api/) to [Meteor Blaze](https://www.meteor.com/blaze) templates.
@@ -11,7 +13,7 @@ This is an attempt at **real Ionic and Meteor integration**. This is not just Io
 
 ## Status
 
-**Not ready!** See the TODO section below to see which Angular Directives have been ported to Blaze. 
+**Not ready!** See the TODO section below to see which Angular Directives have been ported to Blaze.
 
 ## Dependencies
 Rather than include compiled or CDN versions of Ionic's CSS Framework we’ve extraced it into two separate packages:
