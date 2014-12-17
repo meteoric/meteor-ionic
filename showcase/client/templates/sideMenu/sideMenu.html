@@ -1,14 +1,60 @@
 <template name="sideMenu">
-  {{#ionHeaderBar class="bar-positive"}}
-    <a href="{{pathFor 'index'}}" class="button button-clear pull-left">
-      {{> ionIcon icon='ios-arrow-back'}}
-    </a>
-    <h1 class="title">Side Menu</h1>
-  {{/ionHeaderBar}}
 
-  {{#ionContent}}
-    <div class="padding">
-      Content goes here
-    </div>
-  {{/ionContent}}
+  {{#ionSideMenuContainer}}
+
+    {{#ionSideMenus}}
+
+      {{#ionSideMenu}}
+        <div class="bar bar-header bar-dark">
+          <h1 class="title">Left Menu</h1>
+        </div>
+        <div class="content has-header">
+          <div class="list">
+            <div class="item item-icon-right" data-ion-menu-close>
+              Close Me {{> ionIcon icon="ios-arrow-right"}}
+            </div>
+          </div>
+        </div>
+      {{/ionSideMenu}}
+
+      {{#ionSideMenu side="right"}}
+        <div class="bar bar-header bar-dark">
+          <h1 class="title">Right Menu</h1>
+        </div>
+        <div class="content has-header">
+          <div class="list">
+            <div class="item item-icon-left" data-ion-menu-close>
+              {{> ionIcon icon="ios-arrow-left"}} Close Me
+            </div>
+          </div>
+        </div>
+      {{/ionSideMenu}}
+
+    {{/ionSideMenus}}
+
+    {{#ionSideMenuContent}}
+
+      {{#ionHeaderBar class="bar-positive"}}
+        <button class="button button-clear pull-left" data-ion-menu-toggle="left">
+          {{> ionIcon icon='navicon'}}
+        </button>
+        <h1 class="title">Side Menu</h1>
+        <button class="button button-clear pull-right" data-ion-menu-toggle="right">
+          {{> ionIcon icon='navicon'}}
+        </button>
+      {{/ionHeaderBar}}
+
+      {{#ionContent}}
+        <div class="padding">
+          <a href="{{pathFor 'index'}}" class="button button-large button-stable">
+            {{> ionIcon icon='ios-arrow-back'}}
+            Back to Showcase
+          </a>
+        </div>
+      {{/ionContent}}
+
+    {{/ionSideMenuContent}}
+
+  {{/ionSideMenuContainer}}
+
 </template>

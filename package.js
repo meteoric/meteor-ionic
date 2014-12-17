@@ -8,6 +8,12 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom("1.0");
   api.use(["templating", "underscore"], "client");
+
+  api.addFiles([
+    "vendor/snap.js",
+    "vendor/snap.css"
+  ], "client");
+
   api.addFiles([
     "components/ionBody/ionBody.html",
     "components/ionBody/ionBody.js",
@@ -41,6 +47,18 @@ Package.onUse(function(api) {
 
     "components/ionRadio/ionRadio.html",
     "components/ionRadio/ionRadio.js",
+
+    "components/ionSideMenu/ionSideMenu.html",
+    "components/ionSideMenu/ionSideMenu.js",
+
+    "components/ionSideMenuContainer/ionSideMenuContainer.html",
+    "components/ionSideMenuContainer/ionSideMenuContainer.js",
+
+    "components/ionSideMenuContent/ionSideMenuContent.html",
+    "components/ionSideMenuContent/ionSideMenuContent.js",
+
+    "components/ionSideMenus/ionSideMenus.html",
+    "components/ionSideMenus/ionSideMenus.js",
 
     "components/ionSubheaderBar/ionSubheaderBar.html",
     "components/ionSubheaderBar/ionSubheaderBar.js",
