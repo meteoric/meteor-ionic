@@ -67,13 +67,13 @@ A [Product Hunt](http://producthunt.com) clone built in Meteor Ionic.
 * [ ] Scroll
   * [ ] ion-scroll
   * [ ] ion-infinite-scroll
-* [ ] Side Menus
-  * [ ] ion-side-menus
-  * [ ] ion-side-menu-content
-  * [ ] ion-side-menu
-  * [ ] expose-aside-when
-  * [ ] menu-toggle
-  * [ ] menu-close
+* [x] Side Menus
+  * [x] ion-side-menus
+  * [x] ion-side-menu-content
+  * [x] ion-side-menu
+  * [ ] expose-aside-when (not sure this is needed)
+  * [x] menu-toggle
+  * [x] menu-close
 * [ ] Slide Box
 * [ ] Tabs
   * [x] ion-tabs
