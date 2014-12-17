@@ -9,14 +9,19 @@ Template.actionSheet.events({
       destructiveText: 'Delete',
       cancelText: 'Cancel',
       cancel: function() {
-        alert('CANCELLED');
+        alert('Cancelled!');
       },
       buttonClicked: function(index) {
-        alert('BUTTON CLICKED', index);
+        if (index === 0) {
+          alert('Shared!');
+        }
+        if (index === 1) {
+          alert('Moved!');
+        }
         return true;
       },
       destructiveButtonClicked: function() {
-        alert('DESTRUCT');
+        alert('Destructive Action!');
         return true;
       }
     });

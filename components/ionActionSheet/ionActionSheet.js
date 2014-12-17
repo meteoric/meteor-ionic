@@ -20,6 +20,12 @@ IonActionSheet = {
       buttons: buttons
     };
 
+    this.callbacks = {
+      cancel: options.cancel,
+      destructiveButtonClicked: options.destructiveButtonClicked,
+      buttonClicked: options.buttonClicked
+    };
+
     this.view = Blaze.renderWithData(this.template, data, $('.ionic-body').get(0));
     $('body').addClass('action-sheet-open');
 
@@ -33,10 +39,24 @@ IonActionSheet = {
   },
 
   cancel: function () {
-    this.close();
+    this.close(this.callbacks.cancel);
   },
 
-  close: function () {
+  buttonClicked: function (index) {
+    var callback = this.callbacks.buttonClicked;
+    if (callback(index) === true) {
+      IonActionSheet.close();
+    }
+  },
+
+  destructiveButtonClicked: function () {
+    var callback = this.callbacks.destructiveButtonClicked;
+    if (callback() === true) {
+      IonActionSheet.close();
+    }
+  },
+
+  close: function (callback) {
     var $backdrop = $(this.view.firstNode());
     $backdrop.removeClass('active');
 
@@ -48,6 +68,10 @@ IonActionSheet = {
     $wrapper.on(this.transitionEndEvent, function () {
       $('body').removeClass('action-sheet-open');
       Blaze.remove(this.view);
+
+      if (typeof(callback) === 'function') {
+        callback();
+      }
     }.bind(this));
   }
 };
@@ -73,11 +97,12 @@ Template.ionActionSheet.events({
   },
 
   'click [data-index]': function (event, template) {
-    IonActionSheet.close();
+    var index = $(event.target).data('index');
+    IonActionSheet.buttonClicked(index);
   },
 
   'click [data-destructive]': function (event, template) {
-    IonActionSheet.close();
+    IonActionSheet.destructiveButtonClicked();
   },
 
   'click [data-cancel]': function (event, template) {
