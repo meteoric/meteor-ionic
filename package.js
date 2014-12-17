@@ -15,6 +15,9 @@ Package.onUse(function(api) {
   ], "client");
 
   api.addFiles([
+    "components/ionActionSheet/ionActionSheet.html",
+    "components/ionActionSheet/ionActionSheet.js",
+
     "components/ionBody/ionBody.html",
     "components/ionBody/ionBody.js",
 
@@ -70,6 +73,7 @@ Package.onUse(function(api) {
     "components/ionView/ionView.js"
   ], "client");
 
+  api.export("IonActionSheet");
   api.export("IonModal");
   api.export("IonNavView");
 });
