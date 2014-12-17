@@ -1,3 +1,15 @@
 <template name="modal">
-  <h1>Modal</h1>
+  {{#ionHeaderBar class="bar-positive"}}
+    <a href="{{pathFor 'index'}}" class="button button-clear pull-left">
+      {{> ionIcon icon='ios-arrow-back'}}
+    </a>
+    <h1 class="title">Modal</h1>
+  {{/ionHeaderBar}}
+
+  {{#ionContent}}
+    <div class="padding">
+      <button class="button button-large button-stable" data-ion-modal="_myModal">Open Modal</button>
+    </div>
+  {{/ionContent}}
+
 </template>
