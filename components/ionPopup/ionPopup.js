@@ -5,5 +5,17 @@ IonPopup = {
 
   hide: function () {
 
+  },
+
+  alert: function () {
+
+  },
+
+  confirm: function () {
+
+  },
+
+  prompt: function () {
+
   }
 };

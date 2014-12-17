@@ -63,7 +63,7 @@ A [Product Hunt](http://producthunt.com) clone built in Meteor Ionic.
   * [ ] nav-clear
 * [ ] Platform
 * [x] Popover
-* [x] Popup
+* [ ] Popup
 * [ ] Scroll
   * [ ] ion-scroll
   * [ ] ion-infinite-scroll
