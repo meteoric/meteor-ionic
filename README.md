@@ -44,8 +44,8 @@ A [Product Hunt](http://producthunt.com) clone built in Meteor Ionic.
 * [x] Headers/Footers
   * [x] ion-header-bar
   * [x] ion-footer-bar
-* [ ] Keyboard
-* [ ] Lists
+* [ ] Keyboard (requires [cordova](http://cordova.apache.org/) integration)
+* [ ] Lists (needs edit/remove/sort functionality)
   * [ ] ion-list
   * [ ] ion-item
   * [ ] ion-delete-button
@@ -54,7 +54,7 @@ A [Product Hunt](http://producthunt.com) clone built in Meteor Ionic.
   * [ ] collection-repeat
 * [x] Loading
 * [x] Modal
-* [ ] Navigation (requires iron:router integration)
+* [ ] Navigation (requires [iron:router](https://github.com/EventedMind/iron-router) integration)
   * [x] ion-nav-view
   * [x] ion-view
   * [ ] ion-nav-bar
@@ -75,6 +75,6 @@ A [Product Hunt](http://producthunt.com) clone built in Meteor Ionic.
   * [x] menu-toggle
   * [x] menu-close
 * [ ] Slide Box
-* [ ] Tabs
+* [ ] Tabs (requires [iron:router](https://github.com/EventedMind/iron-router) integration)
   * [x] ion-tabs
   * [ ] ion-tab
