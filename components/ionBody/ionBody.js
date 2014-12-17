@@ -21,12 +21,17 @@ Template.ionBody.helpers({
 });
 
 Template.ionBody.events({
-  'click [data-ion-modal]': function (event) {
+  'click [data-ion-modal]': function (event, template) {
     var templateName = $(event.currentTarget).data('ion-modal');
     IonModal.open(templateName, $(event.currentTarget).data());
   },
 
-  'click [data-nav-direction]': function () {
+  'click [data-ion-popover]': function (event, template) {
+    var templateName = $(event.currentTarget).data('ion-popover');
+    IonPopover.show(templateName, $(event.currentTarget).data(), event.currentTarget);
+  },
+
+  'click [data-nav-direction]': function (event, template) {
     IonNavView.navDirection = $(event.target).data('nav-direction');
   }
 });

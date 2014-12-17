@@ -54,6 +54,12 @@ Package.onUse(function(api) {
     "components/ionPane/ionPane.html",
     "components/ionPane/ionPane.js",
 
+    "components/ionPopover/ionPopover.html",
+    "components/ionPopover/ionPopover.js",
+
+    "components/ionPopup/ionPopup.html",
+    "components/ionPopup/ionPopup.js",
+
     "components/ionRadio/ionRadio.html",
     "components/ionRadio/ionRadio.js",
 
@@ -84,4 +90,6 @@ Package.onUse(function(api) {
   api.export("IonLoading");
   api.export("IonModal");
   api.export("IonNavView");
+  api.export("IonPopover");
+  api.export("IonPopup");
 });
