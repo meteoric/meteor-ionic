@@ -15,6 +15,7 @@ Router.map(function() {
   this.route('popover');
   this.route('popup');
   this.route('sideMenu');
+  this.route('slideBox');
   this.route('tabs');
   this.route('userAccounts');
 });
