@@ -4,11 +4,27 @@
       {{> ionIcon icon='ios-arrow-back'}}
     </a>
     <h1 class="title">Lists</h1>
+    <button class="button button-clear" onclick="alert('TODO')">Edit</button>
   {{/ionHeaderBar}}
 
   {{#ionContent}}
-    <div class="padding">
-      Content goes here
-    </div>
+    {{#ionList}}
+
+      {{#each times}}
+
+        {{#ionItem buttonRight=true avatar=true}}
+
+          <img src="https://randomuser.me/api/portraits/thumb/men/27.jpg">
+          <h2>John Smith</h2>
+          <p>
+            (555) 555-1212
+          </p>
+          <button class="button button-balanced">{{> ionIcon icon="ios-telephone"}}</button>
+
+        {{/ionItem}}
+
+      {{/each}}
+
+    {{/ionList}}
   {{/ionContent}}
 </template>

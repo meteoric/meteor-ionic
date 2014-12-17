@@ -9,6 +9,10 @@ Template.ionItem.helpers({
       });
     }
 
+    if (this.avatar) {
+      classes.push('item-avatar');
+    }
+
     if (this.iconLeft) {
       classes.push('item-icon-left');
     }
@@ -17,11 +21,13 @@ Template.ionItem.helpers({
       classes.push('item-icon-right');
     }
 
-    return classes.join(' ');
-  },
+    if (this.buttonLeft) {
+      classes.push('item-button-left');
+    }
 
-  contentClasses: function () {
-    var classes = ['item-content'];
+    if (this.buttonRight) {
+      classes.push('item-button-right');
+    }
 
     return classes.join(' ');
   },

@@ -4,3 +4,13 @@
 .popover {
   height: auto;
 }
+
+.item p {
+  margin-bottom: 0;
+}
+
+.item-button-left, .item-button-right {
+  button {
+    top: 16px;
+  }
+}
