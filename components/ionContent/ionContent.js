@@ -2,6 +2,10 @@ Template.ionContent.helpers({
   classes: function () {
     var classes = ['content'];
 
+    if (this.class) {
+      classes.push(this.class);
+    }
+
     if (this.scroll !== false) {
       classes.push('overflow-scroll');
     }

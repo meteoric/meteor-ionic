@@ -8,6 +8,8 @@ autopublish
 insecure
 accounts-password
 fourseven:scss
+iron:router
+zimme:iron-router-active
 meteoric:ionic-sass
 meteoric:ionicons-sass
 meteoric:ionic
