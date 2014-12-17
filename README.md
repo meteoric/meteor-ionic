@@ -29,8 +29,8 @@ A [Product Hunt](http://producthunt.com) clone built in Meteor Ionic.
 ## TODO
 
 ### Angular Directives to convert to Blaze:
-* [ ] ActionSheet
-* [ ] Backdrop
+* [x] ActionSheet
+* [x] Backdrop
 * [x] Content
   * [x] ion-content
   * [x] ion-refresher (not necessary with Meteor)
@@ -52,7 +52,7 @@ A [Product Hunt](http://producthunt.com) clone built in Meteor Ionic.
   * [ ] ion-reorder-button
   * [ ] ion-option-button
   * [ ] collection-repeat
-* [ ] Loading
+* [x] Loading
 * [x] Modal
 * [ ] Navigation (requires iron:router integration)
   * [x] ion-nav-view

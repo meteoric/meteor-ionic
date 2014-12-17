@@ -32,6 +32,10 @@ IonActionSheet = {
     }, 20);
   },
 
+  cancel: function () {
+    this.close();
+  },
+
   close: function () {
     var $backdrop = $(this.view.firstNode());
     $backdrop.removeClass('active');
@@ -48,12 +52,24 @@ IonActionSheet = {
   }
 };
 
+Template.ionActionSheet.rendered = function () {
+  $(window).on('keyup.ionActionSheet', function(event) {
+    if (event.which == 27) {
+      IonActionSheet.cancel();
+    }
+  });
+};
+
+Template.ionActionSheet.destroyed = function () {
+  $(window).off('keyup.ionActionSheet');
+};
+
 Template.ionActionSheet.events({
   // Handle clicking the backdrop
   'click': function (event, template) {
-    // if (event.target === ?) {
-    //   IonActionSheet.close();
-    // }
+    if ($(event.target).hasClass('action-sheet-backdrop')) {
+      IonActionSheet.cancel();
+    }
   },
 
   'click [data-index]': function (event, template) {
@@ -65,7 +81,7 @@ Template.ionActionSheet.events({
   },
 
   'click [data-cancel]': function (event, template) {
-    IonActionSheet.close();
+    IonActionSheet.cancel();
   }
 
 });

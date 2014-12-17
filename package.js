@@ -18,6 +18,9 @@ Package.onUse(function(api) {
     "components/ionActionSheet/ionActionSheet.html",
     "components/ionActionSheet/ionActionSheet.js",
 
+    "components/ionBackdrop/ionBackdrop.html",
+    "components/ionBackdrop/ionBackdrop.js",
+
     "components/ionBody/ionBody.html",
     "components/ionBody/ionBody.js",
 
@@ -38,6 +41,9 @@ Package.onUse(function(api) {
 
     "components/ionList/ionList.html",
     "components/ionList/ionList.js",
+
+    "components/ionLoading/ionLoading.html",
+    "components/ionLoading/ionLoading.js",
 
     "components/ionModal/ionModal.html",
     "components/ionModal/ionModal.js",
@@ -74,6 +80,8 @@ Package.onUse(function(api) {
   ], "client");
 
   api.export("IonActionSheet");
+  api.export("IonBackdrop");
+  api.export("IonLoading");
   api.export("IonModal");
   api.export("IonNavView");
 });

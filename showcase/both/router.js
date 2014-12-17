@@ -5,6 +5,7 @@ Router.configure({
 Router.map(function() {
   this.route('index', {path: '/'});
   this.route('actionSheet');
+  this.route('backdrop');
   this.route('forms');
   this.route('headersFooters');
   this.route('lists');

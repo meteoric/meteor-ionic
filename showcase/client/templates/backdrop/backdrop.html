@@ -1,15 +1,15 @@
-<template name="loading">
+<template name="backdrop">
   {{#ionHeaderBar class="bar-positive"}}
     <a href="{{pathFor 'index'}}" class="button button-clear pull-left">
       {{> ionIcon icon='ios-arrow-back'}}
     </a>
-    <h1 class="title">Loading</h1>
+    <h1 class="title">Backdrop</h1>
   {{/ionHeaderBar}}
 
   {{#ionContent}}
     <div class="padding">
-      <button class="button button-large button-stable" data-action="showLoading">
-        Show Loading
+      <button class="button button-large button-stable" data-action="showBackdrop">
+        Show Backdrop
       </button>
     </div>
   {{/ionContent}}

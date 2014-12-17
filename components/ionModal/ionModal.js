@@ -50,6 +50,16 @@ Template.ionModal.rendered = function () {
       this.$('input:first').focus();
     }.bind(this), 600);
   }
+
+  $(window).on('keyup.ionModal', function(event) {
+    if (event.which == 27) {
+      IonModal.close();
+    }
+  });
+};
+
+Template.ionModal.destroyed = function () {
+  $(window).off('keyup.ionModal');
 };
 
 Template.ionModal.helpers({

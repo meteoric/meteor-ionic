@@ -1,7 +1,3 @@
-Template.actionSheet.created = function () {
-  // this.actionText = new ReactiveVar();
-};
-
 Template.actionSheet.events({
   'click [data-action=showActionSheet]': function (event, template) {
     IonActionSheet.show({
