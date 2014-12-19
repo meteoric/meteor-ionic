@@ -4,7 +4,7 @@ isIOS = function () {
 
 Template.ionBody.helpers({
   platformClasses: function () {
-    var classes = [];
+    var classes = ['grade-a'];
 
     if (Meteor.isCordova) {
       classes.push('platform-cordova');
@@ -32,6 +32,6 @@ Template.ionBody.events({
   },
 
   'click [data-nav-direction]': function (event, template) {
-    IonNavView.navDirection = $(event.target).data('nav-direction');
+    Session.set('navDirection', $(event.target).data('nav-direction'));
   }
 });
