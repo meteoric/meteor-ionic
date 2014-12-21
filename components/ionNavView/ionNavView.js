@@ -1,18 +1,20 @@
-IonNavView = {
-  animation: 'slide-left-right',
-  animationDuration: 250
-};
-
 Template.ionNavView.created = function () {
+  Session.setDefault('ionNavDirection', 'forward');
+
+  this.animation = 'slide-left-right';
+  this.animationDuration = 250;
+
   if (this.data && this.data.animation) {
-    IonNavView.animation = this.data.animation;
+    this.animation = this.data.animation;
   }
 };
 
 Template.ionNavView.rendered = function () {
-  this.find('[data-navigation-container]')._uihooks = {
+  var template = this;
+
+  this.find('[data-nav-container]')._uihooks = {
     insertElement: function(node, next) {
-      if (!IonNavView.animation || !$(node).hasClass('view')) {
+      if (!template.animation || !$(node).hasClass('view')) {
         $(node).insertBefore(next);
         return;
       }
@@ -24,11 +26,12 @@ Template.ionNavView.rendered = function () {
 
       Meteor.setTimeout(function () {
         $(this).removeClass('ng-enter ng-enter-active');
-      }, IonNavView.animationDuration);
+        $('[data-nav-container]').removeClass('reverse forward');
+      }, template.animationDuration);
     },
 
     removeElement: function(node) {
-      if (!IonNavView.animation || !$(node).hasClass('view')) {
+      if (!template.animation || !$(node).hasClass('view')) {
         $(node).remove();
         return;
       }
@@ -39,24 +42,17 @@ Template.ionNavView.rendered = function () {
       }, 10);
 
       Meteor.setTimeout(function () {
-        $(node).removeClass('ng-leave ng-lavel-active');
+        $(node).removeClass('ng-leave ng-leave-active');
         $(node).remove();
-        Session.set('navDirection', undefined);
-      }, IonNavView.animationDuration);
+        Session.set('ionNavDirection', 'forward');
+      }, template.animationDuration);
     }
   };
 };
 
-
 Template.ionNavView.helpers({
   classes: function () {
-    console.log('calculating classes');
-    var classes = [IonNavView.animation];
-
-    if (Session.get('navDirection')) {
-      classes.push(Session.get('navDirection'));
-    }
-
+    var classes = [Template.instance().animation];
     return classes.join(' ');
   }
 });
