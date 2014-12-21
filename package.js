@@ -91,4 +91,5 @@ Package.onUse(function(api) {
   api.export("IonModal");
   api.export("IonPopover");
   api.export("IonPopup");
+  api.export("IonSideMenu");
 });

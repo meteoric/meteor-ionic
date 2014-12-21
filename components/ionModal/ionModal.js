@@ -10,7 +10,10 @@ IonModal = {
     this.template = Template[templateName];
     this.view = Blaze.renderWithData(this.template, data, $('.ionic-body').get(0));
 
-    var $modalEl = $(this.view.firstNode());
+    var $modalBackdrop = $(this.view.firstNode());
+    $modalBackdrop.addClass('active');
+
+    var $modalEl = $modalBackdrop.find('.modal');
     $modalEl.addClass(this.enterClasses.join(' '));
 
     $modalEl.on(this.transitionEndEvent, function () {
@@ -24,7 +27,10 @@ IonModal = {
   },
 
   close: function () {
-    var $modalEl = $(this.view.firstNode());
+    var $modalBackdrop = $(this.view.firstNode());
+    $modalBackdrop.removeClass('active');
+
+    var $modalEl = $modalBackdrop.find('.modal');
     $modalEl.addClass(this.leaveClasses.join(' '));
 
     Meteor.setTimeout(function() {
@@ -77,6 +83,13 @@ Template.ionModal.helpers({
 });
 
 Template.ionModal.events({
+  // Handle clicking the backdrop
+  'click': function (event, template) {
+    if ($(event.target).hasClass('modal-backdrop')) {
+      IonModal.close();
+    }
+  },
+
   'click [data-dismiss=modal]': function (event, template) {
     IonModal.close();
   }

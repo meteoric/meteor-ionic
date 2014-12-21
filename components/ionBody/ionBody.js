@@ -10,6 +10,10 @@ isWindowsPhone = function () {
   return navigator.userAgent.indexOf('Windows Phone') > -1;
 }
 
+Template.ionBody.rendered = function () {
+  // this.snapper = null;
+};
+
 Template.ionBody.helpers({
   platformClasses: function () {
     var classes = ['grade-a'];
@@ -47,5 +51,34 @@ Template.ionBody.events({
 
   'click [data-nav-direction]': function (event, template) {
     $('[data-nav-container]').addClass($(event.target).data('nav-direction'));
+  },
+
+  'click [data-ion-menu-toggle]': function (event, template) {
+    console.log('template', template);
+    if (!IonSideMenu.snapper) {
+      return;
+    }
+
+    var direction;
+    var $el = $(event.target);
+
+    if ($el.data('ion-menu-toggle') !== '') {
+      direction = $el.data('ion-menu-toggle');
+    } else {
+      direction = 'left';
+    }
+
+    if(IonSideMenu.snapper.state().state === direction){
+      IonSideMenu.snapper.close();
+    } else {
+      IonSideMenu.snapper.open(direction);
+    }
+  },
+
+  'click [data-ion-menu-close]': function (event, template) {
+    if (!IonSideMenu.snapper) {
+      return;
+    }
+    IonSideMenu.snapper.close();
   }
 });
