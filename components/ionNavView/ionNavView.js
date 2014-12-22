@@ -58,3 +58,9 @@ Template.ionNavView.rendered = function () {
     }
   };
 };
+
+Template.ionNavView.helpers({
+  transition: function () {
+    return Template.instance().transition;
+  }
+});
