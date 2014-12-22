@@ -1,18 +1,18 @@
 isIOS = function () {
   return !!navigator.userAgent.match(/iPad/i) || !!navigator.userAgent.match(/iPhone/i) || !!navigator.userAgent.match(/iPod/i);
-}
+};
 
 isAndroid = function () {
   return navigator.userAgent.indexOf('Android') > 0;
-}
-
-isWindowsPhone = function () {
-  return navigator.userAgent.indexOf('Windows Phone') > -1;
-}
-
-Template.ionBody.rendered = function () {
-  // this.snapper = null;
 };
+
+Template.registerHelper('isIOS', function () {
+  return isIOS();
+});
+
+Template.registerHelper('isAndroid', function () {
+  return isAndroid();
+});
 
 Template.ionBody.helpers({
   platformClasses: function () {
@@ -29,9 +29,6 @@ Template.ionBody.helpers({
     }
     if (Meteor.isCordova && isAndroid()) {
       classes.push('platform-android');
-    }
-    if (Meteor.isCordova && isWindowsPhone()) {
-      classes.push('platform-windowsphone');
     }
 
     return classes.join(' ');
@@ -50,11 +47,10 @@ Template.ionBody.events({
   },
 
   'click [data-nav-direction]': function (event, template) {
-    $('[data-nav-container]').addClass($(event.target).data('nav-direction'));
+    $('[data-nav-container]').addClass('nav-view-direction-' + $(event.target).data('nav-direction'));
   },
 
   'click [data-ion-menu-toggle]': function (event, template) {
-    console.log('template', template);
     if (!IonSideMenu.snapper) {
       return;
     }

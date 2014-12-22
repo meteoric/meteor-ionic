@@ -1,11 +1,21 @@
 Template.ionNavView.created = function () {
   Session.setDefault('ionNavDirection', 'forward');
 
-  this.animation = 'slide-left-right';
-  this.animationDuration = 250;
+  if (isIOS()) {
+    this.transition = 'ios';
+  } else {
+    this.transition = 'android';
+  }
 
-  if (this.data && this.data.animation) {
-    this.animation = this.data.animation;
+  // Allow overriding the transition
+  if (this.data && this.data.transition) {
+    this.transition = this.data.transition;
+  }
+
+  if (this.transition === 'ios') {
+    this.transitionDuration = 450;
+  } else {
+    this.transitionDuration = 200;
   }
 };
 
@@ -14,45 +24,37 @@ Template.ionNavView.rendered = function () {
 
   this.find('[data-nav-container]')._uihooks = {
     insertElement: function(node, next) {
-      if (!template.animation || !$(node).hasClass('view')) {
+      if (!template.transition || !$(node).hasClass('view')) {
         $(node).insertBefore(next);
         return;
       }
 
-      $(node).insertBefore(next).addClass('ng-enter');
+      $(node).insertBefore(next).addClass('nav-view-entering nav-view-stage');
       Meteor.setTimeout(function() {
-        $(node).addClass('ng-enter-active');
-      }, 10);
+        $(node).removeClass('nav-view-stage').addClass('nav-view-active');
+      }, 16);
 
       Meteor.setTimeout(function () {
-        $(this).removeClass('ng-enter ng-enter-active');
-        $('[data-nav-container]').removeClass('reverse forward');
-      }, template.animationDuration);
+        $(this).removeClass('nav-view-entering');
+        $('[data-nav-container]').removeClass('nav-view-direction-back').addClass('nav-view-direction-forward');
+      }, template.transitionDuration);
     },
 
     removeElement: function(node) {
-      if (!template.animation || !$(node).hasClass('view')) {
+      if (!template.transition || !$(node).hasClass('view')) {
         $(node).remove();
         return;
       }
 
-      $(node).addClass('ng-leave');
+      $(node).addClass('nav-view-leaving nav-view-stage');
       Meteor.setTimeout(function() {
-        $(node).addClass('ng-leave-active');
-      }, 10);
+        $(node).removeClass('nav-view-stage').addClass('nav-view-active');
+      }, 16);
 
       Meteor.setTimeout(function () {
-        $(node).removeClass('ng-leave ng-leave-active');
         $(node).remove();
         Session.set('ionNavDirection', 'forward');
-      }, template.animationDuration);
+      }, template.transitionDuration);
     }
   };
 };
-
-Template.ionNavView.helpers({
-  classes: function () {
-    var classes = [Template.instance().animation];
-    return classes.join(' ');
-  }
-});
