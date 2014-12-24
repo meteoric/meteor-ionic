@@ -48,6 +48,7 @@ Template.ionBody.events({
 
   'click [data-nav-direction]': function (event, template) {
     $('[data-nav-container]').addClass('nav-view-direction-' + $(event.target).data('nav-direction'));
+    $('[data-navbar-container]').addClass('nav-bar-direction-' + $(event.target).data('nav-direction'));
   },
 
   'click [data-ion-menu-toggle]': function (event, template) {
