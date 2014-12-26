@@ -87,6 +87,9 @@ Package.onUse(function(api) {
     "components/ionTabs/ionTabs.html",
     "components/ionTabs/ionTabs.js",
 
+    "components/ionTab/ionTab.html",
+    "components/ionTab/ionTab.js",
+
     "components/ionView/ionView.html",
     "components/ionView/ionView.js"
   ], "client");
