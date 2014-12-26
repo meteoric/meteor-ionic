@@ -85,14 +85,7 @@ Template.ionNavBar.rendered = function () {
       }
 
       if ($node.hasClass('button')) {
-        $node.addClass('button-leaving button-stage');
-        Meteor.setTimeout(function() {
-          $node.removeClass('button-stage').addClass('tibuttontle-active');
-        }, 16);
-
-        Meteor.setTimeout(function () {
-          $node.remove();
-        }, template.transitionDuration + 16);
+        $node.remove();
       }
     }
   };

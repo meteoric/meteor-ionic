@@ -51,6 +51,9 @@ Package.onUse(function(api) {
     "components/ionNavBar/ionNavBar.html",
     "components/ionNavBar/ionNavBar.js",
 
+    "components/ionNavBackButton/ionNavBackButton.html",
+    "components/ionNavBackButton/ionNavBackButton.js",
+
     "components/ionNavView/ionNavView.html",
     "components/ionNavView/ionNavView.js",
 
