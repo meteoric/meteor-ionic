@@ -1,7 +1,7 @@
 Package.describe({
   name: "meteoric:ionic",
   summary: "Ionic components for Meteor. No Angular!",
-  version: "0.1.4",
+  version: "0.1.5",
   git: "https://github.com/meteoric/meteor-ionic.git"
 });
 
@@ -93,6 +93,8 @@ Package.onUse(function(api) {
     "components/ionView/ionView.html",
     "components/ionView/ionView.js"
   ], "client");
+
+  api.export("Platform");
 
   api.export("IonActionSheet");
   api.export("IonBackdrop");

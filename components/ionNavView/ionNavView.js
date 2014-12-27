@@ -1,7 +1,7 @@
 Template.ionNavView.created = function () {
   Session.setDefault('ionNavDirection', 'forward');
 
-  if (isAndroid()) {
+  if (Platform.isAndroid()) {
     this.transition = 'android';
   } else {
     this.transition = 'ios';

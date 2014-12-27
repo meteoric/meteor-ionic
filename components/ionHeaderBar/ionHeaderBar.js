@@ -1,16 +1,25 @@
 Template.ionHeaderBar.rendered = function () {
   Session.set('hasHeader', true);
 
-  var align = this.alignTitle || 'center';
-  var $title = this.$('.title');
+  function alignTitle () {
+    var align = this.alignTitle || 'center';
+    var $title = this.$('.title');
 
-  if (align === 'center') {
-    $title.addClass('title-center');
-  } else if (align === 'left') {
-    $title.addClass('title-left');
-  } else if (align === 'right') {
-    $title.addClass('title-right');
-  }
+    if (align === 'center' && Platform.isAndroid()) {
+      $title.addClass('title-left');
+      return;
+    }
+
+    if (align === 'center') {
+      $title.addClass('title-center');
+    } else if (align === 'left') {
+      $title.addClass('title-left');
+    } else if (align === 'right') {
+      $title.addClass('title-right');
+    }
+  };
+
+  alignTitle.call(this);
 };
 
 Template.ionHeaderBar.destroyed = function () {

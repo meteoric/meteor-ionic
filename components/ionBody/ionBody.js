@@ -1,17 +1,21 @@
-isIOS = function () {
-  return !!navigator.userAgent.match(/iPad/i) || !!navigator.userAgent.match(/iPhone/i) || !!navigator.userAgent.match(/iPod/i);
-};
+Platform = {
+  isIOS: function () {
+    return (!!navigator.userAgent.match(/iPad/i) || !!navigator.userAgent.match(/iPhone/i) || !!navigator.userAgent.match(/iPod/i))
+           || Session.get('platformOverride') === 'iOS';
+  },
 
-isAndroid = function () {
-  return navigator.userAgent.indexOf('Android') > 0;
+  isAndroid: function () {
+    return navigator.userAgent.indexOf('Android') > 0
+           || Session.get('platformOverride') === 'Android';
+  }
 };
 
 Template.registerHelper('isIOS', function () {
-  return isIOS();
+  return Platform.isIOS();
 });
 
 Template.registerHelper('isAndroid', function () {
-  return isAndroid();
+  return Platform.isAndroid();
 });
 
 Template.ionBody.helpers({
@@ -24,10 +28,10 @@ Template.ionBody.helpers({
     if (Meteor.isClient) {
       classes.push('platform-web');
     }
-    if (Meteor.isCordova && isIOS()) {
+    if ((Meteor.isCordova && Platform.isIOS()) || Session.get('platformOverride') === 'iOS') {
       classes.push('platform-ios');
     }
-    if (Meteor.isCordova && isAndroid()) {
+    if ((Meteor.isCordova && Platform.isAndroid()) || Session.get('platformOverride') === 'Android') {
       classes.push('platform-android');
     }
 

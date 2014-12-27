@@ -22,6 +22,10 @@ Template.ionContent.helpers({
       classes.push('has-tabs');
     }
 
+    if (Session.get('hasTabsTop')) {
+      classes.push('has-tabs-top');
+    }
+
     if (Session.get('hasFooter')) {
       classes.push('has-footer');
     }

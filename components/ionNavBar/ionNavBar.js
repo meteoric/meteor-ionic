@@ -1,5 +1,5 @@
 Template.ionNavBar.created = function () {
-  if (isAndroid()) {
+  if (Platform.isAndroid()) {
     this.transition = 'android';
   } else {
     this.transition = 'ios';
@@ -20,18 +20,31 @@ Template.ionNavBar.created = function () {
 Template.ionNavBar.rendered = function () {
   Session.set('hasHeader', true);
 
-  var align = this.alignTitle || 'center';
-  var $title = this.$('.title');
+  function alignTitle () {
+    var align = this.alignTitle || 'center';
+    var $title = this.$('.title');
 
-  if (align === 'center') {
-    $title.addClass('title-center');
-  } else if (align === 'left') {
-    $title.addClass('title-left');
-  } else if (align === 'right') {
-    $title.addClass('title-right');
-  }
+    if (align === 'center' && Platform.isAndroid()) {
+      $title.addClass('title-left');
+      return;
+    }
 
-  // Animate the title
+    if (align === 'center') {
+      $title.addClass('title-center');
+    } else if (align === 'left') {
+      $title.addClass('title-left');
+    } else if (align === 'right') {
+      $title.addClass('title-right');
+    }
+  };
+
+  function positionTitle () {
+
+  };
+
+  alignTitle.call(this);
+  positionTitle.call(this);
+
   var template = this;
   this.find('[data-navbar-container]')._uihooks = {
     insertElement: function(node, next) {
@@ -44,6 +57,9 @@ Template.ionNavBar.rendered = function () {
 
       if ($node.hasClass('title')) {
         $node.insertBefore(next).addClass('title-entering title-stage');
+
+        alignTitle.call(template);
+
         Meteor.setTimeout(function() {
           $node.removeClass('title-stage').addClass('title-active');
         }, 16);
