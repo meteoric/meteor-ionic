@@ -16,15 +16,17 @@ Template.ionTabs.destroyed = function () {
 
 Template.ionTabs.helpers({
   classes: function () {
-    var classes = ['tabs'];
+    var classes = [];
 
     if (this.class) {
       classes.push(this.class);
     }
 
-    if (Platform.isAndroid()) {
+    if (this.style === 'android') {
       classes.push('tabs-top tabs-striped tabs-icon-left');
-    } else {
+    }
+
+    if (this.style === 'ios') {
       classes.push('tabs-icon-top');
     }
 
