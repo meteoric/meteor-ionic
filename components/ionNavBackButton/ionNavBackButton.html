@@ -1,8 +1,10 @@
 <template name="ionNavBackButton">
-  <a href="{{url}}" class="buttons button button-clear back-button" data-nav-direction="back">
+  <a href="{{url}}" class="buttons button button-clear back-button pull-left" data-nav-direction="back">
     {{> ionIcon icon='ios-arrow-back'}}
-    <span class="back-text">
-      {{text}}
-    </span>
+    {{#unless isAndroid}}
+      <span class="back-text">
+        {{text}}
+      </span>
+    {{/unless}}
   </a>
 </template>

@@ -1,7 +1,5 @@
-Template.ionHeaderBar.rendered = function () {
-  Session.set('hasHeader', true);
-
-  function alignTitle () {
+IonHeaderBar = {
+  alignTitle: function () {
     var align = this.alignTitle || 'center';
     var $title = this.$('.title');
 
@@ -17,9 +15,28 @@ Template.ionHeaderBar.rendered = function () {
     } else if (align === 'right') {
       $title.addClass('title-right');
     }
-  };
+  },
 
-  alignTitle.call(this);
+  positionTitle: function () {
+    var $title = this.$('.title');
+    var $leftButton = $('.button.pull-left');
+
+    if ($leftButton.length) {
+      $title.css('left', $leftButton.outerWidth());
+      $title.css('right', $leftButton.outerWidth());
+    }
+
+    var $rightButton = $('.button.pull-right');
+    if ($rightButton.length) {
+      $title.css('right', $rightButton.outerWidth())
+    }
+  }
+};
+
+Template.ionHeaderBar.rendered = function () {
+  Session.set('hasHeader', true);
+  IonHeaderBar.alignTitle.call(this);
+  IonHeaderBar.positionTitle.call(this);
 };
 
 Template.ionHeaderBar.destroyed = function () {

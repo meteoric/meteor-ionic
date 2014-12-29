@@ -20,30 +20,8 @@ Template.ionNavBar.created = function () {
 Template.ionNavBar.rendered = function () {
   Session.set('hasHeader', true);
 
-  function alignTitle () {
-    var align = this.alignTitle || 'center';
-    var $title = this.$('.title');
-
-    if (align === 'center' && Platform.isAndroid()) {
-      $title.addClass('title-left');
-      return;
-    }
-
-    if (align === 'center') {
-      $title.addClass('title-center');
-    } else if (align === 'left') {
-      $title.addClass('title-left');
-    } else if (align === 'right') {
-      $title.addClass('title-right');
-    }
-  };
-
-  function positionTitle () {
-
-  };
-
-  alignTitle.call(this);
-  positionTitle.call(this);
+  IonHeaderBar.alignTitle.call(this);
+  IonHeaderBar.positionTitle.call(this);
 
   var template = this;
   this.find('[data-navbar-container]')._uihooks = {
@@ -58,7 +36,8 @@ Template.ionNavBar.rendered = function () {
       if ($node.hasClass('title')) {
         $node.insertBefore(next).addClass('title-entering title-stage');
 
-        alignTitle.call(template);
+        IonHeaderBar.alignTitle.call(template);
+        IonHeaderBar.positionTitle.call(template);
 
         Meteor.setTimeout(function() {
           $node.removeClass('title-stage').addClass('title-active');

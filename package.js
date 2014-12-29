@@ -98,6 +98,7 @@ Package.onUse(function(api) {
 
   api.export("IonActionSheet");
   api.export("IonBackdrop");
+  api.export("IonHeaderBar");
   api.export("IonLoading");
   api.export("IonModal");
   api.export("IonPopover");
