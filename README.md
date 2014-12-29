@@ -54,15 +54,15 @@ A [Product Hunt](http://producthunt.com) clone built in Meteor Ionic.
   * [x] collection-repeat (not needed with Blaze/Spacebars)
 * [x] Loading
 * [x] Modal
-* [ ] Navigation (requires [iron:router](https://github.com/EventedMind/iron-router) integration)
+* [x] Navigation (requires [iron:router](https://github.com/EventedMind/iron-router) integration)
   * [x] ion-nav-view
   * [x] ion-view
   * [x] ion-nav-bar
   * [x] ion-nav-back-button
-  * [ ] ion-nav-buttons
+  * [ ] ion-nav-buttons (not needed?)
   * [x] ion-nav-title
-  * [ ] nav-transition
-  * [ ] nav-direction
+  * [ ] nav-transition (not needed?)
+  * [ ] nav-direction (not needed?)
 * [ ] Platform
 * [x] Popover
 * [ ] Popup
