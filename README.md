@@ -21,8 +21,11 @@ Rather than include compiled or CDN versions of Ionic's CSS Framework we’ve ex
 
 ## Examples
 
-### [Meteor Hunt](https://github.com/meteoric/meteorhunt)
-A [Product Hunt](http://producthunt.com) clone built in Meteor Ionic.
+### [Contacts App](https://github.com/meteoric/contacts)
+A simple CRUD app to manage contacts.
+
+<!-- ### [Meteor Hunt](https://github.com/meteoric/meteorhunt)
+A [Product Hunt](http://producthunt.com) clone built in Meteor Ionic. -->
 
 ## TODO
 
