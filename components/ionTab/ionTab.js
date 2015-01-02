@@ -9,7 +9,7 @@ Template.ionTab.helpers({
     }
   },
 
-  defaultIcon: function () {
+  activeIcon: function () {
     if (this.iconOn) {
       return this.iconOn;
     } else {
@@ -17,7 +17,7 @@ Template.ionTab.helpers({
     }
   },
 
-  activeIcon: function () {
+  defaultIcon: function () {
     if (this.iconOff) {
       return this.iconOff;
     } else {
