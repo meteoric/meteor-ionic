@@ -101,6 +101,7 @@ Package.onUse(function(api) {
   api.export("IonHeaderBar");
   api.export("IonLoading");
   api.export("IonModal");
+  api.export("IonNavigation");
   api.export("IonPopover");
   api.export("IonPopup");
   api.export("IonSideMenu");

@@ -28,7 +28,7 @@ Template.ionNavBar.rendered = function () {
     insertElement: function(node, next) {
       var $node = $(node);
 
-      if (!$node.hasClass('title') && !$node.hasClass('button')) {
+      if (!$node.hasClass('title') && !$node.hasClass('button') || IonNavigation.skipTransitions) {
         $node.insertBefore(next);
         return;
       }
@@ -63,7 +63,7 @@ Template.ionNavBar.rendered = function () {
 
     removeElement: function(node) {
       var $node = $(node);
-      if (!$node.hasClass('title') && !$node.hasClass('button')) {
+      if (!$node.hasClass('title') && !$node.hasClass('button') || IonNavigation.skipTransitions) {
         $node.remove();
         return;
       }

@@ -1,6 +1,6 @@
 <template name="ionTab">
-  <a class="tab-item tab-item-positive {{isActiveRoute regex=path}}" href="{{url}}">
-    {{#if isActiveRoute regex=path }}
+  <a class="tab-item tab-item-positive {{isActive}}" href="{{url}}" data-ion-tab>
+    {{#if isActive}}
       {{> ionIcon icon=activeIcon}}
     {{else}}
       {{> ionIcon icon=defaultIcon}}

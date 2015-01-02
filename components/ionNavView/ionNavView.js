@@ -1,3 +1,7 @@
+IonNavigation = {
+  skipTransitions: false
+};
+
 Template.ionNavView.created = function () {
   Session.setDefault('ionNavDirection', 'forward');
 
@@ -25,7 +29,7 @@ Template.ionNavView.rendered = function () {
   this.find('[data-nav-container]')._uihooks = {
     insertElement: function(node, next) {
       var $node = $(node);
-      if (!template.transition || !$node.hasClass('view')) {
+      if (!template.transition || !$node.hasClass('view') || IonNavigation.skipTransitions) {
         $node.insertBefore(next);
         return;
       }
@@ -43,7 +47,7 @@ Template.ionNavView.rendered = function () {
 
     removeElement: function(node) {
       var $node = $(node);
-      if (!template.transition || !$node.hasClass('view')) {
+      if (!template.transition || !$node.hasClass('view') || IonNavigation.skipTransitions) {
         $node.remove();
         return;
       }
