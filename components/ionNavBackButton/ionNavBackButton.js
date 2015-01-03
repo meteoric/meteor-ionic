@@ -1,10 +1,10 @@
 Template.ionNavBackButton.events({
-  'click': function (event) {
+  'click': function (event, template) {
     $('[data-nav-container]').addClass('nav-view-direction-back');
     $('[data-navbar-container]').addClass('nav-bar-direction-back');
 
-    if (this.backUrl) {
-      Router.go(this.backUrl);
+    if (template.data.backUrl) {
+      Router.go(template.data.backUrl);
     } else {
       window.history.back();
     }
@@ -12,14 +12,14 @@ Template.ionNavBackButton.events({
 });
 
 Template.ionNavBackButton.rendered = function () {
-  this.backURL = null;
+  this.data.backUrl = null;
 
-  if (this.href) {
-    this.backURL = this.href;
+  if (this.data.href) {
+    this.data.backUrl = this.data.href;
   }
 
-  if (this.path) {
-    this.backURL = Router.routes[this.path].path(Template.parentData(1));
+  if (this.data.path) {
+    this.data.backUrl = Router.routes[this.data.path].path(Template.parentData(1));
   }
 };
 
