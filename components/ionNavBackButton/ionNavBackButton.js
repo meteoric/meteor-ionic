@@ -1,3 +1,9 @@
+IonScrollPositions = {};
+
+Router.onStop(function () {
+  IonScrollPositions[Router.current().route.getName()] = $('.overflow-scroll').scrollTop();
+});
+
 Template.ionNavBackButton.events({
   'click': function (event, template) {
     $('[data-nav-container]').addClass('nav-view-direction-back');
