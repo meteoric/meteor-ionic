@@ -7,7 +7,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom("1.0");
-  api.use(["templating", "underscore", "fastclick", "iron:router"], "client");
+  api.use(["templating", "underscore", "fastclick", "iron:router", "tracker", "session"], "client");
 
   api.addFiles([
     "vendor/snap.js",

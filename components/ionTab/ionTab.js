@@ -1,7 +1,23 @@
+Tracker.autorun(function () {
+  var ionTabCurrent = Session.get('ionTab.current');
+
+  if( ionTabCurrent ){
+    localStorage.setItem('ionTab.current', ionTabCurrent);  
+  }
+});
+
+Meteor.startup(function () {
+  var ionTabCurrent = localStorage.getItem('ionTab.current');
+  
+  if( ionTabCurrent ){
+    Session.set('ionTab.current', ionTabCurrent);
+  }
+});
+
 Template.ionTab.events({
   'click': function (event, template) {
     if (template.data.path) {
-      Session.set('currentTab', template.data.path);
+      Session.set('ionTab.current', template.data.path);
     }
 
     // If the tab's content is being rendered inside of a ionNavView
@@ -22,7 +38,16 @@ Template.ionTab.helpers({
   },
 
   isActive: function () {
-    if (this.path && this.path === Session.get('currentTab')) {
+    var ionTabCurrent = Session.get('ionTab.current');
+
+    if (this.path && this.path === ionTabCurrent) {
+      return 'active';
+    }
+
+    // The initial case where there is no localStorage value and
+    // no session variable has been set, this attempts to set the correct tab
+    // to active based on the router
+    if(Router.routes[this.path].path(Template.parentData(1)) === ionTabCurrent){
       return 'active';
     }
   },
