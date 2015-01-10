@@ -87,4 +87,4 @@ A [Product Hunt](http://producthunt.com) clone built in Meteor Ionic. (In Progre
   * [x] ion-tab
 
 ## License
-[MIT License](/blob/master/LICENSE.txt)
+[MIT License](https://github.com/meteoric/meteor-ionic/blob/master/LICENSE)
