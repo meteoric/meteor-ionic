@@ -85,3 +85,6 @@ A [Product Hunt](http://producthunt.com) clone built in Meteor Ionic. (In Progre
 * [x] Tabs (requires [iron:router](https://github.com/EventedMind/iron-router) integration)
   * [x] ion-tabs
   * [x] ion-tab
+
+## License
+[MIT License](/blob/master/LICENSE.txt)
