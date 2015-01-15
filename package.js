@@ -81,6 +81,9 @@ Package.onUse(function(api) {
     "components/ionSideMenus/ionSideMenus.html",
     "components/ionSideMenus/ionSideMenus.js",
 
+    "components/ionSubfooterBar/ionSubfooterBar.html",
+    "components/ionSubfooterBar/ionSubfooterBar.js",
+
     "components/ionSubheaderBar/ionSubheaderBar.html",
     "components/ionSubheaderBar/ionSubheaderBar.js",
 

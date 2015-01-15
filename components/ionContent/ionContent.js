@@ -30,6 +30,10 @@ Template.ionContent.helpers({
       classes.push('has-footer');
     }
 
+    if (Session.get('hasSubfooter')) {
+      classes.push('has-subfooter');
+    }
+
     return classes.join(' ');
   }
 });
