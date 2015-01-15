@@ -1,13 +1,13 @@
 Package.describe({
   name: "meteoric:ionic",
   summary: "Ionic components for Meteor. No Angular!",
-  version: "0.1.8",
+  version: "0.1.9",
   git: "https://github.com/meteoric/meteor-ionic.git"
 });
 
 Package.onUse(function(api) {
   api.versionsFrom("1.0");
-  api.use(["templating", "underscore", "fastclick", "iron:router", "tracker", "session"], "client");
+  api.use(["templating", "underscore", "fastclick", "iron:router@1.0.0", "tracker", "session"], "client");
 
   api.addFiles([
     "vendor/snap.js",
