@@ -203,6 +203,117 @@ This is where `iron:layout` comes into play. Our `ionNavBar` component exposes t
 
 TODO
 
+## Lists
+
+### ionList
+
+To make an Ionic style list wrap your content in a `ionList` block template. 
+
+```
+{{#ionContent}}
+  {{#ionList}}
+    {{#each item}}
+      {{#ionItem path='item.detail' urlFor=true query=itemQuery iconRight=true}}
+        <h2>{{title}}</h2>
+        <p>{{subTitle}}</p>
+        {{> ionIcon icon="ios-arrow-right" }}
+      {{/ionItem}}
+    {{/each}}
+  {{/ionList}}
+{{/ionContent}}
+```
+
+### ionItem
+To get a nice Ionic styled list item wrap your content in a `ionItem` block template. `ionItem` can be a list, form, links, etc. It is a very flexible component. I would suggest taking some time to discover all it can do. Below are some examples.
+
+#### Avatar/Icon/Button Example
+
+```
+{{#ionList}}
+  {{#each times}}
+    {{#ionItem buttonRight=true avatar=true}}
+            <img src="https://randomuser.me/api/portraits/thumb/men/27.jpg">
+            <h2>John Smith</h2>
+            <p>(555) 555-1212</p>
+            <button class="button button-positive">
+              {{> ionIcon icon="ios-telephone"}}
+            </button>
+        {{/ionItem}}
+    {{/each}}
+{{/ionList}}
+```
+
+#### Path and Link Examples
+
+Meteor uses Iron:Router. Refer to Iron:Router's [pathFor](https://github.com/EventedMind/iron-router/blob/devel/Guide.md#pathfor) documentation on how to call a route in an `ionItem`. If you want to output a full URL (similar to IronRouter's [urlFor](https://github.com/EventedMind/iron-router/blob/devel/Guide.md#urlfor)) add `urlFor=true`.
+
+**Static href**
+
+```
+{{! href="https://google.com" }}
+{{#ionList}}
+  {{#each item}}
+      {{#ionItem href="https://google.com" iconRight=true}}
+          <h2>{{title}}</h2>
+          <p>{{subTitle}}</p>
+          {{> ionIcon icon="ios-arrow-right" }}
+        {{/ionItem}}
+    {{/each}}
+{{/ionList}}
+```
+
+**Passed path from parent**
+
+```
+{{! href="/products/zcZmWRjJztydnCJer" }}
+{{#ionList}}
+        {{#each products}}
+      {{#with product}}
+          {{#ionItem product=this path="products.show" iconLeft=true iconRight=true}}
+              {{> _voteButton}}
+              <h2>{{name}}</h2>
+              <p>{{tagline}}</p>
+              <span class="comments-count">
+              {{numberOfComments}}
+              {{> ionIcon icon="ios-chatbubble" }}
+              </span>
+          {{/ionItem}}
+        {{/with}}
+      {{/each}}
+{{/ionList}}
+```
+
+**IronRouter's pathFor href**
+
+```
+{{! href="/item/details/jkh34k234h?parentId=hkjh45j43k3#reviews" }}
+{{#ionList}}
+  {{#each item}}
+      {{#ionItem path='item.detail' _id:this._id query=itemQuery hash="reviews" iconRight=true}}
+          <h2>{{title}}</h2>
+          <p>{{subTitle}}</p>
+          {{> ionIcon icon="ios-arrow-right" }}
+        {{/ionItem}}
+    {{/each}}
+{{/ionList}}
+```
+
+**IronRouter's urlFor href**
+
+```
+{{! href="http://www.example.com/item/details?parentId=hkjh45j43k3" }}
+{{#ionList}}
+  {{#each item}}
+      {{#ionItem path='item.detail' urlFor=true query=itemQuery iconRight=true}}
+          <h2>{{title}}</h2>
+          <p>{{subTitle}}</p>
+          {{> ionIcon icon="ios-arrow-right" }}
+        {{/ionItem}}
+    {{/each}}
+{{/ionList}}
+```
+
+
 ## Modals
 
 The `ionModal` component is quite easy to implement. First, create a template for your modal:
