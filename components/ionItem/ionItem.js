@@ -53,8 +53,7 @@ Template.ionItem.helpers({
       } else {
         path = this.path;
       }
-      console.log(this);
-      console.log(path);
+
       if ( this.query || this.hash || this.data ){
 
         var hash = {};
