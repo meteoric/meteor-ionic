@@ -229,25 +229,36 @@ To get a nice Ionic styled list item wrap your content in a `ionItem` block temp
 #### Avatar/Icon/Button Example
 
 ```
-{{#ionList}}
+{{#ionList class="my-class"}}
   {{#each times}}
-    {{#ionItem buttonRight=true avatar=true}}
-            <img src="https://randomuser.me/api/portraits/thumb/men/27.jpg">
-            <h2>John Smith</h2>
-            <p>(555) 555-1212</p>
-            <button class="button button-positive">
-              {{> ionIcon icon="ios-telephone"}}
-            </button>
-        {{/ionItem}}
-    {{/each}}
+    {{name}}  
+  {{/each}}
 {{/ionList}}
 ```
 
 #### Path and Link Examples
 
-Meteor uses Iron:Router. Refer to Iron:Router's [pathFor](https://github.com/EventedMind/iron-router/blob/devel/Guide.md#pathfor) documentation on how to call a route in an `ionItem`. If you want to output a full URL (similar to IronRouter's [urlFor](https://github.com/EventedMind/iron-router/blob/devel/Guide.md#urlfor)) add `urlFor=true`.
+Meteor uses Iron:Router. Most are familiar with Iron:Router's [pathFor](https://github.com/EventedMind/iron-router/blob/devel/Guide.md#pathfor) and [urlFor](https://github.com/EventedMind/iron-router/blob/devel/Guide.md#urlfor) helpers. Meteoric lets you tap into those helpers from within `ionItem` or ignore them, the choice is yours.
 
-**Static href**
+To call IR's `pathFor` you would specify your route in the `path` attribute.
+
+`{{#ionItem path="item.detail" _id:"" data="" query="" hash="" class=""}}...{{/ionItem}}`
+
+To call IR's `urlFor` you would specify your route in the `url` attribute.
+
+`{{#ionItem url="item.detail" _id:"" data="" query="" hash="" class=""}}...{{/ionItem}}`
+
+And if you want to specify a path without calling any IR helpers specify your route in the `path` or `route` attribute and make sure not to include any of these attributes `data`  `query`  `hash` .
+
+`{{#ionItem route="item.detail" _id:"" class=""}}...{{/ionItem}}`
+
+Lastly you can also pass a raw url by including the `href` attribute.
+
+`{{#ionItem href="https://google.com" class=""}}...{{/ionItem}}`
+
+##### Here are some examples for context
+
+**Raw url**
 
 ```
 {{! href="https://google.com" }}
@@ -262,14 +273,14 @@ Meteor uses Iron:Router. Refer to Iron:Router's [pathFor](https://github.com/Eve
 {{/ionList}}
 ```
 
-**Passed path from parent**
+**Passed route from parent (no IR helper)**
 
 ```
 {{! href="/products/zcZmWRjJztydnCJer" }}
 {{#ionList}}
         {{#each products}}
       {{#with product}}
-          {{#ionItem product=this path="products.show" iconLeft=true iconRight=true}}
+          {{#ionItem product=this route="products.show" iconLeft=true iconRight=true}}
               {{> _voteButton}}
               <h2>{{name}}</h2>
               <p>{{tagline}}</p>
@@ -304,7 +315,7 @@ Meteor uses Iron:Router. Refer to Iron:Router's [pathFor](https://github.com/Eve
 {{! href="http://www.example.com/item/details?parentId=hkjh45j43k3" }}
 {{#ionList}}
   {{#each item}}
-      {{#ionItem path='item.detail' urlFor=true query=itemQuery iconRight=true}}
+      {{#ionItem url='item.detail' query=itemQuery iconRight=true}}
           <h2>{{title}}</h2>
           <p>{{subTitle}}</p>
           {{> ionIcon icon="ios-arrow-right" }}
