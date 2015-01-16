@@ -33,7 +33,7 @@ Template.ionItem.helpers({
   },
 
   isAnchor: function () {
-    return !_.isUndefined(this.href) || !_.isUndefined(this.path);
+    return !_.isUndefined(this.href) || !_.isUndefined(this.path) || !_.isUndefined(this.route);
   },
 
   target: function () {
@@ -45,11 +45,20 @@ Template.ionItem.helpers({
       return this.href;
     }
 
-    if (this.path) {
+    if ( this.path || this.route ) {
+      var path;
+
+      if(this.route){
+        path = this.route;
+      } else {
+        path = this.path;
+      }
+      console.log(this);
+      console.log(path);
       if ( this.query || this.hash || this.data ){
 
         var hash = {};
-        hash.route = this.path;
+        hash.route = path;
         hash.query = this.query;
         hash.hash = this.hash;
         hash.data = this.data;
@@ -62,7 +71,7 @@ Template.ionItem.helpers({
         }
 
       } else {
-        return Router.routes[this.path].path(Template.parentData(1));
+        return Router.routes[path].path(Template.parentData(1));
       }
     }
   }
