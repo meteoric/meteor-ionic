@@ -46,7 +46,24 @@ Template.ionItem.helpers({
     }
 
     if (this.path) {
-      return Router.routes[this.path].path(Template.parentData(1));
+      if ( this.query || this.hash || this.data ){
+
+        var hash = {};
+        hash.route = this.path;
+        hash.query = this.query;
+        hash.hash = this.hash;
+        hash.data = this.data;
+        var options = new Spacebars.kw(hash);
+
+        if (this.urlFor){
+          return Blaze._globalHelpers.urlFor(options)
+        } else {
+          return Blaze._globalHelpers.pathFor(options)
+        }
+
+      } else {
+        return Router.routes[this.path].path(Template.parentData(1));
+      }
     }
   }
 });
