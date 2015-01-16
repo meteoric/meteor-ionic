@@ -211,13 +211,10 @@ To make an Ionic style list wrap your content in a `ionList` block template.
 
 ```
 {{#ionContent}}
-  {{#ionList}}
+  {{#ionList class="my-class"}}
     {{#each item}}
-      {{#ionItem path='item.detail' urlFor=true query=itemQuery iconRight=true}}
-        <h2>{{title}}</h2>
-        <p>{{subTitle}}</p>
-        {{> ionIcon icon="ios-arrow-right" }}
-      {{/ionItem}}
+      <h2>{{title}}</h2>
+      <p>{{subTitle}}</p>
     {{/each}}
   {{/ionList}}
 {{/ionContent}}
@@ -231,7 +228,14 @@ To get a nice Ionic styled list item wrap your content in a `ionItem` block temp
 ```
 {{#ionList class="my-class"}}
   {{#each times}}
-    {{name}}  
+    {{#ionItem buttonRight=true avatar=true}}
+      <img src="https://randomuser.me/api/portraits/thumb/men/27.jpg">
+      <h2>John Smith</h2>
+      <p>(555) 555-1212</p>
+      <button class="button button-positive">
+        {{> ionIcon icon="ios-telephone"}}
+      </button>
+    {{/ionItem}}
   {{/each}}
 {{/ionList}}
 ```
@@ -242,19 +246,27 @@ Meteor uses Iron:Router. Most are familiar with Iron:Router's [pathFor](https://
 
 To call IR's `pathFor` you would specify your route in the `path` attribute.
 
-`{{#ionItem path="item.detail" _id:"" data="" query="" hash="" class=""}}...{{/ionItem}}`
+```
+{{#ionItem path="item.detail" _id:"" data="" query="" hash="" class=""}}...{{/ionItem}}
+```
 
 To call IR's `urlFor` you would specify your route in the `url` attribute.
 
-`{{#ionItem url="item.detail" _id:"" data="" query="" hash="" class=""}}...{{/ionItem}}`
+```
+{{#ionItem url="item.detail" _id:"" data="" query="" hash="" class=""}}...{{/ionItem}}
+```
 
 And if you want to specify a path without calling any IR helpers specify your route in the `path` or `route` attribute and make sure not to include any of these attributes `data`  `query`  `hash` .
 
-`{{#ionItem route="item.detail" _id:"" class=""}}...{{/ionItem}}`
+```
+{{#ionItem route="item.detail" _id:"" class=""}}...{{/ionItem}}
+```
 
 Lastly you can also pass a raw url by including the `href` attribute.
 
-`{{#ionItem href="https://google.com" class=""}}...{{/ionItem}}`
+```
+{{#ionItem href="https://google.com" class=""}}...{{/ionItem}}
+```
 
 ##### Here are some examples for context
 
