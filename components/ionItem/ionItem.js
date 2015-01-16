@@ -40,14 +40,6 @@ Template.ionItem.helpers({
     return this.target;
   },
 
-  isAnchor: function () {
-    return !_.isUndefined(this.href) || !_.isUndefined(this.path) || !_.isUndefined(this.url) || !_.isUndefined(this.route);
-  },
-
-  target: function () {
-    return this.target;
-  },
-
   url: function () {
     if (this.href) {
       return this.href;
