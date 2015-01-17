@@ -203,6 +203,140 @@ This is where `iron:layout` comes into play. Our `ionNavBar` component exposes t
 
 TODO
 
+## Lists
+
+### ionList
+
+To make an Ionic style list wrap your content in a `ionList` block template. 
+
+```
+{{#ionContent}}
+  {{#ionList class="my-class"}}
+    {{#each item}}
+      <h2>{{title}}</h2>
+      <p>{{subTitle}}</p>
+    {{/each}}
+  {{/ionList}}
+{{/ionContent}}
+```
+
+### ionItem
+To get a nice Ionic styled list item wrap your content in a `ionItem` block template. `ionItem` can be a list, form, links, etc. It is a very flexible component. I would suggest taking some time to discover all it can do. Below are some examples.
+
+#### Avatar/Icon/Button Example
+
+```
+{{#ionList class="my-class"}}
+  {{#each times}}
+    {{#ionItem buttonRight=true avatar=true}}
+      <img src="https://randomuser.me/api/portraits/thumb/men/27.jpg">
+      <h2>John Smith</h2>
+      <p>(555) 555-1212</p>
+      <button class="button button-positive">
+        {{> ionIcon icon="ios-telephone"}}
+      </button>
+    {{/ionItem}}
+  {{/each}}
+{{/ionList}}
+```
+
+#### Path and Link Examples
+
+Meteor uses Iron:Router. Most are familiar with Iron:Router's [pathFor](https://github.com/EventedMind/iron-router/blob/devel/Guide.md#pathfor) and [urlFor](https://github.com/EventedMind/iron-router/blob/devel/Guide.md#urlfor) helpers. Meteoric lets you tap into those helpers from within `ionItem` or ignore them, the choice is yours.
+
+To call IR's `pathFor` you would specify your route in the `path` attribute.
+
+```
+{{#ionItem path="item.detail" _id:"" data="" query="" hash="" class=""}}...{{/ionItem}}
+```
+
+To call IR's `urlFor` you would specify your route in the `url` attribute.
+
+```
+{{#ionItem url="item.detail" _id:"" data="" query="" hash="" class=""}}...{{/ionItem}}
+```
+
+And if you want to specify a path without calling any IR helpers specify your route in the `path` or `route` attribute and make sure not to include any of these attributes `data`  `query`  `hash` .
+
+```
+{{#ionItem route="item.detail" _id:"" class=""}}...{{/ionItem}}
+```
+
+Lastly you can also pass a raw url by including the `href` attribute.
+
+```
+{{#ionItem href="https://google.com" class=""}}...{{/ionItem}}
+```
+
+##### Here are some examples for context
+
+**Raw url**
+
+```
+{{! href="https://google.com" }}
+{{#ionList}}
+  {{#each item}}
+      {{#ionItem href="https://google.com" iconRight=true}}
+          <h2>{{title}}</h2>
+          <p>{{subTitle}}</p>
+          {{> ionIcon icon="ios-arrow-right" }}
+        {{/ionItem}}
+    {{/each}}
+{{/ionList}}
+```
+
+**Passed route from parent (no IR helper)**
+
+```
+{{! href="/products/zcZmWRjJztydnCJer" }}
+{{#ionList}}
+        {{#each products}}
+      {{#with product}}
+          {{#ionItem product=this route="products.show" iconLeft=true iconRight=true}}
+              {{> _voteButton}}
+              <h2>{{name}}</h2>
+              <p>{{tagline}}</p>
+              <span class="comments-count">
+              {{numberOfComments}}
+              {{> ionIcon icon="ios-chatbubble" }}
+              </span>
+          {{/ionItem}}
+        {{/with}}
+      {{/each}}
+{{/ionList}}
+```
+
+**IronRouter's pathFor href**
+
+```
+{{! href="/item/details/jkh34k234h?parentId=hkjh45j43k3#reviews" }}
+{{#ionList}}
+  {{#each item}}
+      {{#ionItem path='item.detail' _id:this._id query=itemQuery hash="reviews" iconRight=true}}
+          <h2>{{title}}</h2>
+          <p>{{subTitle}}</p>
+          {{> ionIcon icon="ios-arrow-right" }}
+        {{/ionItem}}
+    {{/each}}
+{{/ionList}}
+```
+
+**IronRouter's urlFor href**
+
+```
+{{! href="http://www.example.com/item/details?parentId=hkjh45j43k3" }}
+{{#ionList}}
+  {{#each item}}
+      {{#ionItem url='item.detail' query=itemQuery iconRight=true}}
+          <h2>{{title}}</h2>
+          <p>{{subTitle}}</p>
+          {{> ionIcon icon="ios-arrow-right" }}
+        {{/ionItem}}
+    {{/each}}
+{{/ionList}}
+```
+
+
 ## Modals
 
 The `ionModal` component is quite easy to implement. First, create a template for your modal:

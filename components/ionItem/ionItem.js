@@ -33,7 +33,7 @@ Template.ionItem.helpers({
   },
 
   isAnchor: function () {
-    return !_.isUndefined(this.href) || !_.isUndefined(this.path);
+    return !_.isUndefined(this.href) || !_.isUndefined(this.path) || !_.isUndefined(this.url) || !_.isUndefined(this.route);
   },
 
   target: function () {
@@ -45,8 +45,31 @@ Template.ionItem.helpers({
       return this.href;
     }
 
-    if (this.path) {
-      return Router.routes[this.path].path(Template.parentData(1));
+    if ( this.path || this.url || this.route ) {
+
+      var path = _.find([this.path,this.url,this.route]);
+
+      if ( this.query || this.hash || this.data ){
+
+        var hash = {};
+        hash.route = path;
+        hash.query = this.query;
+        hash.hash = this.hash;
+        hash.data = this.data;
+        var options = new Spacebars.kw(hash);
+        
+        // Devs may pass 'route=x' instead of 'path=' or 'url='
+        // Should doing that throw an error? Not sure but we decided to
+        // parse it as if the dev passed it as 'path='
+        if (this.url){
+          return Blaze._globalHelpers.urlFor(options)
+        } else if( this.path || this.route ) {
+          return Blaze._globalHelpers.pathFor(options)
+        }
+
+      } else {
+        return Router.routes[path].path(Template.parentData(1));
+      }
     }
   }
 });
