@@ -9,7 +9,7 @@ Template.ionTabs.rendered = function () {
   // look through tabs and see if current route matches
   // one of the href attributes, cross fingers
   if( !Session.get('ionTab.current') ){
-    this.$('.tabs').children().each(function() { 
+    this.$('.tabs').children().each(function() {
       var href = $(this).attr('href');
       var current = Router.current().route.path();
       if(href === current){

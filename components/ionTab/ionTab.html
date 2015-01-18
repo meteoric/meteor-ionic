@@ -1,5 +1,5 @@
 <template name="ionTab">
-  <a class="tab-item tab-item-positive {{isActive}}" href="{{url}}" data-ion-tab>
+  <a class="{{classes}} {{isActive}}" href="{{url}}" data-ion-tab>
     {{#if isActive}}
       {{> ionIcon icon=activeIcon}}
     {{else}}
