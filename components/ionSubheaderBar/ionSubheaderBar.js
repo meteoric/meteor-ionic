@@ -16,6 +16,10 @@ Template.ionSubheaderBar.helpers({
       classes.push('bar-stable');
     }
 
+    if (Session.get('hasTabsTop')) {
+      classes.push('has-tabs-top');
+    }
+
     return classes.join(' ');
   }
 });
