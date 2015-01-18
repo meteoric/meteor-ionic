@@ -16,6 +16,10 @@ Template.ionFooterBar.helpers({
       classes.push('bar-stable');
     }
 
+    if (Session.get('hasTabs')) {
+      classes.push('has-tabs');
+    }
+
     return classes.join(' ');
   }
 });
