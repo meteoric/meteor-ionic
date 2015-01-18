@@ -30,6 +30,9 @@ Template.ionNavBar.rendered = function () {
 
       if (!$node.hasClass('title') && !$node.hasClass('button') || IonNavigation.skipTransitions) {
         $node.insertBefore(next);
+        // Changing tabs skips transition animations, but we still want to update the position of the title
+        IonHeaderBar.alignTitle.call(template);
+        IonHeaderBar.positionTitle.call(template);
         return;
       }
 

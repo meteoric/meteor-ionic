@@ -3,7 +3,7 @@ IonHeaderBar = {
     var align = this.alignTitle || 'center';
     var $title = this.$('.title');
 
-    if (align === 'center' && Platform.isAndroid()) {
+    if (Platform.isAndroid() && !this.alignTitle) {
       $title.addClass('title-left');
       return;
     }
@@ -33,7 +33,13 @@ IonHeaderBar = {
       rightButtonWidth = $rightButton.outerWidth();
     }
 
-    var margin = Math.max(leftButtonWidth, rightButtonWidth);
+    // If we're on Android, we only care about the left button
+    var margin;
+    if (Platform.isAndroid()) {
+      margin = leftButtonWidth;
+    } else {
+      margin = Math.max(leftButtonWidth, rightButtonWidth);
+    }
     $title.css('left', margin);
     $title.css('right', margin);
   }
