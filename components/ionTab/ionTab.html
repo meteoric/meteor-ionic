@@ -5,6 +5,13 @@
     {{else}}
       {{> ionIcon icon=defaultIcon}}
     {{/if}}
+
     {{title}}
+
+    {{#if badgeNumber}}
+      <div class="badge badge-assertive">
+        {{badgeNumber}}
+      </div>
+    {{/if}}
   </a>
 </template>

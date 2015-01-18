@@ -76,5 +76,9 @@ Template.ionTab.helpers({
     } else {
       return this.icon;
     }
+  },
+
+  badgeNumber: function () {
+    return this.badgeNumber;
   }
 });
