@@ -33,7 +33,7 @@ Template.ionItem.helpers({
   },
 
   isAnchor: function () {
-    return !_.isUndefined(this.href) || !_.isUndefined(this.path) || !_.isUndefined(this.url) || !_.isUndefined(this.route);
+    return _.some([this.href,this.path,this.url,this.route],function(path){return path != undefined});
   },
 
   target: function () {
@@ -47,7 +47,7 @@ Template.ionItem.helpers({
 
     if ( this.path || this.url || this.route ) {
 
-      var path = _.find([this.path,this.url,this.route]);
+      var path = _.find([this.path,this.url,this.route],function(path){return path !=undefined});
 
       if ( this.query || this.hash || this.data ){
 
