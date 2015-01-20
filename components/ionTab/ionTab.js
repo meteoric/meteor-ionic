@@ -55,7 +55,7 @@ Template.ionTab.helpers({
     // The initial case where there is no localStorage value and
     // no session variable has been set, this attempts to set the correct tab
     // to active based on the router
-    var route = Router.routes[this.path]
+    var route = Router.routes[this.path];
     if(route && route.path(Template.parentData(1)) === ionTabCurrent){
       return 'active';
     }
