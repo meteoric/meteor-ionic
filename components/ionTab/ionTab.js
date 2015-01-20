@@ -29,11 +29,9 @@ Template.ionTab.events({
 Template.ionTab.helpers({
   classes: function () {
     var classes = ['tab-item'];
-
     if (this.class) {
       classes.push(this.class);
     }
-
     return classes.join(' ');
   },
 
@@ -42,7 +40,7 @@ Template.ionTab.helpers({
       return this.href;
     }
 
-    if (this.path) {
+    if (this.path && Router.routes[this.path]) {
       return Router.routes[this.path].path(Template.parentData(1));
     }
   },
@@ -57,7 +55,8 @@ Template.ionTab.helpers({
     // The initial case where there is no localStorage value and
     // no session variable has been set, this attempts to set the correct tab
     // to active based on the router
-    if(Router.routes[this.path].path(Template.parentData(1)) === ionTabCurrent){
+    var route = Router.routes[this.path];
+    if(route && route.path(Template.parentData(1)) === ionTabCurrent){
       return 'active';
     }
   },
