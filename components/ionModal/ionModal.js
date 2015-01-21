@@ -5,12 +5,15 @@ IonModal = {
   enterActiveClass: 'ng-enter-active',
   leaveClasses: ['ng-leave', 'slide-in-up'],
   leaveActiveClass: 'ng-leave-active',
+  view: {},
+  views: [],
 
   open: function (templateName, data) {
     this.template = Template[templateName];
-    this.view = Blaze.renderWithData(this.template, data, $('.ionic-body').get(0));
+    this.view[templateName] = Blaze.renderWithData(this.template, data, $('.ionic-body').get(0));
+    this.views.push(templateName);
 
-    var $modalBackdrop = $(this.view.firstNode());
+    var $modalBackdrop = $(this.view[templateName].firstNode());
     $modalBackdrop.addClass('active');
 
     var $modalEl = $modalBackdrop.find('.modal');
@@ -27,7 +30,8 @@ IonModal = {
   },
 
   close: function () {
-    var $modalBackdrop = $(this.view.firstNode());
+    var templateName = this.views.pop();
+    var $modalBackdrop = $(this.view[templateName].firstNode());
     $modalBackdrop.removeClass('active');
 
     var $modalEl = $modalBackdrop.find('.modal');
@@ -39,7 +43,7 @@ IonModal = {
 
     $modalEl.on(this.transitionEndEvent, function () {
       $('body').removeClass('modal-open');
-      Blaze.remove(this.view);
+      Blaze.remove(this.view[templateName]);
     }.bind(this));
   }
 };
@@ -65,7 +69,9 @@ Template.ionModal.rendered = function () {
 };
 
 Template.ionModal.destroyed = function () {
-  $(window).off('keyup.ionModal');
+  if (IonModal.views.length === 0) {
+    $(window).off('keyup.ionModal');
+  }
 };
 
 Template.ionModal.helpers({
