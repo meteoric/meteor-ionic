@@ -10,13 +10,23 @@ IonModal = {
 
   open: function (templateName, data) {
     this.template = Template[templateName];
-    this.view[templateName] = Blaze.renderWithData(this.template, data, $('.ionic-body').get(0));
+    var view = Blaze.renderWithData(this.template, data, $('.ionic-body').get(0));
+
+    if (!this.view[templateName]) {
+      this.view[templateName] = [view];  
+    } else {
+      this.view[templateName].push(view);  
+    }
+    
     this.views.push(templateName);
 
-    var $modalBackdrop = $(this.view[templateName].firstNode());
-    $modalBackdrop.addClass('active');
+    var $modalBackdrop = $(view.firstNode());
 
-    var $modalEl = $modalBackdrop.find('.modal');
+    if (this.views.length === 1) {
+      $modalBackdrop.addClass('active');
+    }
+
+    var $modalEl = $modalBackdrop.find('.modal').eq(0);
     $modalEl.addClass(this.enterClasses.join(' '));
 
     $modalEl.on(this.transitionEndEvent, function () {
@@ -31,10 +41,14 @@ IonModal = {
 
   close: function () {
     var templateName = this.views.pop();
-    var $modalBackdrop = $(this.view[templateName].firstNode());
-    $modalBackdrop.removeClass('active');
+    var view = this.view[templateName].pop();
+    var $modalBackdrop = $(view.firstNode());
 
-    var $modalEl = $modalBackdrop.find('.modal');
+    if (!this.views.length) {
+      $modalBackdrop.removeClass('active');
+    }
+
+    var $modalEl = $modalBackdrop.find('.modal').eq(0);
     $modalEl.addClass(this.leaveClasses.join(' '));
 
     Meteor.setTimeout(function() {
@@ -43,7 +57,7 @@ IonModal = {
 
     $modalEl.on(this.transitionEndEvent, function () {
       $('body').removeClass('modal-open');
-      Blaze.remove(this.view[templateName]);
+      Blaze.remove(view);
     }.bind(this));
   }
 };
@@ -61,7 +75,8 @@ Template.ionModal.rendered = function () {
     }.bind(this), 600);
   }
 
-  $(window).on('keyup.ionModal', function(event) {
+  $(window).on('keyup.ionModal:last-child', function(event) {
+    event.stopImmediatePropagation();
     if (event.which == 27) {
       IonModal.close();
     }
@@ -69,7 +84,7 @@ Template.ionModal.rendered = function () {
 };
 
 Template.ionModal.destroyed = function () {
-  if (IonModal.views.length === 0) {
+  if (!IonModal.views.length) {
     $(window).off('keyup.ionModal');
   }
 };
