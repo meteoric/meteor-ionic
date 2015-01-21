@@ -81,5 +81,13 @@ Template.ionBody.events({
       return;
     }
     IonSideMenu.snapper.close();
+  },
+
+  'mousedown .button, touchstart .button': function (event, template) {
+    $(event.target).addClass('active');
+  },
+
+  'mouseup .button, touchend .button': function (event, template) {
+    $(event.target).removeClass('active');
   }
 });
