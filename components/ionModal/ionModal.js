@@ -75,7 +75,7 @@ Template.ionModal.rendered = function () {
     }.bind(this), 600);
   }
 
-  $(window).on('keyup.ionModal:last-child', function(event) {
+  $(window).on('keyup.ionModal', function(event) {
     event.stopImmediatePropagation();
     if (event.which == 27) {
       IonModal.close();
