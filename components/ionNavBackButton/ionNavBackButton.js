@@ -9,8 +9,8 @@ Template.ionNavBackButton.events({
     $('[data-nav-container]').addClass('nav-view-direction-back');
     $('[data-navbar-container]').addClass('nav-bar-direction-back');
 
-    if (template.data.backUrl) {
-      Router.go(template.data.backUrl);
+    if (template.backUrl) {
+      Router.go(template.backUrl);
     } else {
       window.history.back();
     }
@@ -18,14 +18,14 @@ Template.ionNavBackButton.events({
 });
 
 Template.ionNavBackButton.rendered = function () {
-  this.data.backUrl = null;
+  this.backUrl = null;
 
   if (this.data.href) {
-    this.data.backUrl = this.data.href;
+    this.backUrl = this.data.href;
   }
 
   if (this.data.path) {
-    this.data.backUrl = Router.routes[this.data.path].path(Template.parentData(1));
+    this.backUrl = Router.routes[this.data.path].path(Template.parentData(1));
   }
 };
 

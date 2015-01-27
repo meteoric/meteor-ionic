@@ -13,11 +13,11 @@ IonModal = {
     var view = Blaze.renderWithData(this.template, data, $('.ionic-body').get(0));
 
     if (!this.view[templateName]) {
-      this.view[templateName] = [view];  
+      this.view[templateName] = [view];
     } else {
-      this.view[templateName].push(view);  
+      this.view[templateName].push(view);
     }
-    
+
     this.views.push(templateName);
 
     var $modalBackdrop = $(view.firstNode());
@@ -64,7 +64,7 @@ IonModal = {
 
 Template.ionModal.created = function () {
   this.title = this.data.title;
-  this.focusFirstInput = this.data.focusFirstInput;
+  this.focusFirstInput = this.data.focusFirstInput || false;
   this.animation = this.data.animation || 'slide-in-up';
 };
 
@@ -91,7 +91,7 @@ Template.ionModal.destroyed = function () {
 
 Template.ionModal.helpers({
   title: function () {
-    return Template.instance().title;
+    return this.title;
   },
 
   animation: function () {
