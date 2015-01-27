@@ -32,6 +32,9 @@ Template.ionTab.helpers({
     if (this.class) {
       classes.push(this.class);
     }
+    if (this.badgeNumber) {
+      classes.push('has-badge');
+    }
     return classes.join(' ');
   },
 
