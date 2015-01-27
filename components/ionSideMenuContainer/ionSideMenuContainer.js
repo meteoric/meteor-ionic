@@ -3,7 +3,11 @@ IonSideMenu = {
 };
 
 Template.ionSideMenuContainer.created = function () {
-  this.side = this.data.side || 'both';
+    if(this.data != null && typeof this.data.side != 'undefined') {
+      this.side = this.data.side;
+    } else {
+      this.side = 'both'
+    }
 };
 
 Template.ionSideMenuContainer.rendered = function () {
