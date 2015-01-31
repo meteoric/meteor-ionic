@@ -5,7 +5,10 @@ IonSideMenu = {
 Template.ionSideMenuContainer.created = function () {
   this.data = this.data || {};
   this.side = this.data.side || 'both';
-  this.disableDrag = this.data.disableDrag || false;
+  this.dragContent = true;
+  if (typeof this.data.dragContent != 'undefined') {
+    this.dragContent = this.data.dragContent
+  }
 };
 
 Template.ionSideMenuContainer.rendered = function () {
@@ -28,7 +31,7 @@ Template.ionSideMenuContainer.rendered = function () {
   IonSideMenu.snapper = new Snap({
     element: $snapperEl.get(0),
     disable: disable,
-    touchToDrag: !this.disableDrag
+    touchToDrag: this.dragContent
   });
 };
 
