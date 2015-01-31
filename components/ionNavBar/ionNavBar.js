@@ -1,4 +1,6 @@
 Template.ionNavBar.created = function () {
+  this.data = this.data || {};
+
   if (Platform.isAndroid()) {
     this.transition = 'android';
   } else {
@@ -6,7 +8,7 @@ Template.ionNavBar.created = function () {
   }
 
   // Allow overriding the transition
-  if (this.data && this.data.transition) {
+  if (this.data.transition) {
     this.transition = this.data.transition;
   }
 

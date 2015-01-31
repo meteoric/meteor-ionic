@@ -63,6 +63,7 @@ IonModal = {
 };
 
 Template.ionModal.created = function () {
+  this.data = this.data || {};
   this.title = this.data.title;
   this.focusFirstInput = this.data.focusFirstInput || false;
   this.animation = this.data.animation || 'slide-in-up';

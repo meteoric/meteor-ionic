@@ -3,6 +3,7 @@ IonNavigation = {
 };
 
 Template.ionNavView.created = function () {
+  this.data = this.data || {};
   Session.setDefault('ionNavDirection', 'forward');
 
   if (Platform.isAndroid()) {

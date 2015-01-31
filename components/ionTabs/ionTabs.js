@@ -1,3 +1,7 @@
+Template.ionTabs.created = function () {
+  this.data = this.data || {};
+};
+
 Template.ionTabs.rendered = function () {
   if ((this.data.class && this.data.class === 'tabs-top') || this.data.style === 'android') {
     Session.set('hasTabsTop', true);

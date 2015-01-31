@@ -17,6 +17,10 @@ Template.ionNavBackButton.events({
   }
 });
 
+Template.ionNavBackButton.created = function () {
+  this.data = this.data || {};
+};
+
 Template.ionNavBackButton.rendered = function () {
   this.backUrl = null;
 
