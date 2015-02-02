@@ -20,7 +20,7 @@ Template.ionNavView.created = function () {
   if (this.transition === 'ios') {
     this.transitionDuration = 450;
   } else {
-    this.transitionDuration = 200;
+    this.transitionDuration = 320;
   }
 };
 
@@ -38,17 +38,18 @@ Template.ionNavView.rendered = function () {
       $node.insertBefore(next).addClass('nav-view-entering nav-view-stage');
       Meteor.setTimeout(function() {
         $node.removeClass('nav-view-stage').addClass('nav-view-active');
-      }, 16);
+      }, 0);
 
       Meteor.setTimeout(function () {
         $(this).removeClass('nav-view-entering');
         $('[data-nav-container]').removeClass('nav-view-direction-back').addClass('nav-view-direction-forward');
-      }, template.transitionDuration + 16);
+      }, template.transitionDuration);
     },
 
     removeElement: function(node) {
       var $node = $(node);
       if (!template.transition || !$node.hasClass('view') || IonNavigation.skipTransitions) {
+        console.log('removing node w/o animating…');
         $node.remove();
         return;
       }
@@ -56,12 +57,12 @@ Template.ionNavView.rendered = function () {
       $node.addClass('nav-view-leaving nav-view-stage');
       Meteor.setTimeout(function() {
         $node.removeClass('nav-view-stage').addClass('nav-view-active');
-      }, 16);
+      }, 0);
 
       Meteor.setTimeout(function () {
         $node.remove();
         Session.set('ionNavDirection', 'forward');
-      }, template.transitionDuration + 16);
+      }, template.transitionDuration);
     }
   };
 };

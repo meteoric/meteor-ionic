@@ -57,7 +57,7 @@ Template.ionItem.helpers({
         hash.hash = this.hash;
         hash.data = this.data;
         var options = new Spacebars.kw(hash);
-        
+
         // Devs may pass 'route=x' instead of 'path=' or 'url='
         // Should doing that throw an error? Not sure but we decided to
         // parse it as if the dev passed it as 'path='

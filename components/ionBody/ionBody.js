@@ -39,7 +39,19 @@ Template.ionBody.helpers({
   }
 });
 
+Template.ionBody.rendered = function () {
+  window.addEventListener('statusTap', function() {
+    $('.content.overflow-scroll').animate({
+      scrollTop: 0
+    }, 500);
+  });
+};
+
 Template.ionBody.events({
+  'statusTap': function () {
+    console.log('ionBody.statusTap');
+  },
+
   'click [data-ion-modal]': function (event, template) {
     var templateName = $(event.currentTarget).data('ion-modal');
     IonModal.open(templateName, $(event.currentTarget).data());
