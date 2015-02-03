@@ -5,6 +5,10 @@ Package.describe({
   git: "https://github.com/meteoric/meteor-ionic.git"
 });
 
+Cordova.depends({
+  'com.ionic.keyboard': '1.0.3'
+});
+
 Package.onUse(function(api) {
   api.versionsFrom("1.0");
   api.use(["templating", "underscore", "fastclick", "iron:router@1.0.0", "tracker", "session"], "client");
