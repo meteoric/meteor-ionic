@@ -65,7 +65,8 @@ IonModal = {
 Template.ionModal.created = function () {
   this.data = this.data || {};
   this.title = this.data.title;
-  this.focusFirstInput = this.data.focusFirstInput || false;
+  this.title = this.data.closeText;
+  this.focusFirstInput = this.data.focusFirstInput || true;
   this.animation = this.data.animation || 'slide-in-up';
 };
 
@@ -91,8 +92,22 @@ Template.ionModal.destroyed = function () {
 };
 
 Template.ionModal.helpers({
+  titleClass: function () {
+    var classes = ['title'];
+
+    if (Platform.isAndroid()) {
+      classes.push('title-left');
+    }
+
+    return classes.join(' ');
+  },
+
   title: function () {
     return this.title;
+  },
+
+  closeText: function () {
+    return this.closeText;
   },
 
   animation: function () {

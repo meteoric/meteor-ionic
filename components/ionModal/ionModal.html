@@ -4,8 +4,12 @@
       <div class="modal">
 
         <div class="bar bar-header bar-stable">
-          <button data-dismiss="modal" class="button button-icon"><i class="icon ion-ios-close-empty"></i></button>
-          <h2 class="title">{{title}}</h2>
+          <h2 class="{{titleClass}}">{{title}}</h2>
+          {{#if closeText}}
+            <button data-dismiss="modal" class="button button-positive button-clear">{{closeText}}</button>
+          {{else}}
+            <button data-dismiss="modal" class="button button-icon"><i class="icon ion-ios-close-empty"></i></button>
+          {{/if}}
         </div>
 
         <div class="content has-header overflow-scroll">
