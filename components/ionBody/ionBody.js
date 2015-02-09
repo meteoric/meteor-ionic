@@ -48,10 +48,6 @@ Template.ionBody.rendered = function () {
 };
 
 Template.ionBody.events({
-  'statusTap': function () {
-    console.log('ionBody.statusTap');
-  },
-
   'click [data-ion-modal]': function (event, template) {
     var templateName = $(event.currentTarget).data('ion-modal');
     IonModal.open(templateName, $(event.currentTarget).data());

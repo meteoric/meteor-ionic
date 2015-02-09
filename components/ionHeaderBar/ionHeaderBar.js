@@ -50,7 +50,6 @@ Template.ionHeaderBar.created = function () {
 };
 
 Template.ionHeaderBar.rendered = function () {
-  console.log('rendered', this);
   Session.set('hasHeader', true);
   IonHeaderBar.alignTitle.call(this);
   IonHeaderBar.positionTitle.call(this);

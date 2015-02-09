@@ -49,7 +49,6 @@ Template.ionNavView.rendered = function () {
     removeElement: function(node) {
       var $node = $(node);
       if (!template.transition || !$node.hasClass('view') || IonNavigation.skipTransitions) {
-        console.log('removing node w/o animating…');
         $node.remove();
         return;
       }
