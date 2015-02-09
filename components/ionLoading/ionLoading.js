@@ -1,14 +1,17 @@
 IonLoading = {
   show: function (userOptions) {
-    IonBackdrop.retain();
-    $('.backdrop').addClass('backdrop-loading');
-
     var userOptions = userOptions || {};
     var options = _.extend({
       delay: 0,
       duration: null,
-      customTemplate: null
+      customTemplate: null,
+      backdrop: false
     }, userOptions);
+    
+    if (options.backdrop) {
+      IonBackdrop.retain();
+      $('.backdrop').addClass('backdrop-loading');
+    }
 
     Meteor.setTimeout(function () {
       this.template = Template['ionLoading'];
