@@ -116,6 +116,15 @@ Template.ionModal.helpers({
     } else {
       return 'slide-in-up';
     }
+  },
+  classes: function () {
+    var classes = ['modal'];
+
+    if (this.class) {
+      classes.push(this.class);
+    }
+
+    return classes.join(' ');
   }
 });
 
