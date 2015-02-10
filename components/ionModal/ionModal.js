@@ -92,6 +92,12 @@ Template.ionModal.destroyed = function () {
 };
 
 Template.ionModal.helpers({
+  barClass: function () {
+    var classes = ['bar', 'bar-header', 'bar-stable'];
+
+    return classes.join(' ');
+  },
+  
   titleClass: function () {
     var classes = ['title'];
 
