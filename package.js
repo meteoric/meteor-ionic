@@ -43,6 +43,8 @@ Package.onUse(function(api) {
     "components/ionItem/ionItem.html",
     "components/ionItem/ionItem.js",
 
+    "components/ionKeyboard/ionKeyboard.js",
+
     "components/ionList/ionList.html",
     "components/ionList/ionList.js",
 
@@ -106,6 +108,7 @@ Package.onUse(function(api) {
   api.export("IonActionSheet");
   api.export("IonBackdrop");
   api.export("IonHeaderBar");
+  api.export("IonKeyboard");
   api.export("IonLoading");
   api.export("IonModal");
   api.export("IonNavigation");
