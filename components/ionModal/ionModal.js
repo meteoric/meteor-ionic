@@ -92,6 +92,12 @@ Template.ionModal.destroyed = function () {
 };
 
 Template.ionModal.helpers({
+  barClass: function () {
+    var classes = ['bar', 'bar-header', 'bar-stable'];
+
+    return classes.join(' ');
+  },
+  
   titleClass: function () {
     var classes = ['title'];
 
@@ -116,6 +122,15 @@ Template.ionModal.helpers({
     } else {
       return 'slide-in-up';
     }
+  },
+  classes: function () {
+    var classes = ['modal'];
+
+    if (this.class) {
+      classes.push(this.class);
+    }
+
+    return classes.join(' ');
   }
 });
 
