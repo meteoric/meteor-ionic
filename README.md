@@ -9,6 +9,9 @@ This is an attempt at **real Ionic and Meteor integration**. This is not just Io
 ## Why?
 [Ionic](http://ionicframework.com/) is arguably the most comprehensive, polished, cross-platform mobile framework available. But unfortunately a large portion of its functionality comes from Angular directives. [I'm not a fan of trying to force-fit Angular into Meteor](https://medium.com/space-camp/your-meteor-app-probably-doesnt-need-angular-13986a0323f6), so I wanted to see if I could rewrite Ionic specifically for Meteor.
 
+## Getting started Guide
+Check out the [GUIDE.md](GUIDE.md) for a guide on how to get started.
+
 ## Status
 
 **Beta** See the TODO section below to see which Angular Directives have been ported to Blaze.
