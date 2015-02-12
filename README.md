@@ -34,6 +34,13 @@ A [Product Hunt](http://producthunt.com) clone built in Meteor Ionic. (In Progre
 
 [Demo](http://meteorhunt.meteor.com/) |  [Code](https://github.com/meteoric/meteorhunt)
 
+### Demo of all components
+The demo app of various meteoric components
+
+[Demo](http://meteor-ionic.meteor.com/) |  [Code](https://github.com/meteoric/demo)
+
+You can also keep track of the various other repos from the [Meteoric team](https://github.com/meteoric)
+
 ## TODO
 
 ### Angular Directives to convert to Blaze:
