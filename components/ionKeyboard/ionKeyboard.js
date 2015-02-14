@@ -1,3 +1,9 @@
+Meteor.startup(function () {
+  if (Meteor.isCordova) {
+    IonKeyboard.disableScroll();
+  }
+});
+
 IonKeyboard = {
   close: function () {
     if (Meteor.isCordova) {
@@ -37,11 +43,8 @@ IonKeyboard = {
 };
 
 window.addEventListener('native.keyboardshow', function (event) {
+  $('body').addClass('keyboard-open');
   var keyboardHeight = event.keyboardHeight;
-  IonKeyboard.disableScroll();
-
-  // Hide any elements that want to be hidden
-  $('.hide-on-keyboard-open').hide();
 
   // Attach any elements that want to be attached
   $('[data-keyboard-attach]').each(function (index, el) {
@@ -49,31 +52,29 @@ window.addEventListener('native.keyboardshow', function (event) {
     $(el).css({bottom: keyboardHeight});
   });
 
+  // Move the bottom of the content area(s) above the top of the keyboard
   $('.content.overflow-scroll').each(function (index, el) {
     $(el).data('ionkeyboard.bottom', $(el).css('bottom'));
     $(el).css({bottom: keyboardHeight});
   });
 
   $('.content.overflow-scroll').on('focus', 'input,textarea', function(event) {
-    var scrollTo = ($(this).offset().top - $(event.delegateTarget).offset().top) - 10
+    var scrollTo = ($(this).offset().top - $(event.delegateTarget).offset().top) - 10;
     $(event.delegateTarget).animate({
       scrollTop: scrollTo
-    })
+    });
   });
 });
 
 window.addEventListener('native.keyboardhide', function (event) {
-  IonKeyboard.enableScroll();
-
-  // Show any elements that were hidden
-  $('.hide-on-keyboard-open').show();
+  $('body').removeClass('keyboard-open');
 
   // Detach any elements that were attached
   $('[data-keyboard-attach]').each(function (index, el) {
     $(el).css({bottom: $(el).data('ionkeyboard.bottom')});
   });
 
-  // Reset the content areas
+  // Reset the content area(s)
   $('.content.overflow-scroll').each(function (index, el) {
     $(el).css({bottom: $(el).data('ionkeyboard.bottom')});
   });
