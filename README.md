@@ -59,7 +59,7 @@ You can also keep track of the various other repos from the [Meteoric team](http
 * [x] Headers/Footers
   * [x] ion-header-bar
   * [x] ion-footer-bar
-* [ ] Keyboard (requires [cordova](http://cordova.apache.org/) integration)
+* [x] Keyboard (requires [cordova](http://cordova.apache.org/) integration)
 * [ ] Lists (needs edit/remove/sort functionality)
   * [ ] ion-list
   * [ ] ion-item
@@ -78,7 +78,7 @@ You can also keep track of the various other repos from the [Meteoric team](http
   * [x] ion-nav-title
   * [ ] nav-transition (not needed?)
   * [ ] nav-direction (not needed?)
-* [ ] Platform
+* [x] Platform
 * [x] Popover
 * [ ] Popup
 * [ ] Scroll
