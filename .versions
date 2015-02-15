@@ -27,7 +27,7 @@ jquery@1.11.3
 json@1.0.2
 logging@1.0.6
 meteor@1.1.4
-meteoric:ionic@0.1.13
+meteoric:ionic@0.1.14
 minifiers@1.1.3
 minimongo@1.0.6
 mongo@1.0.11
