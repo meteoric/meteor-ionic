@@ -33,13 +33,16 @@ IonLoading = {
   },
 
   hide: function () {
-    var $loadingEl = $(this.view.firstNode());
-    $loadingEl.removeClass('active');
+    if (this.view) {
+      var $loadingEl = $(this.view.firstNode());
+      $loadingEl.removeClass('active');
 
-    Meteor.setTimeout(function () {
-      IonBackdrop.release();
-      $loadingEl.removeClass('visible');
-      Blaze.remove(this.view);
-    }.bind(this), 400);
+      Meteor.setTimeout(function () {
+        IonBackdrop.release();
+        $loadingEl.removeClass('visible');
+        Blaze.remove(this.view);
+        this.view = null;
+      }.bind(this), 400);
+    }
   }
 };
