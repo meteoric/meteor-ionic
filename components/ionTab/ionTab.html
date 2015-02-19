@@ -1,9 +1,11 @@
 <template name="ionTab">
   <a class="{{classes}} {{isActive}}" href="{{url}}" data-ion-tab>
-    {{#if isActive}}
-      {{> ionIcon icon=activeIcon}}
-    {{else}}
-      {{> ionIcon icon=defaultIcon}}
+    {{#if defaultIcon}}
+      {{#if isActive}}
+        {{> ionIcon icon=activeIcon}}
+      {{else}}
+        {{> ionIcon icon=defaultIcon}}
+      {{/if}}
     {{/if}}
 
     {{title}}
