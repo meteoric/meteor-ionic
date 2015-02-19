@@ -62,9 +62,7 @@ window.addEventListener('native.keyboardshow', function (event) {
     var contentOffset = $(event.delegateTarget).offset().top;
     var padding = 10;
     var scrollTo = $(event.delegateTarget).scrollTop() + $(this).offset().top - (contentOffset + padding);
-    $(event.delegateTarget).animate({
-      scrollTop: scrollTo
-    });
+    $(event.delegateTarget).scrollTop(scrollTo);
   });
 });
 
