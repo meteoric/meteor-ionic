@@ -67,7 +67,7 @@ Template.ionModal.created = function () {
   this.customTemplate = this.data.customTemplate || false;
   this.title = this.data.title;
   this.title = this.data.closeText;
-  this.focusFirstInput = this.data.focusFirstInput || true;
+  this.focusFirstInput = _.isUndefined(this.data.focusFirstInput) ? true : this.data.focusFirstInput;
   this.animation = this.data.animation || 'slide-in-up';
 };
 
