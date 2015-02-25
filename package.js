@@ -15,7 +15,9 @@ Package.onUse(function(api) {
 
   api.addFiles([
     "vendor/snap.js",
-    "vendor/snap.css"
+    "vendor/snap.css",
+    "vendor/slick.js",
+    "vendor/slick.css"
   ], "client");
 
   api.addFiles([
@@ -86,6 +88,12 @@ Package.onUse(function(api) {
 
     "components/ionSideMenus/ionSideMenus.html",
     "components/ionSideMenus/ionSideMenus.js",
+
+    "components/ionSlideBox/ionSlideBox.html",
+    "components/ionSlideBox/ionSlideBox.js",
+
+    "components/ionSlide/ionSlide.html",
+    "components/ionSlide/ionSlide.js",
 
     "components/ionSubfooterBar/ionSubfooterBar.html",
     "components/ionSubfooterBar/ionSubfooterBar.js",

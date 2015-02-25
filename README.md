@@ -91,7 +91,7 @@ You can also keep track of the various other repos from the [Meteoric team](http
   * [ ] expose-aside-when (not sure this is needed)
   * [x] menu-toggle
   * [x] menu-close
-* [ ] Slide Box
+* [x] Slide Box
 * [x] Tabs (requires [iron:router](https://github.com/EventedMind/iron-router) integration)
   * [x] ion-tabs
   * [x] ion-tab
