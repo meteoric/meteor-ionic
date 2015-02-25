@@ -25,5 +25,5 @@ Template.ionSlideBox.rendered = function () {
 };
 
 Template.ionSlideBox.destroyed = function () {
-  this.$('.ion-slide-box').unslick();
+  this.$('.ion-slide-box').slick('unslick');
 };
