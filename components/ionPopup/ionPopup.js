@@ -2,8 +2,10 @@ IonPopup = {
   show: function (options) {
 
     this.template = Template[options.templateName];
-
+    this.callbacks = {};
+    this.callbacks.onTap = [];
     var buttons = [];
+
     for (var i = 0; i < options.buttons.length; i++) {
       var button = options.buttons[i];
       buttons.push({
@@ -11,20 +13,13 @@ IonPopup = {
         type: button.type,
         index: i
       });
+      this.callbacks.onTap.push(button.onTap);
     }
 
     var data = {
       title: options.title,
       subTitle: options.subTitle,
       buttons: buttons
-    };
-
-    console.log(data);
-
-    this.callbacks = {
-      cancel: options.cancel,
-      destructiveButtonClicked: options.destructiveButtonClicked,
-      buttonClicked: options.buttonClicked
     };
 
     this.view = Blaze.renderWithData(this.template, data, $('.ionic-body').get(0));
@@ -38,10 +33,22 @@ IonPopup = {
 
   hide: function () {
     var $backdrop = $(this.view.firstNode());
+    var $popup = $backdrop.find('.popup-container');
 
-    $popup.removeClass('popup-showing active');
-    $backdrop.removeClass('active visible');
-    Blaze.remove(this.view);
+    // $popup.removeClass('popup-showing');
+    $popup.addClass('popup-hidden').removeClass('active');
+
+    setTimeout(function(){
+      $('body').removeClass('popup-open');
+      Blaze.remove(this.view);
+    }.bind(this), 100);
+  },
+
+  buttonClicked: function (index, event) {
+    var callbacks = this.callbacks.onTap;
+    if (callbacks[index](event) === true) {
+      IonPopup.hide();
+    }
   }
 };
 
@@ -68,15 +75,7 @@ Template.ionPopup.events({
 
   'click [data-index]': function (event, template) {
     var index = $(event.target).data('index');
-    IonPopup.buttonClicked(index);
-  },
-
-  'click [data-destructive]': function (event, template) {
-    IonPopup.destructiveButtonClicked();
-  },
-
-  'click [data-cancel]': function (event, template) {
-    IonPopup.cancel();
+    IonPopup.buttonClicked(index, event);
   }
 
 });
