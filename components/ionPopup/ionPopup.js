@@ -1,25 +1,31 @@
 IonPopup = {
   show: function (options) {
-
-    this.template = Template[options.templateName];
-    this.callbacks = {};
-    this.callbacks.onTap = [];
-    var buttons = [];
+    this.template = Template.ionPopup;
+    this.buttons = [];
+    var innerTemplate;
 
     for (var i = 0; i < options.buttons.length; i++) {
       var button = options.buttons[i];
-      buttons.push({
+      this.buttons.push({
         text: button.text,
         type: button.type,
-        index: i
+        index: i,
+        onTap: button.onTap
       });
-      this.callbacks.onTap.push(button.onTap);
+    }
+
+    //Figure out if a template or just a html string was passed
+    if (options.templateName) {
+      innerTemplate = Template[options.templateName].renderFunction().value;
+    } else {
+      innerTemplate = options.template;
     }
 
     var data = {
       title: options.title,
       subTitle: options.subTitle,
-      buttons: buttons
+      buttons: this.buttons,
+      template: innerTemplate
     };
 
     this.view = Blaze.renderWithData(this.template, data, $('.ionic-body').get(0));
@@ -31,23 +37,23 @@ IonPopup = {
     $popup.addClass('popup-showing active');
   },
 
-  hide: function () {
+  close: function () {
     var $backdrop = $(this.view.firstNode());
     var $popup = $backdrop.find('.popup-container');
-
-    // $popup.removeClass('popup-showing');
     $popup.addClass('popup-hidden').removeClass('active');
 
-    setTimeout(function(){
+    setTimeout(function () {
       $('body').removeClass('popup-open');
       Blaze.remove(this.view);
     }.bind(this), 100);
   },
 
   buttonClicked: function (index, event) {
-    var callbacks = this.callbacks.onTap;
-    if (callbacks[index](event) === true) {
-      IonPopup.hide();
+    var callback = this.buttons[index].onTap;
+    if(callback){
+      if (callback(event) === true) {
+        IonPopup.close();
+      }
     }
   }
 };
@@ -55,7 +61,7 @@ IonPopup = {
 Template.ionPopup.rendered = function () {
   $(window).on('keyup.ionPopup', function(event) {
     if (event.which == 27) {
-      IonPopup.hide();
+      IonPopup.close();
     }
   });
 };
@@ -67,9 +73,8 @@ Template.ionPopup.destroyed = function () {
 Template.ionPopup.events({
   // Handle clicking the backdrop
   'click': function (event, template) {
-    console.log('test');
     if ($(event.target).hasClass('popup-container')) {
-      IonActionSheet.hide();
+      IonPopup.close();
     }
   },
 
