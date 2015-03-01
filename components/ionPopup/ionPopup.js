@@ -18,7 +18,7 @@ IonPopup = {
     if (options.templateName) {
       innerTemplate = Template[options.templateName].renderFunction().value;
     } else {
-      innerTemplate = options.template;
+      innerTemplate = '<span>' + options.template + '</span>';
     }
 
     var data = {
@@ -66,7 +66,7 @@ IonPopup = {
         {
           text: options.okText ? options.okText : 'Ok',
           type: options.okType ? options.okType : 'button-positive',
-          onTap: function() {
+          onTap: function (event) {
             if (options.onOk) options.onOk(event);
             return true;
           }
@@ -74,7 +74,44 @@ IonPopup = {
         {
           text: options.cancelText ? options.cancelText : 'Cancel',
           type: options.cancelType ? options.cancelType : 'button-default',
-          onTap: function() {
+          onTap: function (event) {
+            if (options.onCancel) options.onCancel(event);
+            return true;
+          }
+        }
+      ]
+    });
+  },
+
+  prompt: function (options) {
+
+    if (options.templateName) {
+      template = Template[options.templateName].renderFunction().value;
+    } else {
+      template = '<span>' + options.template + '</span>';
+    }
+
+    template += '<input type="' + options.inputType + '" placeholder="' +
+      options.inputPlaceholder + '" name="prompt" >';
+
+    IonPopup.show({
+      title: options.title,
+      subTitle: options.subtitle,
+      template: template,
+      buttons: [
+        {
+          text: options.okText ? options.okText : 'Ok',
+          type: options.okType ? options.okType : 'button-positive',
+          onTap: function (event, template) {
+            var inputVal = $(template.firstNode).find('[name=prompt]').val();
+            if (options.onOk) options.onOk(event, inputVal);
+            return true;
+          }
+        },
+        {
+          text: options.cancelText ? options.cancelText : 'Cancel',
+          type: options.cancelType ? options.cancelType : 'button-default',
+          onTap: function (event) {
             if (options.onCancel) options.onCancel(event);
             return true;
           }
@@ -94,10 +131,10 @@ IonPopup = {
     }.bind(this), 100);
   },
 
-  buttonClicked: function (index, event) {
+  buttonClicked: function (index, event, template) {
     var callback = this.buttons[index].onTap;
     if(callback){
-      if (callback(event) === true) {
+      if (callback(event, template) === true) {
         IonPopup.close();
       }
     }
@@ -126,7 +163,7 @@ Template.ionPopup.events({
 
   'click [data-index]': function (event, template) {
     var index = $(event.target).data('index');
-    IonPopup.buttonClicked(index, event);
+    IonPopup.buttonClicked(index, event, template);
   }
 
 });
