@@ -47,7 +47,35 @@ IonPopup = {
         {
           text: options.okText ? options.okText : 'Ok',
           type: options.okType ? options.okType : 'button-positive',
+          onTap: function(event) {
+            options.onOk(event);
+            return true;
+          }
+        }
+      ]
+    });
+  },
+
+  confirm: function (options) {
+    IonPopup.show({
+      title: options.title,
+      subTitle: options.subtitle,
+      template: options.template,
+      templateName: options.templateName,
+      buttons: [
+        {
+          text: options.okText ? options.okText : 'Ok',
+          type: options.okType ? options.okType : 'button-positive',
           onTap: function() {
+            if (options.onOk) options.onOk(event);
+            return true;
+          }
+        },
+        {
+          text: options.cancelText ? options.cancelText : 'Cancel',
+          type: options.cancelType ? options.cancelType : 'button-default',
+          onTap: function() {
+            if (options.onCancel) options.onCancel(event);
             return true;
           }
         }
