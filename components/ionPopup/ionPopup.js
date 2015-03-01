@@ -48,7 +48,7 @@ IonPopup = {
           text: options.okText ? options.okText : 'Ok',
           type: options.okType ? options.okType : 'button-positive',
           onTap: function(event) {
-            options.onOk(event);
+            if (options.onOk) options.onOk(event);
             return true;
           }
         }
