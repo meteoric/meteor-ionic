@@ -37,6 +37,24 @@ IonPopup = {
     $popup.addClass('popup-showing active');
   },
 
+  alert: function (options) {
+    IonPopup.show({
+      title: options.title,
+      subTitle: options.subtitle,
+      template: options.template,
+      templateName: options.templateName,
+      buttons: [
+        {
+          text: options.okText ? options.okText : 'Ok',
+          type: options.okType ? options.okType : 'button-positive',
+          onTap: function() {
+            return true;
+          }
+        }
+      ]
+    });
+  },
+
   close: function () {
     var $backdrop = $(this.view.firstNode());
     var $popup = $backdrop.find('.popup-container');
