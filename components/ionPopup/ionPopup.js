@@ -40,15 +40,15 @@ IonPopup = {
   alert: function (options) {
     IonPopup.show({
       title: options.title,
-      subTitle: options.subtitle,
+      subTitle: options.subTitle,
       template: options.template,
       templateName: options.templateName,
       buttons: [
         {
           text: options.okText ? options.okText : 'Ok',
           type: options.okType ? options.okType : 'button-positive',
-          onTap: function(event) {
-            if (options.onOk) options.onOk(event);
+          onTap: function(event, template) {
+            if (options.onOk) options.onOk(event, template);
             return true;
           }
         }
@@ -59,23 +59,23 @@ IonPopup = {
   confirm: function (options) {
     IonPopup.show({
       title: options.title,
-      subTitle: options.subtitle,
+      subTitle: options.subTitle,
       template: options.template,
       templateName: options.templateName,
       buttons: [
         {
           text: options.okText ? options.okText : 'Ok',
           type: options.okType ? options.okType : 'button-positive',
-          onTap: function (event) {
-            if (options.onOk) options.onOk(event);
+          onTap: function (event, template) {
+            if (options.onOk) options.onOk(event, template);
             return true;
           }
         },
         {
           text: options.cancelText ? options.cancelText : 'Cancel',
           type: options.cancelType ? options.cancelType : 'button-default',
-          onTap: function (event) {
-            if (options.onCancel) options.onCancel(event);
+          onTap: function (event, template) {
+            if (options.onCancel) options.onCancel(event, template);
             return true;
           }
         }
@@ -96,7 +96,7 @@ IonPopup = {
 
     IonPopup.show({
       title: options.title,
-      subTitle: options.subtitle,
+      subTitle: options.subTitle,
       template: template,
       buttons: [
         {
@@ -111,8 +111,8 @@ IonPopup = {
         {
           text: options.cancelText ? options.cancelText : 'Cancel',
           type: options.cancelType ? options.cancelType : 'button-default',
-          onTap: function (event) {
-            if (options.onCancel) options.onCancel(event);
+          onTap: function (event, template) {
+            if (options.onCancel) options.onCancel(event, template);
             return true;
           }
         }
