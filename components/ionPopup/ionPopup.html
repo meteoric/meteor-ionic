@@ -1,22 +1,28 @@
 <template name="ionPopup">
-  <div class="popup-container">
-    <div class="popup">
-      <div class="popup-head">
-        <h3 class="popup-title">{{title}}</h3>
-        {{#if subTitle}}
-          <h5 class="popup-sub-title">{{subTitle}}</h5>
+  <div class="backdrop">
+    <div class="popup-container">
+      <div class="popup">
+        <div class="popup-head">
+          <h3 class="popup-title">{{title}}</h3>
+          {{#if subTitle}}
+            <h5 class="popup-sub-title">{{subTitle}}</h5>
+          {{/if}}
+        </div>
+        <div class="popup-body">
+          {{{template}}}
+        </div>
+        {{#if buttons.length}}
+          <div class="popup-buttons">
+            {{#each buttons}}
+              <button data-action="buttonTapped" data-index="{{index}}"
+              class="button {{type}}">
+                {{{text}}}
+              </button>
+            {{/each}}
+          </div>
         {{/if}}
       </div>
-      <div class="popup-body">
-        {{> UI.contentBlock}}
-      </div>
-      {{#if buttons.count}}
-        <div class="popup-buttons">
-          {{#each buttons}}
-            <button data-action="buttonTapped" class="button {{type}}">{{text}}</button>
-          {{/each}}
-        </div>
-      {{/if}}
     </div>
   </div>
+
 </template>
