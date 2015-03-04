@@ -80,7 +80,7 @@ You can also keep track of the various other repos from the [Meteoric team](http
   * [ ] nav-direction (not needed?)
 * [x] Platform
 * [x] Popover
-* [ ] Popup
+* [x] Popup
 * [ ] Scroll
   * [ ] ion-scroll
   * [ ] ion-infinite-scroll
