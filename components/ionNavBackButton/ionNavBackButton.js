@@ -24,6 +24,11 @@ Template.ionNavBackButton.created = function () {
 Template.ionNavBackButton.rendered = function () {
   this.backUrl = null;
 
+  if (!this.data) {
+    console.warn("no ionNavBackButton.data ", this)
+    return;
+  }
+
   if (this.data.href) {
     this.backUrl = this.data.href;
   }
