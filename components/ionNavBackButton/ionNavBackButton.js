@@ -24,13 +24,21 @@ Template.ionNavBackButton.created = function () {
 Template.ionNavBackButton.rendered = function () {
   this.backUrl = null;
 
+  this.data = this.data || {};
+
   if (this.data.href) {
-    this.backUrl = this.data.href;
+    this.backUrl = this.data.hRref;
   }
 
   if (this.data.path) {
-    this.backUrl = Router.routes[this.data.path].path(Template.parentData(1));
+    backRoute = Router.routes[this.data.path]
+    if (!backRoute) {
+      console.warn("back to nonexistent route: ", this.data.path);
+      return;
+    }
+    this.backUrl = backRoute.path(Template.parentData(1));
   }
+
 };
 
 Template.ionNavBackButton.helpers({
