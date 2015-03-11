@@ -27,7 +27,7 @@ Template.ionNavBackButton.rendered = function () {
   this.data = this.data || {};
 
   if (this.data.href) {
-    this.backUrl = this.data.hRref;
+    this.backUrl = this.data.href;
   }
 
   if (this.data.path) {
