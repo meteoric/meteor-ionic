@@ -4,6 +4,7 @@ Template.ionSlideBox.created = function () {
   this.autoPlay = this.data.autoPlay || false;
   this.slideInterval = this.data.slideInterval || 4000;
   this.showPager = typeof this.data.showPager != 'undefined' ? this.data.showPager : true;
+  this.initialSlide = this.data.initialSlide || Session.get('ion-slide-initial-slide') || 0;
 };
 
 Template.ionSlideBox.rendered = function () {
@@ -14,6 +15,7 @@ Template.ionSlideBox.rendered = function () {
     arrows: false,
     dots: this.showPager,
     dotsClass: 'slider-pager',
+    initialSlide: this.initialSlide,
     customPaging: function(slider, i) {
       return '<span class="slider-pager-page icon ion-record"></span>';
     }
