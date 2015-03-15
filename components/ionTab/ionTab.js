@@ -66,5 +66,9 @@ Template.ionTab.helpers({
 
   badgeNumber: function () {
     return this.badgeNumber;
+  },
+
+  badgeColor: function () {
+    return this.badgeColor||'assertive';
   }
 });
