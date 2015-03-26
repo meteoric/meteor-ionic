@@ -201,7 +201,15 @@ This is where `iron:layout` comes into play. Our `ionNavBar` component exposes t
 
 ## Tabs
 
-TODO
+To create Ionic style tabs you need to wrap your tabs into an `ionTabs` component. You can add the ionic tab classes to determine the style of your tabs. Single tabs are created with the `ionTab` element. The text of a tab is set with the `title` attribute. If you use icon tabs you can add ionicons with the `iconOff` and `iconOn`  attributes. You can also set a path to link the tab to an iron router route. Example:
+
+```
+{{#ionTabs class="tabs-positive tabs-icon-top"}}
+  {{> ionTab title="News" path="news" iconOff="ios-paper" iconOn="ios-paper"}}
+  {{> ionTab title="Todos" path="todos" iconOff="checkmark-circled" iconOn="checkmark-circled"}}
+  {{> ionTab title="Profile" path="profile" iconOff="person" iconOn="person"}}
+{{/ionTabs}}
+```
 
 ## Lists
 
