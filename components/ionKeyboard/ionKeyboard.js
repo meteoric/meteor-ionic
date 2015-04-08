@@ -39,6 +39,14 @@ IonKeyboard = {
     if (Meteor.isCordova) {
       cordova.plugins.Keyboard.disableScroll(false);
     }
+  },
+  scrollTo: function(elem, speed) {
+    var scrollArea = $(".content.overflow-scroll");
+    // scroll animation needs to be >0 so that it can scroll while the keyboard is opening...
+    scrollArea.animate({
+        scrollTop:  scrollArea.scrollTop() - scrollArea.offset().top + $(elem).offset().top - 10
+    }, speed == undefined ? 200 : speed);
+
   }
 };
 
@@ -46,6 +54,14 @@ window.addEventListener('native.keyboardshow', function (event) {
   // TODO: Android is having problems
   if (Platform.isAndroid()) {
     return;
+  }
+
+  console.log("Keyboard Open "+event.keyboardHeight);
+
+  var currentElement = document.activeElement;
+
+  if ( $(currentElement).is('input,textarea,select') ) {
+    IonKeyboard.scrollTo(currentElement);
   }
 
   $('body').addClass('keyboard-open');
@@ -63,12 +79,6 @@ window.addEventListener('native.keyboardshow', function (event) {
     $(el).css({bottom: keyboardHeight});
   });
 
-  $('.content.overflow-scroll').on('focus', 'input,textarea', function(event) {
-    var contentOffset = $(event.delegateTarget).offset().top;
-    var padding = 10;
-    var scrollTo = $(event.delegateTarget).scrollTop() + $(this).offset().top - (contentOffset + padding);
-    $(event.delegateTarget).scrollTop(scrollTo);
-  });
 });
 
 window.addEventListener('native.keyboardhide', function (event) {
@@ -76,7 +86,9 @@ window.addEventListener('native.keyboardhide', function (event) {
   if (Platform.isAndroid()) {
     return;
   }
-  
+
+  console.log("Keyboard Closed");
+
   $('body').removeClass('keyboard-open');
 
   // Detach any elements that were attached
