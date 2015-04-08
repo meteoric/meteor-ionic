@@ -56,10 +56,11 @@ window.addEventListener('native.keyboardshow', function (event) {
     return;
   }
 
-  console.log("Keyboard Open "+event.keyboardHeight);
+  //console.log("Keyboard Open "+event.keyboardHeight);
 
   var currentElement = document.activeElement;
 
+  // If the current focused element is an input, textarea or select, scroll to it.
   if ( $(currentElement).is('input,textarea,select') ) {
     IonKeyboard.scrollTo(currentElement);
   }
@@ -87,7 +88,7 @@ window.addEventListener('native.keyboardhide', function (event) {
     return;
   }
 
-  console.log("Keyboard Closed");
+  //console.log("Keyboard Closed");
 
   $('body').removeClass('keyboard-open');
 
