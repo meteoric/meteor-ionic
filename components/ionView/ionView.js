@@ -19,5 +19,10 @@ Template.ionView.helpers({
     }
 
     return classes.join(' ');
+  },
+  title: function () {
+    if ( Template.instance().data && Template.instance().data.title ) {
+      return this.title;
+    }
   }
 });
