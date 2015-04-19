@@ -255,19 +255,19 @@ Meteor uses Iron:Router. Most are familiar with Iron:Router's [pathFor](https://
 To call IR's `pathFor` you would specify your route in the `path` attribute.
 
 ```
-{{#ionItem path="item.detail" _id:"" data="" query="" hash="" class=""}}...{{/ionItem}}
+{{#ionItem path="item.detail" _id="" data="" query="" hash="" class=""}}...{{/ionItem}}
 ```
 
 To call IR's `urlFor` you would specify your route in the `url` attribute.
 
 ```
-{{#ionItem url="item.detail" _id:"" data="" query="" hash="" class=""}}...{{/ionItem}}
+{{#ionItem url="item.detail" _id="" data="" query="" hash="" class=""}}...{{/ionItem}}
 ```
 
 And if you want to specify a path without calling any IR helpers specify your route in the `path` or `route` attribute and make sure not to include any of these attributes `data`  `query`  `hash` .
 
 ```
-{{#ionItem route="item.detail" _id:"" class=""}}...{{/ionItem}}
+{{#ionItem route="item.detail" _id="" class=""}}...{{/ionItem}}
 ```
 
 Lastly you can also pass a raw url by including the `href` attribute.
