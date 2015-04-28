@@ -3,10 +3,10 @@ Template.ionView.rendered = function () {
   IonNavigation.skipTransitions = false;
 
   // Reset our scroll position
-  var routeName = Router.current().route.getName();
-  if(IonScrollPositions[routeName]) {
-    $('.overflow-scroll').scrollTop(IonScrollPositions[routeName]);
-    delete IonScrollPositions[routeName];
+  var routePath = Router.current().route.path(Router.current().params);
+  if(IonScrollPositions[routePath]) {
+    $('.overflow-scroll').scrollTop(IonScrollPositions[routePath]);
+    delete IonScrollPositions[routePath];
   }
 };
 

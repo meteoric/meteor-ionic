@@ -1,7 +1,7 @@
 IonScrollPositions = {};
 
 Router.onStop(function () {
-  IonScrollPositions[Router.current().route.getName()] = $('.overflow-scroll').scrollTop();
+  IonScrollPositions[this.route.path(this.params)] = $('.overflow-scroll').scrollTop();
 });
 
 Template.ionNavBackButton.events({
