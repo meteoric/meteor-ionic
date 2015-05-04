@@ -6,10 +6,10 @@ IonHeaderBar = {
     //// FIXME this breaks header bar on android devices
     ////  https://github.com/meteoric/meteor-ionic/issues/100
     //// commenting out at least unbreaks it, but doesn't truly fix it
-    if (Platform.isAndroid() && !this.alignTitle) {
-      $title.addClass('title-left');
-      return;
-    }
+    // if (Platform.isAndroid() && !this.alignTitle) {
+    //   $title.addClass('title-left');
+    //   return;
+    // }
 
     if (align === 'center') {
       $title.addClass('title-center');
