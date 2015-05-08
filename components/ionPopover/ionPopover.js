@@ -11,7 +11,7 @@ IonPopover = {
     var $arrow = $backdrop.find('.popover-arrow');
 
     var bodyWidth = $('body').width();
-    var bodyHeight = $(window).innerHeight;
+    var bodyHeight = $(window).innerHeight();
     var buttonPosition = $button.offset();
     var buttonWidth = $button.outerWidth();
     var buttonHeight = $button.outerHeight();
@@ -46,13 +46,15 @@ IonPopover = {
   },
 
   hide: function () {
-    var $backdrop = $(this.view.firstNode());
-    $backdrop.removeClass('active');
-
-    var $popover = $backdrop.find('.popover');
-    $popover.css({opacity: 0});
-
-    Blaze.remove(this.view);
+    if (typeof this.view !== 'undefined') {
+      var $backdrop = $(this.view.firstNode());
+      $backdrop.removeClass('active');
+  
+      var $popover = $backdrop.find('.popover');
+      $popover.css({opacity: 0});
+  
+      Blaze.remove(this.view);
+    }
   }
 };
 
