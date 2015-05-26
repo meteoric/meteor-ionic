@@ -71,5 +71,9 @@ Template.ionItem.helpers({
         return Router.routes[path].path(Template.parentData(1));
       }
     }
+  },
+
+  attrs: function() {
+    return _.omit(this, 'class', 'href', 'path', 'target', 'avatar');
   }
 });
