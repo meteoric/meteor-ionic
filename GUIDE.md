@@ -201,7 +201,15 @@ This is where `iron:layout` comes into play. Our `ionNavBar` component exposes t
 
 ## Tabs
 
-TODO
+To create Ionic style tabs you need to wrap your tabs into an `ionTabs` component. You can add the ionic tab classes to determine the style of your tabs. Single tabs are created with the `ionTab` element. The text of a tab is set with the `title` attribute. If you use icon tabs you can add ionicons with the `iconOff` and `iconOn`  attributes. You can also set a path to link the tab to an iron router route. Example:
+
+```
+{{#ionTabs class="tabs-positive tabs-icon-top"}}
+  {{> ionTab title="News" path="news" iconOff="ios-paper" iconOn="ios-paper"}}
+  {{> ionTab title="Todos" path="todos" iconOff="checkmark-circled" iconOn="checkmark-circled"}}
+  {{> ionTab title="Profile" path="profile" iconOff="person" iconOn="person"}}
+{{/ionTabs}}
+```
 
 ## Lists
 
@@ -247,19 +255,19 @@ Meteor uses Iron:Router. Most are familiar with Iron:Router's [pathFor](https://
 To call IR's `pathFor` you would specify your route in the `path` attribute.
 
 ```
-{{#ionItem path="item.detail" _id:"" data="" query="" hash="" class=""}}...{{/ionItem}}
+{{#ionItem path="item.detail" _id="" data="" query="" hash="" class=""}}...{{/ionItem}}
 ```
 
 To call IR's `urlFor` you would specify your route in the `url` attribute.
 
 ```
-{{#ionItem url="item.detail" _id:"" data="" query="" hash="" class=""}}...{{/ionItem}}
+{{#ionItem url="item.detail" _id="" data="" query="" hash="" class=""}}...{{/ionItem}}
 ```
 
 And if you want to specify a path without calling any IR helpers specify your route in the `path` or `route` attribute and make sure not to include any of these attributes `data`  `query`  `hash` .
 
 ```
-{{#ionItem route="item.detail" _id:"" class=""}}...{{/ionItem}}
+{{#ionItem route="item.detail" _id="" class=""}}...{{/ionItem}}
 ```
 
 Lastly you can also pass a raw url by including the `href` attribute.

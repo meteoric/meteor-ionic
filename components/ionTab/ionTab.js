@@ -1,19 +1,3 @@
-Tracker.autorun(function () {
-  var ionTabCurrent = Session.get('ionTab.current');
-
-  if( ionTabCurrent ){
-    localStorage.setItem('ionTab.current', ionTabCurrent);
-  }
-});
-
-Meteor.startup(function () {
-  var ionTabCurrent = localStorage.getItem('ionTab.current');
-
-  if( ionTabCurrent ){
-    Session.set('ionTab.current', ionTabCurrent);
-  }
-});
-
 Template.ionTab.events({
   'click': function (event, template) {
     if (template.data.path) {
@@ -82,5 +66,9 @@ Template.ionTab.helpers({
 
   badgeNumber: function () {
     return this.badgeNumber;
+  },
+
+  badgeColor: function () {
+    return this.badgeColor||'assertive';
   }
 });

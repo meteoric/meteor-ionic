@@ -29,6 +29,10 @@ Template.ionItem.helpers({
       classes.push('item-button-right');
     }
 
+    if (this.textWrap) {
+      classes.push('item-text-wrap');
+    }
+
     return classes.join(' ');
   },
 

@@ -1,4 +1,10 @@
 <template name="ionView">
+  {{#if title}}
+    {{#contentFor "headerTitle"}}
+      <h1 class="title">{{title}}</h1>
+    {{/contentFor}}
+  {{/if}}
+
   <div class="{{classes}}">
     {{> UI.contentBlock}}
   </div>

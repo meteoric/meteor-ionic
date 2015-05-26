@@ -3,10 +3,10 @@ Template.ionView.rendered = function () {
   IonNavigation.skipTransitions = false;
 
   // Reset our scroll position
-  var routeName = Router.current().route.getName();
-  if(IonScrollPositions[routeName]) {
-    $('.overflow-scroll').scrollTop(IonScrollPositions[routeName]);
-    delete IonScrollPositions[routeName];
+  var routePath = Router.current().route.path(Router.current().params);
+  if(IonScrollPositions[routePath]) {
+    $('.overflow-scroll').scrollTop(IonScrollPositions[routePath]);
+    delete IonScrollPositions[routePath];
   }
 };
 
@@ -19,5 +19,10 @@ Template.ionView.helpers({
     }
 
     return classes.join(' ');
+  },
+  title: function () {
+    if ( Template.instance().data && Template.instance().data.title ) {
+      return Template.instance().data.title;
+    }
   }
 });

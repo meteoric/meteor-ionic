@@ -1,15 +1,17 @@
 <template name="ionTab">
   <a class="{{classes}} {{isActive}}" href="{{url}}" data-ion-tab>
-    {{#if isActive}}
-      {{> ionIcon icon=activeIcon}}
-    {{else}}
-      {{> ionIcon icon=defaultIcon}}
+    {{#if defaultIcon}}
+      {{#if isActive}}
+        {{> ionIcon icon=activeIcon}}
+      {{else}}
+        {{> ionIcon icon=defaultIcon}}
+      {{/if}}
     {{/if}}
 
     {{title}}
 
     {{#if badgeNumber}}
-      <div class="badge badge-assertive">
+      <div class="badge badge-{{badgeColor}}">
         {{badgeNumber}}
       </div>
     {{/if}}
