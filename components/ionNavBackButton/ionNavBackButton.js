@@ -8,9 +8,11 @@ Template.ionNavBackButton.events({
   'click': function (event, template) {
     $('[data-nav-container]').addClass('nav-view-direction-back');
     $('[data-navbar-container]').addClass('nav-bar-direction-back');
-
-    if (template.backUrl) {
-      Router.go(template.backUrl);
+    
+    //get most up-to-date url, if it exists
+    backUrl = template.getBackUrl()
+    if (backUrl) {
+      Router.go(backUrl);
     } else {
       window.history.back();
     }
@@ -22,23 +24,26 @@ Template.ionNavBackButton.created = function () {
 };
 
 Template.ionNavBackButton.rendered = function () {
-  this.backUrl = null;
+  var self = this;
+  this.getBackUrl = function () {
+    var backUrl = null;
 
-  this.data = this.data || {};
-
-  if (this.data.href) {
-    this.backUrl = this.data.href;
-  }
-
-  if (this.data.path) {
-    backRoute = Router.routes[this.data.path]
-    if (!backRoute) {
-      console.warn("back to nonexistent route: ", this.data.path);
-      return;
+    self.data = self.data || {};
+  
+    if (self.data.href) {
+      backUrl = self.data.href;
     }
-    this.backUrl = backRoute.path(Template.parentData(1));
-  }
-
+  
+    if (self.data.path) {
+      backRoute = Router.routes[self.data.path]
+      if (!backRoute) {
+        console.warn("back to nonexistent route: ", self.data.path);
+        return;
+      }
+      backUrl = backRoute.path(Template.parentData(1));
+    }
+    return backUrl;
+  };
 };
 
 Template.ionNavBackButton.helpers({
