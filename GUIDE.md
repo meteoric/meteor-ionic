@@ -3,7 +3,7 @@ Make sure you have the required packages installed:
 
 ```
 iron:router
-fourseven:scss
+fourseven:scss@2.0.0
 meteoric:ionic-sass
 meteoric:ionicons-sass
 meteoric:ionic
