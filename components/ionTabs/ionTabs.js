@@ -1,8 +1,8 @@
-Template.ionTabs.created = function () {
+Template.ionTabs.onCreated(function () {
   this.data = this.data || {};
-};
+});
 
-Template.ionTabs.rendered = function () {
+Template.ionTabs.onRendered(function () {
   if ((this.data.class && this.data.class === 'tabs-top') || this.data.style === 'android') {
     Session.set('hasTabsTop', true);
   } else {
@@ -11,17 +11,17 @@ Template.ionTabs.rendered = function () {
 
   this.$('.tabs').children().each(function() {
     var href = $(this).attr('href');
-    var current = Router.current().location.get().path;
+    var current = FlowRouter.current().path;
     if(href === current){
       Session.set('ionTab.current', href);
     }
   });
-};
+});
 
-Template.ionTabs.destroyed = function () {
+Template.ionTabs.onDestroyed(function () {
   Session.set('hasTabs', false);
   Session.set('hasTabsTop', false);
-};
+});
 
 Template.ionTabs.helpers({
   classes: function () {

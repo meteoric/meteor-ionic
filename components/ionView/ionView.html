@@ -1,11 +1,13 @@
 <template name="ionView">
-  {{#if title}}
-    {{#contentFor "headerTitle"}}
-      <h1 class="title">{{title}}</h1>
-    {{/contentFor}}
+  {{#if data.title}}
+    {{> headerTitle title=data.title}}
   {{/if}}
 
   <div class="{{classes}}">
-    {{> UI.contentBlock}}
+    {{> Template.contentBlock}}
   </div>
+</template>
+
+<template name="headerTitle">
+	<h1 class="title">{{title}}</h1>
 </template>

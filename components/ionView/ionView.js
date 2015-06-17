@@ -1,14 +1,15 @@
-Template.ionView.rendered = function () {
+Template.ionView.onRendered(function () {
   // Reset our transition preference
   IonNavigation.skipTransitions = false;
 
   // Reset our scroll position
-  var routePath = Router.current().route.path(Router.current().params);
+  var routePath = FlowRouter.current().path;
+
   if(IonScrollPositions[routePath]) {
     $('.overflow-scroll').scrollTop(IonScrollPositions[routePath]);
     delete IonScrollPositions[routePath];
   }
-};
+});
 
 Template.ionView.helpers({
   classes: function () {

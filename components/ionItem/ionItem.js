@@ -72,12 +72,8 @@ Template.ionItem.helpers({
         }
 
       } else {
-        return Router.routes[path].path(Template.parentData(1));
+        return FlowRouter.path(path);
       }
     }
-  },
-
-  attrs: function() {
-    return _.omit(this, 'class', 'href', 'path', 'target', 'avatar');
   }
 });

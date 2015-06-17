@@ -250,7 +250,7 @@ To get a nice Ionic styled list item wrap your content in a `ionItem` block temp
 
 #### Path and Link Examples
 
-Meteor uses Iron:Router. Most are familiar with Iron:Router's [pathFor](https://github.com/EventedMind/iron-router/blob/devel/Guide.md#pathfor) and [urlFor](https://github.com/EventedMind/iron-router/blob/devel/Guide.md#urlfor) helpers. Meteoric lets you tap into those helpers from within `ionItem` or ignore them, the choice is yours.
+Meteor uses Iron:FlowRouter. Most are familiar with Iron:FlowRouter's [pathFor](https://github.com/EventedMind/iron-router/blob/devel/Guide.md#pathfor) and [urlFor](https://github.com/EventedMind/iron-router/blob/devel/Guide.md#urlfor) helpers. Meteoric lets you tap into those helpers from within `ionItem` or ignore them, the choice is yours.
 
 To call IR's `pathFor` you would specify your route in the `path` attribute.
 
@@ -314,7 +314,7 @@ Lastly you can also pass a raw url by including the `href` attribute.
 {{/ionList}}
 ```
 
-**IronRouter's pathFor href**
+**IronFlowRouter's pathFor href**
 
 ```
 {{! href="/item/details/jkh34k234h?parentId=hkjh45j43k3#reviews" }}
@@ -329,7 +329,7 @@ Lastly you can also pass a raw url by including the `href` attribute.
 {{/ionList}}
 ```
 
-**IronRouter's urlFor href**
+**IronFlowRouter's urlFor href**
 
 ```
 {{! href="http://www.example.com/item/details?parentId=hkjh45j43k3" }}

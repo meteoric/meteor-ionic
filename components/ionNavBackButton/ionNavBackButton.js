@@ -1,8 +1,8 @@
 IonScrollPositions = {};
-
-Router.onStop(function () {
+/*
+FlowRouter.onStop(function () {
   IonScrollPositions[this.route.path(this.params)] = $('.overflow-scroll').scrollTop();
-});
+});*/
 
 Template.ionNavBackButton.events({
   'click': function (event, template) {
@@ -10,7 +10,7 @@ Template.ionNavBackButton.events({
     $('[data-navbar-container]').addClass('nav-bar-direction-back');
 
     if (template.backUrl) {
-      Router.go(template.backUrl);
+      FlowRouter.go(template.backUrl);
     } else {
       window.history.back();
     }
@@ -31,7 +31,7 @@ Template.ionNavBackButton.rendered = function () {
   }
 
   if (this.data.path) {
-    backRoute = Router.routes[this.data.path]
+    backRoute = FlowRouter.routes[this.data.path]
     if (!backRoute) {
       console.warn("back to nonexistent route: ", this.data.path);
       return;

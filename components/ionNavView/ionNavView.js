@@ -24,7 +24,7 @@ Template.ionNavView.created = function () {
   }
 };
 
-Template.ionNavView.rendered = function () {
+Template.ionNavView.onRendered(function () {
   var template = this;
 
   this.find('[data-nav-container]')._uihooks = {
@@ -64,7 +64,7 @@ Template.ionNavView.rendered = function () {
       }, template.transitionDuration);
     }
   };
-};
+});
 
 Template.ionNavView.helpers({
   transition: function () {
