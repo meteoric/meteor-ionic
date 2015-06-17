@@ -27,10 +27,14 @@ IonHeaderBar = {
     var leftButtonWidth = 0;
     var rightButtonWidth = 0;
     if ($leftButton.length) {
-      leftButtonWidth = $leftButton.outerWidth();
+      $leftButton.each(function(index, element){
+        leftButtonWidth += $(element).outerWidth();  
+      });  
     }
     if ($rightButton.length) {
-      rightButtonWidth = $rightButton.outerWidth();
+      $rightButton.each(function(index, element){
+        rightButtonWidth += $(element).outerWidth();  
+      });  
     }
 
     // If we're on Android, we only care about the left button
