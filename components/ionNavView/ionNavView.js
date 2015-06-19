@@ -26,16 +26,18 @@ Template.ionNavView.created = function () {
 
 Template.ionNavView.rendered = function () {
   var template = this;
+  var container = this.find('[data-nav-container]');
 
-  this.find('[data-nav-container]')._uihooks = {
+  container._uihooks = {
     insertElement: function(node, next) {
       var $node = $(node);
       if (!template.transition || !$node.hasClass('view') || IonNavigation.skipTransitions) {
-        $node.insertBefore(next);
+        container.insertBefore(node, next);
         return;
       }
 
-      $node.insertBefore(next).addClass('nav-view-entering nav-view-stage');
+      $node.addClass('nav-view-entering nav-view-stage');
+      container.insertBefore(node, next);
       Meteor.setTimeout(function() {
         $node.removeClass('nav-view-stage').addClass('nav-view-active');
       }, 0);
