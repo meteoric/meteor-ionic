@@ -362,3 +362,10 @@ Then attach it to a `button` or `a` element by passing in the name of the templa
 ```
 <button data-ion-modal="myModal">Open Modal</button>
 ```
+
+If you'd like to have another element dismiss the modal, add `data-dismiss=modal` to it. For example, you can create a close button as follows:
+```
+<button class="button button-positive" data-dismiss=modal>
+  Close Modal
+</button>
+```
