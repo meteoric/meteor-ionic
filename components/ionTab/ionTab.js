@@ -28,7 +28,7 @@ Template.ionTab.helpers({
     }
 
     if (this.path && Router.routes[this.path]) {
-      return Router.routes[this.path].path(Template.parentData(1));
+      return Router.routes[this.path].path(Template.currentData());
     }
   },
 
