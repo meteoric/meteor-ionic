@@ -368,7 +368,7 @@ Then attach it to a `button` or `a` element by passing in the name of the templa
 You show alerts using the `ionPopup` component. This can be done as follows:
 
 ```
-IonPopup.alert({title: 'title', subTitle: 'subTitle'});
+IonPopup.alert({title: 'title', subTitle: 'subTitle', template: 'some text to show the user'});
 ```
 
 You can also use `IonPopup.confirm({})`, `IonPopup.prompt({})` and `IonPopup.close()`.
