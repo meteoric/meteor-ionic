@@ -362,3 +362,13 @@ Then attach it to a `button` or `a` element by passing in the name of the templa
 ```
 <button data-ion-modal="myModal">Open Modal</button>
 ```
+
+## Popups
+
+You show alerts using the `ionPopup` component. This can be done as follows:
+
+```
+IonPopup.alert({title: 'title', subTitle: 'subTitle'});
+```
+
+You can also use `IonPopup.confirm({})`, `IonPopup.prompt({})` and `IonPopup.close()`.
