@@ -372,3 +372,10 @@ IonPopup.alert({title: 'title', subTitle: 'subTitle', template: 'some text to sh
 ```
 
 You can also use `IonPopup.confirm({})`, `IonPopup.prompt({})` and `IonPopup.close()`.
+=======
+If you'd like to have another element dismiss the modal, add `data-dismiss=modal` to it. For example, you can create a close button as follows:
+```
+<button class="button button-positive" data-dismiss=modal>
+  Close Modal
+</button>
+```
