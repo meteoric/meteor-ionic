@@ -5,7 +5,7 @@ Template.ionView.rendered = function () {
   // Reset our scroll position
   var routePath = Router.current().route.path(Router.current().params);
   if(IonScrollPositions[routePath]) {
-    $('.overflow-scroll').scrollTop(IonScrollPositions[routePath]);
+    $('.overflow-scroll').not('.nav-view-leaving .overflow-scroll').scrollTop(IonScrollPositions[routePath]);
     delete IonScrollPositions[routePath];
   }
 };
