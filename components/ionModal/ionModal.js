@@ -94,9 +94,9 @@ Template.ionModal.destroyed = function () {
 
 Template.ionModal.helpers({
   barClass: function () {
-    var classes = ['bar', 'bar-header', 'bar-stable'];
-
-    return classes.join(' ');
+    var defaultClasses = ['bar', 'bar-header', 'bar-stable'].join(' ');
+    var customClasses = _.isString(this.barClass) ? this.barClass : '';
+    return [defaultClasses, customClasses].join(' ');
   },
 
   titleClass: function () {
