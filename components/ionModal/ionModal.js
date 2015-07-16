@@ -10,7 +10,8 @@ IonModal = {
 
   open: function (templateName, data) {
     this.template = Template[templateName];
-    var view = Blaze.renderWithData(this.template, data, $('.ionic-body').get(0));
+
+    var view = Blaze.renderWithData(this.template, data, $('body').get(0));
 
     if (!this.view[templateName]) {
       this.view[templateName] = [view];
@@ -94,9 +95,9 @@ Template.ionModal.destroyed = function () {
 
 Template.ionModal.helpers({
   barClass: function () {
-    var classes = ['bar', 'bar-header', 'bar-stable'];
-
-    return classes.join(' ');
+    var defaultClasses = ['bar', 'bar-header', 'bar-stable'].join(' ');
+    var customClasses = _.isString(this.barClass) ? this.barClass : '';
+    return [defaultClasses, customClasses].join(' ');
   },
 
   titleClass: function () {
