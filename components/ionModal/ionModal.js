@@ -10,6 +10,8 @@ IonModal = {
 
   open: function (templateName, data) {
     this.template = Template[templateName];
+
+    if ($('.ionic-body').length == 0) return console.log('Can\'t open ionModal yet, please wait for ionBody to render.');
     var view = Blaze.renderWithData(this.template, data, $('.ionic-body').get(0));
 
     if (!this.view[templateName]) {
