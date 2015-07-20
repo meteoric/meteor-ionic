@@ -43,6 +43,7 @@ IonKeyboard = {
 };
 
 window.addEventListener('native.keyboardshow', function (event) {
+
   // TODO: Android is having problems
   if (Platform.isAndroid()) {
     return;
@@ -63,12 +64,25 @@ window.addEventListener('native.keyboardshow', function (event) {
     $(el).css({bottom: keyboardHeight});
   });
 
-  $('.content.overflow-scroll').on('focus', 'input,textarea', function(event) {
-    var contentOffset = $(event.delegateTarget).offset().top;
-    var padding = 10;
-    var scrollTo = $(event.delegateTarget).scrollTop() + $(this).offset().top - (contentOffset + padding);
-    $(event.delegateTarget).scrollTop(scrollTo);
-  });
+});
+
+Meteor.startup(function() {
+  if (Meteor.isCordova) {
+
+    // Scroll to make input on top of the page
+    // #TODO Correct behavior should be: if the input is behind the keyboard, scroll to make it visible on top of the keyboard
+    $(document).delegate('input, textarea', 'touchstart, focus', function(event) {
+      var $input = $(event.currentTarget);
+      var $container = $($(event.currentTarget).parents('.content.overflow-scroll').get(0));
+      var contentOffset = $container.offset().top;
+      var padding = 10;
+      var scrollTo = $container.scrollTop() + $input.offset().top - contentOffset - padding;
+      setTimeout(function() {
+        $container.scrollTop(scrollTo);
+      }, 0);
+    });
+
+  }
 });
 
 window.addEventListener('native.keyboardhide', function (event) {
@@ -76,7 +90,8 @@ window.addEventListener('native.keyboardhide', function (event) {
   if (Platform.isAndroid()) {
     return;
   }
-  
+
+  $('input, textarea').blur();
   $('body').removeClass('keyboard-open');
 
   // Detach any elements that were attached
