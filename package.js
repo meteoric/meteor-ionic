@@ -53,7 +53,7 @@ Package.onUse(function(api) {
     "components/ionItem/ionItem.js",
 
     "components/ionKeyboard/ionKeyboard.js",
-    "components/ionKeyboard/ionFocus.js",
+    "components/ionKeyboard/ionInputFocus.js",
 
     "components/ionList/ionList.html",
     "components/ionList/ionList.js",
