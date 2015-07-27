@@ -1,7 +1,21 @@
 IonScrollPositions = {};
 
-Router.onStop(function () {
-  IonScrollPositions[this.route.path(this.params)] = $('.overflow-scroll').scrollTop();
+Meteor.startup(function () {
+  Platform.withRouter({
+    'iron:router': function () {
+      Router.onStop(function () {
+        IonScrollPositions[this.route.path(this.params)] = $('.overflow-scroll').scrollTop();
+      });
+    },
+    
+    'meteorhacks:flow-router': function () {
+      if (FlowRouter.triggers) {
+        FlowRouter.triggers.exit([function (context) {
+          IonScrollPositions[context.path] = $('.overflow-scroll').scrollTop();
+        }]);
+      }
+    }
+  });
 });
 
 Template.ionNavBackButton.events({
@@ -10,9 +24,18 @@ Template.ionNavBackButton.events({
     $('[data-navbar-container]').addClass('nav-bar-direction-back');
     
     //get most up-to-date url, if it exists
-    backUrl = template.getBackUrl()
+    var backUrl = template.getBackUrl();
+    
     if (backUrl) {
-      Router.go(backUrl);
+      Platform.withRouter({
+        'iron:router': function () {
+          Router.go(backUrl);
+        },
+        
+        'meteorhacks:flow-router': function () {
+          FlowRouter.go(backUrl);
+        }
+      });
     } else {
       window.history.back();
     }
@@ -24,26 +47,36 @@ Template.ionNavBackButton.created = function () {
 };
 
 Template.ionNavBackButton.rendered = function () {
-  var self = this;
   this.getBackUrl = function () {
     var backUrl = null;
 
-    self.data = self.data || {};
+    var data = this.data || {};
   
-    if (self.data.href) {
-      backUrl = self.data.href;
+    if (data.href) {
+      backUrl = data.href;
     }
   
-    if (self.data.path) {
-      backRoute = Router.routes[self.data.path]
-      if (!backRoute) {
-        console.warn("back to nonexistent route: ", self.data.path);
-        return;
-      }
-      backUrl = backRoute.path(Template.parentData(1));
+    if (data.path) {
+      var parentData = Template.parentData(1);
+      
+      backUrl = Platform.withRouter({
+        'iron:router': function () {
+          var backRoute = Router.routes[data.path];
+          if (! backRoute) {
+            console.warn("Back to nonexistent route:", data.path);
+            return;
+          }
+          return backRoute.path(parentData);
+        }.bind(this),
+        
+        'meteorhacks:flow-router': function () {
+          return FlowRouter.path(data.path, parentData.params, parentData.query);
+        }.bind(this)
+      });
     }
+    
     return backUrl;
-  };
+  }.bind(this);
 };
 
 Template.ionNavBackButton.helpers({
@@ -72,7 +105,7 @@ Template.ionNavBackButton.helpers({
   text: function () {
     if (this.text) {
       return this.text;
-    } else if(this.text !== false) {
+    } else if (this.text !== false) {
       return 'Back';
     }
   }

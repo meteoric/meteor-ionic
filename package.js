@@ -11,8 +11,9 @@ Cordova.depends({
 
 Package.onUse(function(api) {
   api.versionsFrom("1.0");
-  api.use(["templating", "underscore", "fastclick", "iron:router@1.0.0", "tracker", "session"], "client");
-
+  api.use(["templating", "underscore", "fastclick", "tracker", "session"], "client");
+  api.use('iron:router@1.0.0', 'client', { weak: true });
+  api.use('meteorhacks:flow-router@1.0.0 || 2.0.0', 'client', { weak: true });
   api.addFiles([
     "vendor/snap.js",
     "vendor/snap.css",

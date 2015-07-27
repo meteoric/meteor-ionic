@@ -7,6 +7,14 @@ Platform = {
   isAndroid: function () {
     return navigator.userAgent.indexOf('Android') > 0
            || Session.get('platformOverride') === 'Android';
+  },
+  
+  withRouter: function (routerAction) {
+    if (Package['iron:router']) {
+      return routerAction['iron:router']();
+    } else if (Package['meteorhacks:flow-router']) {
+      return routerAction['meteorhacks:flow-router']();
+    }
   }
 };
 

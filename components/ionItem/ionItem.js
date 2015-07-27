@@ -37,7 +37,7 @@ Template.ionItem.helpers({
   },
 
   isAnchor: function () {
-    return _.some([this.href,this.path,this.url,this.route],function(path){return path != undefined});
+    return _.some([this.href, this.path, this.url, this.route], function (path) { return path != undefined });
   },
 
   target: function () {
@@ -48,32 +48,44 @@ Template.ionItem.helpers({
     if (this.href) {
       return this.href;
     }
+    
+    var parentData = Template.parentData(1);
+    
+    return Platform.withRouter({
+      'iron:router': function () {
+        if (this.path || this.url || this.route) {
 
-    if ( this.path || this.url || this.route ) {
-
-      var path = _.find([this.path,this.url,this.route],function(path){return path !=undefined});
-
-      if ( this.query || this.hash || this.data ){
-
-        var hash = {};
-        hash.route = path;
-        hash.query = this.query;
-        hash.hash = this.hash;
-        hash.data = this.data;
-        var options = new Spacebars.kw(hash);
-
-        // Devs may pass 'route=x' instead of 'path=' or 'url='
-        // Should doing that throw an error? Not sure but we decided to
-        // parse it as if the dev passed it as 'path='
-        if (this.url){
-          return Blaze._globalHelpers.urlFor(options)
-        } else if( this.path || this.route ) {
-          return Blaze._globalHelpers.pathFor(options)
+          var path = _.find([this.path, this.url, this.route], function (path) { return path != undefined });
+    
+          if (this.query || this.hash || this.data) {
+    
+            var hash = {};
+            hash.route = path;
+            hash.query = this.query;
+            hash.hash = this.hash;
+            hash.data = this.data;
+            var options = new Spacebars.kw(hash);
+    
+            // Devs may pass 'route=x' instead of 'path=' or 'url='
+            // Should doing that throw an error? Not sure but we decided to
+            // parse it as if the dev passed it as 'path='
+            if (this.url) {
+              return Blaze._globalHelpers.urlFor(options);
+            } else if (this.path || this.route) {
+              return Blaze._globalHelpers.pathFor(options);
+            }
+    
+          } else {
+            return Router.routes[path].path(parentData);
+          }
         }
-
-      } else {
-        return Router.routes[path].path(Template.parentData(1));
-      }
-    }
+      }.bind(this),
+      
+      'meteorhacks:flow-router': function () {
+        if (this.path) {
+          return FlowRouter.path(this.path, this.params, this.query);
+        }
+      }.bind(this)
+    });
   }
 });
