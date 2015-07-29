@@ -26,7 +26,7 @@ Template.ionTab.helpers({
     if (this.href) {
       return this.href;
     }
-
+    
     var routeExists =_.reject(FlowRouter._routes, function(route) {
       return route.path === this.path;
     });

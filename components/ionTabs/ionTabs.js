@@ -31,11 +31,11 @@ Template.ionTabs.helpers({
       classes.push(this.class);
     }
 
-    if (this.style === 'android') {
+    if (this.style === 'android' || ( !this.style && Platform.isAndroid()) ) {
       classes.push('tabs-top tabs-striped tabs-icon-left');
     }
 
-    if (this.style === 'ios') {
+    if (this.style === 'ios' || ( !this.style && Platform.isIOS()) ) {
       classes.push('tabs-icon-top');
     }
 

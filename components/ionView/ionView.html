@@ -1,13 +1,10 @@
 <template name="ionView">
-  {{#if data.title}}
-    {{> headerTitle title=data.title}}
+  {{#if title}}
+		<h1 class="title">{{title}}</h1>
+    {{! > headerTitle title=data.title}}
   {{/if}}
 
   <div class="{{classes}}">
     {{> Template.contentBlock}}
   </div>
-</template>
-
-<template name="headerTitle">
-	<h1 class="title">{{title}}</h1>
 </template>

@@ -6,7 +6,7 @@ Template.ionView.onRendered(function () {
   var routePath = FlowRouter.current().path;
 
   if(IonScrollPositions[routePath]) {
-    $('.overflow-scroll').scrollTop(IonScrollPositions[routePath]);
+    $('.overflow-scroll').not('.nav-view-leaving .overflow-scroll').scrollTop(IonScrollPositions[routePath]);
     delete IonScrollPositions[routePath];
   }
 });
@@ -20,10 +20,5 @@ Template.ionView.helpers({
     }
 
     return classes.join(' ');
-  },
-  title: function () {
-    if ( Template.instance().data && Template.instance().data.title ) {
-      return Template.instance().data.title;
-    }
   }
 });

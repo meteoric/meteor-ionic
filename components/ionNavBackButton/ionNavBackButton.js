@@ -36,9 +36,17 @@ Template.ionNavBackButton.rendered = function () {
       console.warn("back to nonexistent route: ", this.data.path);
       return;
     }
-    this.backUrl = backRoute.path(Template.parentData(1));
-  }
-
+  
+    if (self.data.path) {
+      backRoute = Router.routes[self.data.path]
+      if (!backRoute) {
+        console.warn("back to nonexistent route: ", self.data.path);
+        return;
+      }
+      backUrl = backRoute.path(Template.parentData(1));
+    }
+    return backUrl;
+  };
 };
 
 Template.ionNavBackButton.helpers({

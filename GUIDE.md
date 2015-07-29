@@ -3,7 +3,7 @@ Make sure you have the required packages installed:
 
 ```
 iron:router
-fourseven:scss
+fourseven:scss@2.0.0
 meteoric:ionic-sass
 meteoric:ionicons-sass
 meteoric:ionic
@@ -201,7 +201,7 @@ This is where `iron:layout` comes into play. Our `ionNavBar` component exposes t
 
 ## Tabs
 
-To create Ionic style tabs you need to wrap your tabs into an `ionTabs` component. You can add the ionic tab classes to determine the style of your tabs. Single tabs are created with the `ionTab` element. The text of a tab is set with the `title` attribute. If you use icon tabs you can add ionicons with the `iconOff` and `iconOn`  attributes. You can also set a path to link the tab to an iron router route. Example:
+To create Ionic style tabs you need to wrap your tabs into an `ionTabs` component. You can add the ionic tab classes to determine the style of your tabs. Single tabs are created with the `ionTab` element. The text of a tab is set with the `title` attribute. If you use icon tabs you can add ionicons with the `iconOff` and `iconOn`  attributes. If you take a look at the official Ionicons site for icon refrences they append `ion-` to their icon names, luckily you do not need to add the `ion-` part when adding ionicons in ionTabs. You can also set a path to link the tab to an iron router route. Example:
 
 ```
 {{#ionTabs class="tabs-positive tabs-icon-top"}}
@@ -361,4 +361,11 @@ Then attach it to a `button` or `a` element by passing in the name of the templa
 
 ```
 <button data-ion-modal="myModal">Open Modal</button>
+```
+
+If you'd like to have another element dismiss the modal, add `data-dismiss=modal` to it. For example, you can create a close button as follows:
+```
+<button class="button button-positive" data-dismiss=modal>
+  Close Modal
+</button>
 ```
