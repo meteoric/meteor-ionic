@@ -10,7 +10,7 @@ Template.ionItem.helpers({
     }
 
     if (this.avatar) {
-      classes.push('item-avatar');
+      classes.push('item-avatar' + (this.avatar === 'right' ? '-right' : ''));
     }
 
     if (this.iconLeft) {
