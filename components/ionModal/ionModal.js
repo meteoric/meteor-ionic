@@ -7,61 +7,69 @@ IonModal = {
   leaveActiveClass: 'ng-leave-active',
   view: {},
   views: [],
-
   open: function (templateName, data) {
-    this.template = Template[templateName];
 
+    this.template = Template[templateName];
     var view = Blaze.renderWithData(this.template, data, $('body').get(0));
 
-    if (!this.view[templateName]) {
-      this.view[templateName] = [view];
-    } else {
-      this.view[templateName].push(view);
-    }
-
     this.views.push(templateName);
+    if (!this.view[templateName]) this.view[templateName] = [];
+    this.view[templateName].push(view);
 
     var $modalBackdrop = $(view.firstNode());
+    var $modal = $('.modal', $modalBackdrop);
 
     if (this.views.length === 1) {
       $modalBackdrop.addClass('active');
     }
 
-    var $modalEl = $modalBackdrop.find('.modal').eq(0);
-    $modalEl.addClass(this.enterClasses.join(' '));
+    $modal.addClass(this.enterClasses.join(' '));
+    setTimeout(function () {
+      $modal.addClass(this.enterActiveClass);
+    }.bind(this), 50);
 
-    $modalEl.on(this.transitionEndEvent, function () {
-      $('body').addClass('modal-open');
-      $modalEl.removeClass(this.enterClasses.join(' ')).removeClass(this.enterActiveClass).off('webkitAnimationEnd');
-    }.bind(this));
-
-    Meteor.setTimeout(function () {
-      $modalEl.addClass(this.enterActiveClass);
-    }.bind(this), 10);
   },
-
   close: function () {
-    var templateName = this.views.pop();
-    var view = this.view[templateName].pop();
-    var $modalBackdrop = $(view.firstNode());
 
-    if (!this.views.length) {
+    var templateName = this.views[this.views.length-1];
+    var viewArray = this.view[templateName];
+    var view = viewArray[viewArray.length-1];
+
+    var $modalBackdrop = $(view.firstNode());
+    var $modal = $('.modal', $modalBackdrop);
+
+    if (this.views.length === 0) {
       $modalBackdrop.removeClass('active');
     }
 
-    var $modalEl = $modalBackdrop.find('.modal').eq(0);
-    $modalEl.addClass(this.leaveClasses.join(' '));
+    $modal.addClass(this.leaveClasses.join(' '));
+    setTimeout(function () {
+      $modal.addClass(this.leaveActiveClass);
+    }.bind(this), 50);
 
-    Meteor.setTimeout(function() {
-      $modalEl.addClass(this.leaveActiveClass);
-    }.bind(this), 10);
-
-    $modalEl.on(this.transitionEndEvent, function () {
-      $('body').removeClass('modal-open');
+    setTimeout(function () {
+      $modal.off(this.transitionEndEvent);
+      $modalBackdrop.remove();
       Blaze.remove(view);
-    }.bind(this));
+    }.bind(this), 500);
+
   }
 };
+
+$(document).delegate('.modal', IonModal.transitionEndEvent, function(e) {
+  var $modal = $(e.target);
+  if ($modal.hasClass(IonModal.enterClasses.join(' ')) || $modal.hasClass(IonModal.enterActiveClasse)) {
+    $modal.removeClass(IonModal.enterClasses.join(' ')).removeClass(IonModal.enterActiveClass);
+    $('body').addClass('modal-open');
+  } else {
+    $modal.removeClass(IonModal.leaveClasses.join(' ')).removeClass(IonModal.leaveActiveClass).off(IonModal.transitionEndEvent);
+    $('body').removeClass('modal-open');
+    $(e.target).parents('.modal-backdrop').remove();
+    var templateName = IonModal.views.pop();
+    var view = IonModal.view[templateName].pop();
+    Blaze.remove(view);
+  }
+});
 
 Template.ionModal.created = function () {
   this.data = this.data || {};
@@ -139,6 +147,7 @@ Template.ionModal.helpers({
 
     return classes.join(' ');
   }
+
 });
 
 Template.ionModal.events({

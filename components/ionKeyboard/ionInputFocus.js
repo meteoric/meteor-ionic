@@ -5,20 +5,38 @@ Meteor.startup(function() {
       return $($element.parents('.content.overflow-scroll').get(0));
     }
 
+    var focusPadding = 20;
+    var isBehindKeyboard = function($focused, keyboardHeight) {
+      var keyboardTop = $(window).innerHeight() - keyboardHeight;
+      var focusedBottom = $focused.offset().top + $focused.innerHeight();
+      var focusedIsBehindKeyboard = focusedBottom > keyboardTop - focusPadding;
+      return focusedIsBehindKeyboard;
+    }
+
+    var getScrollToPosition = function($focused, $container, keyboardHeight) {
+
+      var scrollTo = $container.scrollTop() + $focused.offset().top - $container.offset().top - focusPadding;
+      return scrollTo;
+
+    }
+
     // Scroll to make input on top of the page
     // #TODO Correct behavior should be: if the input is behind the keyboard, scroll to make it visible on top of the keyboard
-    var scrollToFocusedElement = function($focused) {
+    scrollToFocusedElement = function($focused, keyboardHeight) {
       $focused = $focused || $(':focus');
       var $container = getScrollContainer($focused);
       if (!$focused.length || !$container.length) return;
-      var contentOffset = $container.offset().top;
-      var padding = 10;
-      var scrollTo = $container.scrollTop() + $focused.offset().top - contentOffset - padding;
+      var focusedIsBehindKeyboard = isBehindKeyboard($focused, keyboardHeight);
+      if (!focusedIsBehindKeyboard) return;
+      var scrollTo = getScrollToPosition($focused, $container, keyboardHeight);
       setTimeout(function() {
-        $container.animate({ scrollTop: scrollTo }, 400, function() {
-          // Fix floating input cursor bug (https://github.com/twbs/bootstrap/issues/14708, https://github.com/cubiq/iscroll/issues/178)
-          var display = $focused.css('display');
-          $focused.css({ display: 'none' }).css({ display: display });
+        $container.animate({ scrollTop: scrollTo }, {
+          duration: 400,
+          complete: function() {
+            // Fix floating input cursor bug (https://github.com/twbs/bootstrap/issues/14708, https://github.com/cubiq/iscroll/issues/178)
+            var display = $focused.css('display');
+            $focused.css({ display: 'none' }).css({ display: display });
+          }
         });
       }, 0);
     }
@@ -40,10 +58,6 @@ Meteor.startup(function() {
       var isInput = _.contains(['INPUT', 'TEXTAREA'], event.target.tagName);
       var isFocused = $target.is(':focus');
       if (isInput && !isFocused && !scrollHappened) $target.focus();
-    });
-
-    $(document).delegate('input, textarea', 'focus', function(event) {
-      scrollToFocusedElement($(event.currentTarget));
     });
 
   }

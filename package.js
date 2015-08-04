@@ -17,7 +17,8 @@ Package.onUse(function(api) {
     "fastclick",
     "iron:router@1.0.0",
     "tracker",
-    "session"
+    "session",
+    "jquery"
   ], "client");
 
   api.addFiles([

@@ -64,6 +64,9 @@ window.addEventListener('native.keyboardshow', function (event) {
     $(el).css({bottom: keyboardHeight});
   });
 
+  // Scroll to the focused element
+  scrollToFocusedElement(null, keyboardHeight);
+
 });
 
 window.addEventListener('native.keyboardhide', function (event) {
@@ -73,7 +76,7 @@ window.addEventListener('native.keyboardhide', function (event) {
     return;
   }
 
-  $('input, textarea').blur();
+  // $('input, textarea').blur();
   $('body').removeClass('keyboard-open');
 
   // Detach any elements that were attached
