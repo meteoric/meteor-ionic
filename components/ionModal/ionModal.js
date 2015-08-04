@@ -7,61 +7,74 @@ IonModal = {
   leaveActiveClass: 'ng-leave-active',
   view: {},
   views: [],
-
   open: function (templateName, data) {
-    this.template = Template[templateName];
-
-    var view = Blaze.renderWithData(this.template, data, $('body').get(0));
-
-    if (!this.view[templateName]) {
-      this.view[templateName] = [view];
-    } else {
-      this.view[templateName].push(view);
-    }
-
-    this.views.push(templateName);
-
-    var $modalBackdrop = $(view.firstNode());
-
-    if (this.views.length === 1) {
-      $modalBackdrop.addClass('active');
-    }
-
-    var $modalEl = $modalBackdrop.find('.modal').eq(0);
-    $modalEl.addClass(this.enterClasses.join(' '));
-
-    $modalEl.on(this.transitionEndEvent, function () {
-      $('body').addClass('modal-open');
-      $modalEl.removeClass(this.enterClasses.join(' ')).removeClass(this.enterActiveClass).off('webkitAnimationEnd');
-    }.bind(this));
 
     Meteor.setTimeout(function () {
-      $modalEl.addClass(this.enterActiveClass);
-    }.bind(this), 10);
+
+      this.template = Template[templateName];
+      this.views.push(templateName);
+      if (!this.view[templateName]) this.view[templateName] = [];
+
+      var view = Blaze.renderWithData(this.template, data, $('body').get(0));
+      this.view[templateName].push(view);
+
+      var $modalBackdrop = $(view.firstNode());
+      var $modal = $('.modal', $modalBackdrop);
+
+      if (this.views.length === 1) {
+        $modalBackdrop.addClass('active');
+      }
+
+      $modal.addClass(this.enterClasses.join(' '));
+      Meteor.setTimeout(function () {
+        $modal.addClass(this.enterActiveClass);
+      }.bind(this), 50);
+
+    }.bind(this), 0);
+
   },
-
   close: function () {
-    var templateName = this.views.pop();
-    var view = this.view[templateName].pop();
-    var $modalBackdrop = $(view.firstNode());
 
-    if (!this.views.length) {
-      $modalBackdrop.removeClass('active');
-    }
+    Meteor.setTimeout(function () {
 
-    var $modalEl = $modalBackdrop.find('.modal').eq(0);
-    $modalEl.addClass(this.leaveClasses.join(' '));
+      var templateName = this.views[this.views.length-1];
+      var viewArray = this.view[templateName] || [];
+      var view = viewArray[viewArray.length-1];
+      if (!view) return;
 
-    Meteor.setTimeout(function() {
-      $modalEl.addClass(this.leaveActiveClass);
-    }.bind(this), 10);
+      var $modalBackdrop = $(view.firstNode());
+      var $modal = $('.modal', $modalBackdrop);
 
-    $modalEl.on(this.transitionEndEvent, function () {
-      $('body').removeClass('modal-open');
-      Blaze.remove(view);
-    }.bind(this));
+      $modal.addClass(this.leaveClasses.join(' '));
+      Meteor.setTimeout(function () {
+        $modal.addClass(this.leaveActiveClass);
+      }.bind(this), 50);
+
+      $modalBackdrop.fadeOut(500, function() {
+        $('body').removeClass('modal-open');
+      });
+
+    }.bind(this), 0);
+
   }
 };
+
+$(document).delegate('.modal', IonModal.transitionEndEvent, function(e) {
+  var $modal = $(e.currentTarget);
+  if ($modal.hasClass(IonModal.enterClasses.join(' ')) || $modal.hasClass(IonModal.enterActiveClasse)) {
+    $modal.removeClass(IonModal.enterClasses.join(' ')).removeClass(IonModal.enterActiveClass);
+    $('body').addClass('modal-open');
+  } else if ($modal.hasClass(IonModal.leaveClasses.join(' ')) || $modal.hasClass(IonModal.leaveActiveClasse)) {
+    var templateName = IonModal.views.pop();
+    var view = IonModal.view[templateName].pop();
+    var $modalBackdrop = $(view.firstNode());
+    $modalBackdrop.removeClass('active');
+    $modal.removeClass(IonModal.leaveClasses.join(' ')).removeClass(IonModal.leaveActiveClass).off(IonModal.transitionEndEvent);
+    $('body').removeClass('modal-open');
+    $(e.target).parents('.modal-backdrop').remove();
+    Blaze.remove(view);
+  }
+});
 
 Template.ionModal.created = function () {
   this.data = this.data || {};
@@ -75,10 +88,10 @@ Template.ionModal.created = function () {
 Template.ionModal.rendered = function () {
   if (this.focusFirstInput) {
     Meteor.setTimeout(function () {
+      if (!this._domrange) return;
       this.$('input:first').focus();
     }.bind(this), 600);
   }
-
   $(window).on('keyup.ionModal', function(event) {
     event.stopImmediatePropagation();
     if (event.which == 27) {
@@ -119,11 +132,7 @@ Template.ionModal.helpers({
   },
 
   animation: function () {
-    if (this.animation) {
-      return this.animation;
-    } else {
-      return 'slide-in-up';
-    }
+    return this.animation || 'slide-in-up';
   },
 
   customTemplate: function () {
@@ -139,6 +148,7 @@ Template.ionModal.helpers({
 
     return classes.join(' ');
   }
+
 });
 
 Template.ionModal.events({
