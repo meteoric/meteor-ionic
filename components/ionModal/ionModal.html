@@ -1,25 +1,23 @@
 <template name="ionModal">
-  <div class="modal-backdrop">
-    <div class="modal-wrapper">
-      <div class="{{classes}}">
+  <div class="modal-wrapper">
+    <div class="{{classes}}">
 
-        {{#if customTemplate}}
+      {{#if customTemplate}}
+        {{> UI.contentBlock}}
+      {{else}}
+        <div class="{{barClass}}">
+          <h2 class="{{titleClass}}">{{title}}</h2>
+          {{#if closeText}}
+            <button data-dismiss="modal" class="button button-positive button-clear">{{closeText}}</button>
+          {{else}}
+            <button data-dismiss="modal" class="button button-icon"><i class="icon ion-ios-close-empty"></i></button>
+          {{/if}}
+        </div>
+        <div class="content has-header overflow-scroll">
           {{> UI.contentBlock}}
-        {{else}}
-          <div class="{{barClass}}">
-            <h2 class="{{titleClass}}">{{title}}</h2>
-            {{#if closeText}}
-              <button data-dismiss="modal" class="button button-positive button-clear">{{closeText}}</button>
-            {{else}}
-              <button data-dismiss="modal" class="button button-icon"><i class="icon ion-ios-close-empty"></i></button>
-            {{/if}}
-          </div>
-          <div class="content has-header overflow-scroll">
-            {{> UI.contentBlock}}
-          </div>
-        {{/if}}
+        </div>
+      {{/if}}
 
-      </div>
     </div>
   </div>
 </template>
