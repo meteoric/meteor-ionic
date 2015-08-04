@@ -31,6 +31,7 @@ IonModal = {
   },
   close: function () {
 
+    console.log('closing modal.');
     var templateName = this.views[this.views.length-1];
     var viewArray = this.view[templateName] || [];
     var view = viewArray[viewArray.length-1];
@@ -52,7 +53,7 @@ $(document).delegate('.modal', IonModal.transitionEndEvent, function(e) {
   if ($modal.hasClass(IonModal.enterClasses.join(' ')) || $modal.hasClass(IonModal.enterActiveClasse)) {
     $modal.removeClass(IonModal.enterClasses.join(' ')).removeClass(IonModal.enterActiveClass);
     $('body').addClass('modal-open');
-  } else {
+  } else if ($modal.hasClass(IonModal.leaveClasses.join(' ')) || $modal.hasClass(IonModal.leaveActiveClasse)) {
     var templateName = IonModal.views.pop();
     var view = IonModal.view[templateName].pop();
     var $modalBackdrop = $(view.firstNode());
