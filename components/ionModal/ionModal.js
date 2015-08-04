@@ -31,7 +31,6 @@ IonModal = {
   },
   close: function () {
 
-    console.log('closing modal.');
     var templateName = this.views[this.views.length-1];
     var viewArray = this.view[templateName] || [];
     var view = viewArray[viewArray.length-1];
