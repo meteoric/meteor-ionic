@@ -9,40 +9,52 @@ IonModal = {
   views: [],
   open: function (templateName, data) {
 
-    this.template = Template[templateName];
-    this.views.push(templateName);
-    if (!this.view[templateName]) this.view[templateName] = [];
-
-    var view = Blaze.renderWithData(this.template, data, $('body').get(0));
-    this.view[templateName].push(view);
-
-    var $modalBackdrop = $(view.firstNode());
-    var $modal = $('.modal', $modalBackdrop);
-
-    if (this.views.length === 1) {
-      $modalBackdrop.addClass('active');
-    }
-
-    $modal.addClass(this.enterClasses.join(' '));
     Meteor.setTimeout(function () {
-      $modal.addClass(this.enterActiveClass);
-    }.bind(this), 50);
+
+      this.template = Template[templateName];
+      this.views.push(templateName);
+      if (!this.view[templateName]) this.view[templateName] = [];
+
+      var view = Blaze.renderWithData(this.template, data, $('body').get(0));
+      this.view[templateName].push(view);
+
+      var $modalBackdrop = $(view.firstNode());
+      var $modal = $('.modal', $modalBackdrop);
+
+      if (this.views.length === 1) {
+        $modalBackdrop.addClass('active');
+      }
+
+      $modal.addClass(this.enterClasses.join(' '));
+      Meteor.setTimeout(function () {
+        $modal.addClass(this.enterActiveClass);
+      }.bind(this), 50);
+
+    }.bind(this), 0);
 
   },
   close: function () {
 
-    var templateName = this.views[this.views.length-1];
-    var viewArray = this.view[templateName] || [];
-    var view = viewArray[viewArray.length-1];
-    if (!view) return;
-
-    var $modalBackdrop = $(view.firstNode());
-    var $modal = $('.modal', $modalBackdrop);
-
-    $modal.addClass(this.leaveClasses.join(' '));
     Meteor.setTimeout(function () {
-      $modal.addClass(this.leaveActiveClass);
-    }.bind(this), 50);
+
+      var templateName = this.views[this.views.length-1];
+      var viewArray = this.view[templateName] || [];
+      var view = viewArray[viewArray.length-1];
+      if (!view) return;
+
+      var $modalBackdrop = $(view.firstNode());
+      var $modal = $('.modal', $modalBackdrop);
+
+      $modal.addClass(this.leaveClasses.join(' '));
+      Meteor.setTimeout(function () {
+        $modal.addClass(this.leaveActiveClass);
+      }.bind(this), 50);
+
+      $modalBackdrop.fadeOut(500, function() {
+        $('body').removeClass('modal-open');
+      });
+
+    }.bind(this), 0);
 
   }
 };
@@ -80,7 +92,6 @@ Template.ionModal.rendered = function () {
       this.$('input:first').focus();
     }.bind(this), 600);
   }
-
   $(window).on('keyup.ionModal', function(event) {
     event.stopImmediatePropagation();
     if (event.which == 27) {
@@ -121,11 +132,7 @@ Template.ionModal.helpers({
   },
 
   animation: function () {
-    if (this.animation) {
-      return this.animation;
-    } else {
-      return 'slide-in-up';
-    }
+    return this.animation || 'slide-in-up';
   },
 
   customTemplate: function () {
