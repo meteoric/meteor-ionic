@@ -33,13 +33,15 @@ IonModal = {
     }.bind(this), 0);
 
   },
-  close: function () {
+  close: function (templateName) {
 
+    this.templateClosed = templateName;
     Meteor.setTimeout(function () {
 
-      var templateName = this.views[this.views.length-1];
-      var viewArray = this.view[templateName] || [];
-      var view = viewArray[viewArray.length-1];
+      var templateName = this.templateClosed || this.views[this.views.length-1];
+      delete this.templateClosed;
+
+      var view = (this.view[templateName] || []).slice(-1)[0];
       if (!view) return;
 
       var $modalBackdrop = $(view.firstNode());
@@ -65,7 +67,9 @@ $(document).delegate('.modal', IonModal.transitionEndEvent, function(e) {
     $modal.removeClass(IonModal.enterClasses.join(' ')).removeClass(IonModal.enterActiveClass);
     $('body').addClass('modal-open');
   } else if ($modal.hasClass(IonModal.leaveClasses.join(' ')) || $modal.hasClass(IonModal.leaveActiveClasse)) {
-    var templateName = IonModal.views.pop();
+    var firstChild = $modal.children().first();
+    var templateName = getElementModalTemplateName(firstChild);
+    IonModal.views = _.without(IonModal.views, templateName);
     var view = IonModal.view[templateName].pop();
     var $modalBackdrop = $(view.firstNode());
     $modalBackdrop.removeClass('active');
@@ -158,8 +162,16 @@ Template.ionModal.events({
       IonModal.close();
     }
   },
-
   'click [data-dismiss=modal]': function (event, template) {
-    IonModal.close();
+    var tplName = getElementModalTemplateName(event.currentTarget);
+    IonModal.close(tplName);
   }
 });
+
+var getElementModalTemplateName = function(element) {
+  var modal = $(element).parents('.modal').get(0);
+  var modalView = Blaze.getView(modal);
+  var tplView = Meteor._get(modalView, 'parentView', 'parentView'); // Twice because the parent view is a #with block
+  var tplName = tplView.name.slice('Template.'.length, tplView.name.length);
+  return tplName;
+}
