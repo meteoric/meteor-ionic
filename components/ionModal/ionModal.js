@@ -38,7 +38,7 @@ IonModal = {
     this.templateClosed = templateName;
     Meteor.setTimeout(function () {
 
-      var templateName = this.templateClosed || this.views[this.views.length-1];
+      var templateName = this.templateClosed || this.views.slice(-1)[0];
       delete this.templateClosed;
 
       var view = (this.view[templateName] || []).slice(-1)[0];
