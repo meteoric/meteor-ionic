@@ -121,12 +121,12 @@ IonPopup = {
   },
 
   close: function () {
-    var $backdrop = $(this.view.firstNode());
-    var $popup = $backdrop.find('.popup-container');
+    var $popup = this._domrange ? $(this.view.firstNode()).find('.popup-container') : $('.popup-container');
     $popup.addClass('popup-hidden').removeClass('active');
 
     setTimeout(function () {
       $('body').removeClass('popup-open');
+      $('.backdrop').remove();
       Blaze.remove(this.view);
     }.bind(this), 100);
   },
