@@ -3,7 +3,16 @@ Template.ionView.rendered = function () {
   IonNavigation.skipTransitions = false;
 
   // Reset our scroll position
-  var routePath = Router.current().route.path(Router.current().params);
+  var routePath = Platform.withRouter({
+    'iron:router': function () {
+      return Router.current().route.path(Router.current().params);
+    },
+    
+    'meteorhacks:flow-router': function () {
+      return FlowRouter.current().path;
+    }
+  });
+  
   if(IonScrollPositions[routePath]) {
     $('.overflow-scroll').not('.nav-view-leaving .overflow-scroll').scrollTop(IonScrollPositions[routePath]);
     delete IonScrollPositions[routePath];

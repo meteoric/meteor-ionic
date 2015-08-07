@@ -26,10 +26,22 @@ Template.ionTab.helpers({
     if (this.href) {
       return this.href;
     }
+    
+    var data = Template.currentData();
 
-    if (this.path && Router.routes[this.path]) {
-      return Router.routes[this.path].path(Template.currentData());
-    }
+    return Platform.withRouter({
+      'iron:router': function () {
+        if (this.path && Router.routes[this.path]) {
+          return Router.routes[this.path].path(data);
+        }
+      }.bind(this),
+      
+      'meteorhacks:flow-router': function () {
+        if (this.path) {
+          return FlowRouter.path(this.path, data.params, data.query);
+        }
+      }.bind(this)
+    });
   },
 
   isActive: function () {
@@ -42,10 +54,23 @@ Template.ionTab.helpers({
     // The initial case where there is no localStorage value and
     // no session variable has been set, this attempts to set the correct tab
     // to active based on the router
-    var route = Router.routes[this.path];
-    if(route && route.path(Template.parentData(1)) === ionTabCurrent){
-      return 'active';
-    }
+    var parentData = Template.parentData(1);
+    
+    return Platform.withRouter({
+      'iron:router': function () {
+        var route = Router.routes[this.path];
+        if (route && route.path(parentData) === ionTabCurrent) {
+          return 'active';
+        }
+      }.bind(this),
+      
+      'meteorhacks:flow-router': function () {
+        var path = FlowRouter.path(this.path, parentData.params, parentData.query);
+        if (path === ionTabCurrent) {
+          return 'active';
+        }
+      }.bind(this)
+    });
   },
 
   activeIcon: function () {
@@ -69,6 +94,6 @@ Template.ionTab.helpers({
   },
 
   badgeColor: function () {
-    return this.badgeColor||'assertive';
+    return this.badgeColor || 'assertive';
   }
 });

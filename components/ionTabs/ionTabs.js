@@ -11,8 +11,16 @@ Template.ionTabs.rendered = function () {
 
   this.$('.tabs').children().each(function() {
     var href = $(this).attr('href');
-    var current = Router.current().location.get().path;
-    if(href === current){
+    var current = Platform.withRouter({
+      'iron:router': function () {
+        return Router.current().location.get().path;
+      },
+      
+      'meteorhacks:flow-router': function () {
+        return FlowRouter.current().path;
+      }
+    });
+    if (href === current){
       Session.set('ionTab.current', href);
     }
   });
