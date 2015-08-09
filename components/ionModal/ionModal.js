@@ -7,6 +7,9 @@ IonModal = {
   leaveActiveClass: 'ng-leave-active',
   view: {},
   views: [],
+  hooksOpen: {},
+  hooksClose: {},
+  hooksAllId: '__all__',
   open: function (templateName, data) {
 
     Meteor.setTimeout(function () {
@@ -29,6 +32,16 @@ IonModal = {
       Meteor.setTimeout(function () {
         $modal.addClass(this.enterActiveClass);
       }.bind(this), 50);
+
+      var hooksAll = this.hooksOpen[this.hooksAllId] || [];
+      _.each(hooksAll, function(hook) {
+        hook.apply(this, [templateName]);
+      });
+
+      var hooks = this.hooksOpen[templateName] || [];
+      _.each(hooks, function(hook) {
+        hook.apply(this, [templateName]);
+      });
 
     }.bind(this), 0);
 
@@ -56,8 +69,34 @@ IonModal = {
         $('body').removeClass('modal-open');
       });
 
+      var hooksAll = this.hooksClose[this.hooksAllId] || [];
+      _.each(hooksAll, function(hook) {
+        hook.apply(this, [templateName]);
+      });
+
+      var hooks = this.hooksClose[templateName] || [];
+      _.each(hooks, function(hook) {
+        hook.apply(this, [templateName]);
+      });
+
     }.bind(this), 0);
 
+  },
+  onOpen: function(templateName, callback) {
+    if (!callback) {
+      callback = templateName;
+      templateName = this.hooksAllId;
+    }
+    this.hooksOpen[templateName] = this.hooksOpen[templateName] || [];
+    this.hooksOpen[templateName].push(callback);
+  },
+  onClose: function(templateName, callback) {
+    if (!callback) {
+      callback = templateName;
+      templateName = this.hooksAllId;
+    }
+    this.hooksClose[templateName] = this.hooksClose[templateName] || [];
+    this.hooksClose[templateName].push(callback);
   }
 };
 
@@ -174,4 +213,4 @@ var getElementModalTemplateName = function(element) {
   var tplView = Meteor._get(modalView, 'parentView', 'parentView'); // Twice because the parent view is a #with block
   var tplName = tplView.name.slice('Template.'.length, tplView.name.length);
   return tplName;
-}
+};
