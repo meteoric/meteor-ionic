@@ -7,7 +7,7 @@ IonLoading = {
       customTemplate: null,
       backdrop: false
     }, userOptions);
-    
+
     if (options.backdrop) {
       IonBackdrop.retain();
       $('.backdrop').addClass('backdrop-loading');
@@ -42,7 +42,10 @@ IonLoading = {
         $loadingEl.removeClass('visible');
         Blaze.remove(this.view);
         this.view = null;
-      }.bind(this), 400);
+      }.bind(this), 0);
     }
+    Meteor.setTimeout(function() {
+      $('.loading-container').remove();
+    }, 0)
   }
 };

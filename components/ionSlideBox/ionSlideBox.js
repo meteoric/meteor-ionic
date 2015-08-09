@@ -20,12 +20,12 @@ Template.ionSlideBox.rendered = function () {
       return '<span class="slider-pager-page icon ion-record"></span>';
     }
   });
-
   this.$('.ion-slide-box').on('afterChange', function (event, slick, currentSlide) {
     $(this).trigger({type: 'onSlideChanged', index: currentSlide});
   });
 };
 
 Template.ionSlideBox.destroyed = function () {
-  this.$('.ion-slide-box').slick('unslick');
+  var $slideBox = this.$('.ion-slide-box');
+  if ($slideBox.hasClass('slick-initialized')) $slideBox.slick('unslick');
 };
