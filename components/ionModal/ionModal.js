@@ -15,7 +15,7 @@ IonModal = {
       this.views.push(templateName);
       if (!this.view[templateName]) this.view[templateName] = [];
 
-      var view = Blaze.renderWithData(this.template, data, $('body').get(0));
+      var view = Blaze.renderWithData(this.template, data, $('.ionic-body').get(0));
       this.view[templateName].push(view);
 
       var $modalBackdrop = $(view.firstNode());
