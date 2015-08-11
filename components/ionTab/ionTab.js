@@ -43,7 +43,7 @@ Template.ionTab.helpers({
     // no session variable has been set, this attempts to set the correct tab
     // to active based on the router
     var route = Router.routes[this.path];
-    if(route && route.path(Template.parentData(1)) === ionTabCurrent){
+    if(route && route.path(Template.currentData()) === ionTabCurrent){
       return 'active';
     }
   },

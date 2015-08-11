@@ -369,3 +369,13 @@ If you'd like to have another element dismiss the modal, add `data-dismiss=modal
   Close Modal
 </button>
 ```
+
+## Popups
+
+You show alerts using the `ionPopup` component. This can be done as follows:
+
+```
+IonPopup.alert({title: 'title', subTitle: 'subTitle', template: 'some text to show the user'});
+```
+
+You can also use `IonPopup.confirm({})`, `IonPopup.prompt({})` and `IonPopup.close()`.
