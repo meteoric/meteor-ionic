@@ -2,7 +2,6 @@ IonPopup = {
   show: function (options) {
     this.template = Template.ionPopup;
     this.buttons = [];
-    var innerTemplate;
 
     for (var i = 0; i < options.buttons.length; i++) {
       var button = options.buttons[i];
@@ -15,6 +14,7 @@ IonPopup = {
     }
 
     //Figure out if a template or just a html string was passed
+    var innerTemplate;
     if (options.templateName) {
       innerTemplate = Template[options.templateName].renderFunction().value;
     } else if (options.template) {
@@ -85,9 +85,10 @@ IonPopup = {
 
   prompt: function (options) {
 
+    var template;
     if (options.templateName) {
       template = Template[options.templateName].renderFunction().value;
-    } else {
+    } else if (options.template) {
       template = '<span>' + options.template + '</span>';
     }
 
