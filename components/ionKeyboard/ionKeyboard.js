@@ -56,8 +56,11 @@ window.addEventListener('native.keyboardshow', function (event) {
   // Attach any elements that want to be attached
   $('[data-keyboard-attach]').each(function (index, el) {
     $(el).data('ionkeyboard.bottom', $(el).css('bottom'));
-    // $(el).css({bottom: keyboardHeight});
-  });
+    // if ($('.comment-item').length < 2) {
+    //   // $(el).css({bottom: keyboardHeight});
+    //   $('.content').css({bottom: keyboardHeight});
+    // }
+});
 
   $('.new-post-footer').each(function (index, el) {
     $(el).data('ionkeyboard.bottom', $(el).css('bottom'));
