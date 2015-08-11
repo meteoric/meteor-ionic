@@ -118,6 +118,7 @@ Package.onUse(function(api) {
 
     "components/ionView/ionView.html",
     "components/ionView/ionView.js"
+
   ], "client");
 
   api.export("Platform");
