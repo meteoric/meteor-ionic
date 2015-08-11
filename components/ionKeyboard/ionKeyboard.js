@@ -59,6 +59,11 @@ window.addEventListener('native.keyboardshow', function (event) {
     // $(el).css({bottom: keyboardHeight});
   });
 
+  $('.new-post-footer').each(function (index, el) {
+    $(el).data('ionkeyboard.bottom', $(el).css('bottom'));
+    $(el).css({bottom: keyboardHeight});
+  });
+
   // Move the bottom of the content area(s) above the top of the keyboard
   // $('.content.overflow-scroll').each(function (index, el) {
   //   $(el).data('ionkeyboard.bottom', $(el).css('bottom'));
