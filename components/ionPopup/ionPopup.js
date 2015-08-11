@@ -17,7 +17,7 @@ IonPopup = {
     //Figure out if a template or just a html string was passed
     if (options.templateName) {
       innerTemplate = Template[options.templateName].renderFunction().value;
-    } else {
+    } else if (options.template) {
       innerTemplate = '<span>' + options.template + '</span>';
     }
 

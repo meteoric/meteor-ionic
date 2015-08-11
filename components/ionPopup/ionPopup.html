@@ -3,14 +3,18 @@
     <div class="popup-container">
       <div class="popup">
         <div class="popup-head">
-          <h3 class="popup-title">{{title}}</h3>
+          {{#if title}}
+            <h3 class="popup-title">{{title}}</h3>
+          {{/if}}
           {{#if subTitle}}
             <h5 class="popup-sub-title">{{subTitle}}</h5>
           {{/if}}
         </div>
-        <div class="popup-body">
-          {{{template}}}
-        </div>
+        {{#if template}}
+          <div class="popup-body">
+            {{{template}}}
+          </div>
+        {{/if}}
         {{#if buttons.length}}
           <div class="popup-buttons">
             {{#each buttons}}

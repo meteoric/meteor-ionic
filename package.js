@@ -18,7 +18,7 @@ Package.onUse(function(api) {
     "iron:router@1.0.0",
     "tracker",
     "session",
-    "jquery"
+    "jquery",
   ], "client");
 
   api.addFiles([
@@ -117,7 +117,8 @@ Package.onUse(function(api) {
     "components/ionTab/ionTab.js",
 
     "components/ionView/ionView.html",
-    "components/ionView/ionView.js"
+    "components/ionView/ionView.js",
+
   ], "client");
 
   api.export("Platform");
