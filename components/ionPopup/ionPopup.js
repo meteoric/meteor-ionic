@@ -13,8 +13,8 @@ IonPopup = {
       });
     }
 
-    //Figure out if a template or just a html string was passed
-    var innerTemplate;
+    // Figure out if a template or just a html string was passed
+    var innerTemplate = '';
     if (options.templateName) {
       innerTemplate = Template[options.templateName].renderFunction().value;
     } else if (options.template) {
@@ -85,13 +85,15 @@ IonPopup = {
 
   prompt: function (options) {
 
-    var template;
+    var template = '';
     if (options.templateName) {
       template = Template[options.templateName].renderFunction().value;
     } else if (options.template) {
-      template = '<span>' + options.template + '</span>';
+      template = '<span class="popup-prompt-text">' + options.template + '</span>';
     }
 
+    options.inputType = options.inputType || 'text';
+    options.inputPlaceholder = options.inputPlaceholder || '';
     template += '<input type="' + options.inputType + '" placeholder="' +
       options.inputPlaceholder + '" name="prompt" >';
 
