@@ -79,6 +79,10 @@ Template.ionModal.rendered = function () {
     }.bind(this), 600);
   }
 
+  Meteor.setTimeout(function () {
+      this.$('textarea').focus();
+    }.bind(this), 600);
+
   $(window).on('keyup.ionModal', function(event) {
     event.stopImmediatePropagation();
     if (event.which == 27) {

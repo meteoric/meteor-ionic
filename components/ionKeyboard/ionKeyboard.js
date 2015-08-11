@@ -56,7 +56,7 @@ window.addEventListener('native.keyboardshow', function (event) {
   // Attach any elements that want to be attached
   $('[data-keyboard-attach]').each(function (index, el) {
     $(el).data('ionkeyboard.bottom', $(el).css('bottom'));
-    $(el).css({bottom: keyboardHeight});
+    // $(el).css({bottom: keyboardHeight});
   });
 
   // Move the bottom of the content area(s) above the top of the keyboard
@@ -68,8 +68,9 @@ window.addEventListener('native.keyboardshow', function (event) {
   // window.scrollTo(0,0);
 
   _.defer(function() {
-    console.log("scrolltop");
-    window.scrollTo(0, 0);
+    // console.log("scrollup");
+    // window.scrollTo(0, 0);
+    // window.scrollTo(0,document.body.scrollHeight);
   });
 
 });
