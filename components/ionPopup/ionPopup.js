@@ -2,7 +2,6 @@ IonPopup = {
   show: function (options) {
     this.template = Template.ionPopup;
     this.buttons = [];
-    var innerTemplate;
 
     for (var i = 0; i < options.buttons.length; i++) {
       var button = options.buttons[i];
@@ -14,10 +13,11 @@ IonPopup = {
       });
     }
 
-    //Figure out if a template or just a html string was passed
+    // Figure out if a template or just a html string was passed
+    var innerTemplate = '';
     if (options.templateName) {
       innerTemplate = Template[options.templateName].renderFunction().value;
-    } else {
+    } else if (options.template) {
       innerTemplate = '<span>' + options.template + '</span>';
     }
 
@@ -64,18 +64,18 @@ IonPopup = {
       templateName: options.templateName,
       buttons: [
         {
-          text: options.okText ? options.okText : 'Ok',
-          type: options.okType ? options.okType : 'button-positive',
-          onTap: function (event, template) {
-            if (options.onOk) options.onOk(event, template);
-            return true;
-          }
-        },
-        {
           text: options.cancelText ? options.cancelText : 'Cancel',
           type: options.cancelType ? options.cancelType : 'button-default',
           onTap: function (event, template) {
             if (options.onCancel) options.onCancel(event, template);
+            return true;
+          }
+        },
+        {
+          text: options.okText ? options.okText : 'Ok',
+          type: options.okType ? options.okType : 'button-positive',
+          onTap: function (event, template) {
+            if (options.onOk) options.onOk(event, template);
             return true;
           }
         }
@@ -85,12 +85,15 @@ IonPopup = {
 
   prompt: function (options) {
 
+    var template = '';
     if (options.templateName) {
       template = Template[options.templateName].renderFunction().value;
-    } else {
-      template = '<span>' + options.template + '</span>';
+    } else if (options.template) {
+      template = '<span class="popup-prompt-text">' + options.template + '</span>';
     }
 
+    options.inputType = options.inputType || 'text';
+    options.inputPlaceholder = options.inputPlaceholder || '';
     template += '<input type="' + options.inputType + '" placeholder="' +
       options.inputPlaceholder + '" name="prompt" >';
 
@@ -100,19 +103,19 @@ IonPopup = {
       template: template,
       buttons: [
         {
+          text: options.cancelText ? options.cancelText : 'Cancel',
+          type: options.cancelType ? options.cancelType : 'button-default',
+          onTap: function (event, template) {
+            if (options.onCancel) options.onCancel(event, template);
+            return true;
+          }
+        },
+        {
           text: options.okText ? options.okText : 'Ok',
           type: options.okType ? options.okType : 'button-positive',
           onTap: function (event, template) {
             var inputVal = $(template.firstNode).find('[name=prompt]').val();
             if (options.onOk) options.onOk(event, inputVal);
-            return true;
-          }
-        },
-        {
-          text: options.cancelText ? options.cancelText : 'Cancel',
-          type: options.cancelType ? options.cancelType : 'button-default',
-          onTap: function (event, template) {
-            if (options.onCancel) options.onCancel(event, template);
             return true;
           }
         }
@@ -166,4 +169,10 @@ Template.ionPopup.events({
     IonPopup.buttonClicked(index, event, template);
   }
 
+});
+
+Template.ionPopup.helpers({
+  hasHead: function() {
+    return this.title || this.subTitle;
+  }
 });
