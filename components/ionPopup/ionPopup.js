@@ -64,18 +64,18 @@ IonPopup = {
       templateName: options.templateName,
       buttons: [
         {
-          text: options.okText ? options.okText : 'Ok',
-          type: options.okType ? options.okType : 'button-positive',
-          onTap: function (event, template) {
-            if (options.onOk) options.onOk(event, template);
-            return true;
-          }
-        },
-        {
           text: options.cancelText ? options.cancelText : 'Cancel',
           type: options.cancelType ? options.cancelType : 'button-default',
           onTap: function (event, template) {
             if (options.onCancel) options.onCancel(event, template);
+            return true;
+          }
+        },
+        {
+          text: options.okText ? options.okText : 'Ok',
+          type: options.okType ? options.okType : 'button-positive',
+          onTap: function (event, template) {
+            if (options.onOk) options.onOk(event, template);
             return true;
           }
         }
@@ -101,19 +101,19 @@ IonPopup = {
       template: template,
       buttons: [
         {
+          text: options.cancelText ? options.cancelText : 'Cancel',
+          type: options.cancelType ? options.cancelType : 'button-default',
+          onTap: function (event, template) {
+            if (options.onCancel) options.onCancel(event, template);
+            return true;
+          }
+        },
+        {
           text: options.okText ? options.okText : 'Ok',
           type: options.okType ? options.okType : 'button-positive',
           onTap: function (event, template) {
             var inputVal = $(template.firstNode).find('[name=prompt]').val();
             if (options.onOk) options.onOk(event, inputVal);
-            return true;
-          }
-        },
-        {
-          text: options.cancelText ? options.cancelText : 'Cancel',
-          type: options.cancelType ? options.cancelType : 'button-default',
-          onTap: function (event, template) {
-            if (options.onCancel) options.onCancel(event, template);
             return true;
           }
         }
@@ -167,4 +167,10 @@ Template.ionPopup.events({
     IonPopup.buttonClicked(index, event, template);
   }
 
+});
+
+Template.ionPopup.helpers({
+  hasHead: function() {
+    return this.title || this.subTitle;
+  }
 });
