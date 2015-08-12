@@ -7,42 +7,55 @@ IonPopover = {
 
     var $backdrop = $(this.view.firstNode());
     var $popover = $backdrop.find('.popover');
-    var $button = $(button);
     var $arrow = $backdrop.find('.popover-arrow');
+    var $body = $('.ionic-body').width() ? $('.ionic-body') : $('body');
+    var $button = $(button);
 
-    var bodyWidth = $('body').width();
-    var bodyHeight = $(window).innerHeight;
+    var bodyWidth = $body.outerWidth();
+    var bodyHeight = $body.outerHeight;
+    var bodyPosition = $body.offset();
     var buttonPosition = $button.offset();
     var buttonWidth = $button.outerWidth();
     var buttonHeight = $button.outerHeight();
     var popoverWidth = $popover.outerWidth();
     var popoverHeight = $popover.outerHeight();
+    var arrowWidth = $arrow.outerWidth();
 
     var popoverCSS = {
       marginLeft: '0',
       opacity: 1,
-      left: buttonPosition.left + buttonWidth / 2 - popoverWidth / 2
+      left: buttonPosition.left + buttonWidth / 2 - popoverWidth / 2,
+      maxWidth: bodyWidth - POPOVER_BODY_PADDING * 2
     };
 
-    if (popoverCSS.left < POPOVER_BODY_PADDING) {
+    var overflowsOnLeft = popoverCSS.left < POPOVER_BODY_PADDING;
+    if (overflowsOnLeft) {
       popoverCSS.left = POPOVER_BODY_PADDING;
-    } else if(popoverCSS.left + popoverWidth + POPOVER_BODY_PADDING > bodyWidth) {
+    }
+
+    var overflowsOnRight = popoverCSS.left + popoverWidth + POPOVER_BODY_PADDING * 2 > bodyWidth;
+    if (overflowsOnRight) {
       popoverCSS.left = bodyWidth - popoverWidth - POPOVER_BODY_PADDING;
     }
 
-    if (buttonPosition.top + buttonHeight + popoverHeight > bodyHeight) {
-      popoverCSS.top = buttonPosition.top - popoverHeight;
+    var shouldBeBelowButton = buttonPosition.top + buttonHeight + popoverHeight > bodyHeight;
+    if (shouldBeBelowButton) {
+      popoverCSS.top = buttonPosition.top - bodyPosition.top - popoverHeight;
       $popover.addClass('popover-bottom');
     } else {
-      popoverCSS.top = buttonPosition.top + buttonHeight;
+      popoverCSS.top = buttonPosition.top - bodyPosition.top + buttonHeight;
       $popover.removeClass('popover-bottom');
     }
 
+    var buttonRelativeCenter = buttonPosition.left - bodyPosition.left + buttonWidth / 2;
+    var arrowCSS = {
+      left: buttonRelativeCenter - arrowWidth / 2 - POPOVER_BODY_PADDING + 'px'
+    };
+
     $backdrop.addClass('active');
-    $arrow.css({
-      left: buttonPosition.left + buttonWidth / 2 - $arrow.outerWidth() / 2 - popoverCSS.left + 'px'
-    });
     $popover.css(popoverCSS);
+    $arrow.css(arrowCSS);
+
   },
 
   hide: function () {

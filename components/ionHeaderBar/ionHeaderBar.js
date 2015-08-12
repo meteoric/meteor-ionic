@@ -1,26 +1,23 @@
 IonHeaderBar = {
   alignTitle: function () {
-    var align = this.alignTitle || 'center';
+
+    var platform = Platform.get();
+    var platformAligns = {
+      android: 'left',
+      ios: 'center'
+    };
+    var align = this.alignTitle || platformAligns[platform] || 'center';
+    var titleClass = 'title-' + align;
+
     var $title = this.$('.title');
+    $title.removeClass('title-left title-center title-right').addClass(titleClass);
 
-    if (Platform.isAndroid() && !this.alignTitle) {
-      $title.addClass('title-left');
-      return;
-    }
-
-    if (align === 'center') {
-      $title.addClass('title-center');
-    } else if (align === 'left') {
-      $title.addClass('title-left');
-    } else if (align === 'right') {
-      $title.addClass('title-right');
-    }
   },
 
   positionTitle: function () {
     var $title = this.$('.title');
-    var $leftButton = $('.button.pull-left');
-    var $rightButton = $('.button.pull-right');
+    var $leftButton = this.$('.button.pull-left');
+    var $rightButton = this.$('.button.pull-right');
 
     // Find out which button is wider,
     // use that to offset the title on both sides
@@ -62,13 +59,11 @@ Template.ionHeaderBar.destroyed = function () {
 Template.ionHeaderBar.helpers({
   classes: function () {
     var classes = ['bar', 'bar-header'];
-
     if (this.class) {
       classes.push(this.class);
     } else {
       classes.push('bar-stable');
     }
-
     return classes.join(' ');
   }
 });
