@@ -18,7 +18,8 @@ Package.onUse(function(api) {
     "iron:router@1.0.0",
     "tracker",
     "session",
-    "jquery"
+    "jquery",
+    "gwendall:body-events",
   ], "client");
 
   api.addFiles([

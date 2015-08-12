@@ -7,13 +7,25 @@ Platform = {
     return navigator.userAgent.indexOf('Android') > 0
            || Session.get('platformOverride') === 'Android';
   },
+  isWeb: function () {
+    return !Platform.isIOS() && !Platform.isAndroid();
+  },
   set: function(platform) {
     if (!_.contains(['android', 'ios', 'web'], platform)) return;
     var $ionicBody = $('.ionic-body');
     $ionicBody.removeClass('platform-web platform-cordova platform-ios platform-android');
-    if (platform === 'android') $ionicBody.addClass('platform-cordova platform-android');
-    if (platform === 'ios') $ionicBody.addClass('platform-cordova platform-ios');
-    if (platform === 'web') $ionicBody.addClass('platform-web');
+    if (platform === 'android') {
+      $ionicBody.addClass('platform-cordova platform-android');
+      Session.set('platformOverride', 'Android');
+    }
+    if (platform === 'ios') {
+      $ionicBody.addClass('platform-cordova platform-ios');
+      Session.set('platformOverride', 'iOS');
+    }
+    if (platform === 'web') {
+      $ionicBody.addClass('platform-web');
+      Session.set('platformOverride', null);
+    }
   }
 };
 
@@ -23,6 +35,10 @@ Template.registerHelper('isIOS', function () {
 
 Template.registerHelper('isAndroid', function () {
   return Platform.isAndroid();
+});
+
+Template.registerHelper('isWeb', function () {
+  return Platform.isWeb();
 });
 
 Template.ionBody.helpers({
@@ -54,7 +70,7 @@ Template.ionBody.rendered = function () {
   });
 };
 
-Template.ionBody.events({
+Template.body.events({
   'click [data-ion-modal]': function (event, template) {
     var templateName = $(event.currentTarget).data('ion-modal');
     IonModal.open(templateName, $(event.currentTarget).data());
