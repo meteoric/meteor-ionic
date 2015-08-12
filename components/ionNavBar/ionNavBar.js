@@ -22,8 +22,8 @@ Template.ionNavBar.created = function () {
 Template.ionNavBar.rendered = function () {
   Session.set('hasHeader', true);
 
-  IonHeaderBar.alignTitle.call(this);
-  IonHeaderBar.positionTitle.call(this);
+  IonHeaderBar.alignTitle.call(this.data);
+  IonHeaderBar.positionTitle.call(this.data);
 
   var template = this;
   var container = this.find('[data-navbar-container]');
@@ -34,8 +34,8 @@ Template.ionNavBar.rendered = function () {
       if (!$node.hasClass('title') && !$node.hasClass('button') || IonNavigation.skipTransitions) {
         container.insertBefore(node, next);
         // Changing tabs skips transition animations, but we still want to update the position of the title
-        IonHeaderBar.alignTitle.call(template);
-        IonHeaderBar.positionTitle.call(template);
+        IonHeaderBar.alignTitle.call(template.data);
+        IonHeaderBar.positionTitle.call(template.data);
         return;
       }
 
@@ -43,8 +43,8 @@ Template.ionNavBar.rendered = function () {
         container.insertBefore(node, next);
         $node.addClass('title-entering title-stage');
 
-        IonHeaderBar.alignTitle.call(template);
-        IonHeaderBar.positionTitle.call(template);
+        IonHeaderBar.alignTitle.call(template.data);
+        IonHeaderBar.positionTitle.call(template.data);
 
         Meteor.setTimeout(function() {
           $node.removeClass('title-stage').addClass('title-active');
