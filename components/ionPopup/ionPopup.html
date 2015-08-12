@@ -1,7 +1,7 @@
 <template name="ionPopup">
   <div class="backdrop">
     <div class="popup-container">
-      <div class="popup">
+      <div class="popup {{class}}">
         {{#if hasHead}}
           <div class="popup-head">
             {{#if title}}
@@ -18,7 +18,7 @@
           </div>
         {{/if}}
         {{#if buttons.length}}
-          <div class="popup-buttons">
+          <div class="popup-buttons {{#if buttonsVertical}}popup-buttons-vertical{{/if}}">
             {{#each buttons}}
               <button data-action="buttonTapped" data-index="{{index}}"
               class="button {{type}}">

@@ -3,10 +3,17 @@ Platform = {
     return (!!navigator.userAgent.match(/iPad/i) || !!navigator.userAgent.match(/iPhone/i) || !!navigator.userAgent.match(/iPod/i))
            || Session.get('platformOverride') === 'iOS';
   },
-
   isAndroid: function () {
     return navigator.userAgent.indexOf('Android') > 0
            || Session.get('platformOverride') === 'Android';
+  },
+  set: function(platform) {
+    if (!_.contains(['android', 'ios', 'web'], platform)) return;
+    var $ionicBody = $('.ionic-body');
+    $ionicBody.removeClass('platform-web platform-cordova platform-ios platform-android');
+    if (platform === 'android') $ionicBody.addClass('platform-cordova platform-android');
+    if (platform === 'ios') $ionicBody.addClass('platform-cordova platform-ios');
+    if (platform === 'web') $ionicBody.addClass('platform-web');
   }
 };
 

@@ -22,9 +22,11 @@ IonPopup = {
     }
 
     var data = {
+      class: options.class || '',
       title: options.title,
       subTitle: options.subTitle,
       buttons: this.buttons,
+      buttonsVertical: _.isBoolean(options.buttonsVertical) ? options.buttonsVertical : false,
       template: innerTemplate
     };
 
@@ -38,11 +40,14 @@ IonPopup = {
   },
 
   alert: function (options) {
+    options = options || {};
     IonPopup.show({
+      class: options.class,
       title: options.title,
       subTitle: options.subTitle,
       template: options.template,
       templateName: options.templateName,
+      buttonsVertical: options.buttonsVertical,
       buttons: [
         {
           text: options.okText ? options.okText : 'Ok',
@@ -57,11 +62,14 @@ IonPopup = {
   },
 
   confirm: function (options) {
+    options = options || {};
     IonPopup.show({
+      class: options.class,
       title: options.title,
       subTitle: options.subTitle,
       template: options.template,
       templateName: options.templateName,
+      buttonsVertical: options.buttonsVertical,
       buttons: [
         {
           text: options.cancelText ? options.cancelText : 'Cancel',
@@ -84,7 +92,7 @@ IonPopup = {
   },
 
   prompt: function (options) {
-
+    options = options || {};
     var template = '';
     if (options.templateName) {
       template = Template[options.templateName].renderFunction().value;
@@ -98,9 +106,11 @@ IonPopup = {
       options.inputPlaceholder + '" name="prompt" >';
 
     IonPopup.show({
+      class: options.class,
       title: options.title,
       subTitle: options.subTitle,
       template: template,
+      buttonsVertical: options.buttonsVertical,
       buttons: [
         {
           text: options.cancelText ? options.cancelText : 'Cancel',
