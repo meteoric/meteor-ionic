@@ -2,6 +2,7 @@ Package.describe({
   name: "meteoric:ionic:forked:howon",
   summary: "Ionic components for Meteor. No Angular!",
   version: "0.1.17",
+  version: "0.1.19",
   git: "https://github.com/meteoric/meteor-ionic.git"
 });
 
@@ -11,7 +12,15 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom("1.0");
-  api.use(["templating", "underscore", "fastclick", "iron:router@1.0.0", "tracker", "session"], "client");
+  api.use([
+    "templating",
+    "underscore",
+    "fastclick",
+    "iron:router@1.0.0",
+    "tracker",
+    "session",
+    "jquery"
+  ], "client");
 
   api.addFiles([
     "vendor/snap.js",
@@ -46,6 +55,7 @@ Package.onUse(function(api) {
     "components/ionItem/ionItem.js",
 
     "components/ionKeyboard/ionKeyboard.js",
+    "components/ionKeyboard/ionInputFocus.js",
 
     "components/ionList/ionList.html",
     "components/ionList/ionList.js",
@@ -109,6 +119,7 @@ Package.onUse(function(api) {
 
     "components/ionView/ionView.html",
     "components/ionView/ionView.js"
+
   ], "client");
 
   api.export("Platform");
