@@ -8,7 +8,7 @@ IonPopover = {
     var $backdrop = $(this.view.firstNode());
     var $popover = $backdrop.find('.popover');
     var $arrow = $backdrop.find('.popover-arrow');
-    var $body = $('.ionic-body').width() ? $('.ionic-body') : $('body');
+    var $body = $('.ionic-body').length ? $('.ionic-body') : $('body');
     var $button = $(button);
 
     var bodyWidth = $body.outerWidth();
