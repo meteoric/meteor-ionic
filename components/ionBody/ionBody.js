@@ -11,23 +11,18 @@ Platform = {
     return !Platform.isIOS() && !Platform.isAndroid();
   },
   set: function(platform) {
-    setTimeout(function() {
-      if (!_.contains(['android', 'ios', 'web'], platform)) return;
-      var $ionicBody = $('.ionic-body');
-      $ionicBody.removeClass('platform-web platform-cordova platform-ios platform-android');
-      if (platform === 'android') {
-        $ionicBody.addClass('platform-cordova platform-android');
-        Session.set('platformOverride', 'Android');
-      }
-      if (platform === 'ios') {
-        $ionicBody.addClass('platform-cordova platform-ios');
-        Session.set('platformOverride', 'iOS');
-      }
-      if (platform === 'web') {
-        $ionicBody.addClass('platform-web');
-        Session.set('platformOverride', null);
-      }
-    }, 10);
+    if (!_.contains(['android', 'ios', 'web'], platform)) return;
+    var $ionicBody = $('.ionic-body');
+    $ionicBody.removeClass('platform-web platform-cordova platform-ios platform-android');
+    if (platform === 'android') {
+      $ionicBody.addClass('platform-cordova platform-android');
+    }
+    if (platform === 'ios') {
+      $ionicBody.addClass('platform-cordova platform-ios');
+    }
+    if (platform === 'web') {
+      $ionicBody.addClass('platform-web');
+    }
   },
   get: function() {
     return (Session.get('platformOverride') || '').toLowerCase();

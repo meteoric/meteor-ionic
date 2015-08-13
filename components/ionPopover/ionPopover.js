@@ -49,7 +49,7 @@ IonPopover = {
 
     var buttonRelativeCenter = buttonPosition.left - bodyPosition.left + buttonWidth / 2;
     var arrowCSS = {
-      left: buttonRelativeCenter - arrowWidth / 2 - POPOVER_BODY_PADDING + 'px'
+      left: buttonRelativeCenter - arrowWidth / 2 - popoverCSS.left + 'px'
     };
 
     $backdrop.addClass('active');
