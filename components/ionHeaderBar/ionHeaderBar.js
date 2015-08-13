@@ -6,7 +6,7 @@ IonHeaderBar = {
       android: 'left',
       ios: 'center'
     };
-    var align = this.alignTitle || platformAligns[platform] || 'center';
+    var align = this.data.alignTitle || platformAligns[platform] || 'center';
     var titleClass = 'title-' + align;
 
     var $title = this.$('.title');
