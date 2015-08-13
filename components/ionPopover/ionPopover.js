@@ -12,7 +12,7 @@ IonPopover = {
     var $button = $(button);
 
     var bodyWidth = $body.outerWidth();
-    var bodyHeight = $body.outerHeight;
+    var bodyHeight = $body.outerHeight();
     var bodyPosition = $body.offset();
     var buttonPosition = $button.offset();
     var buttonWidth = $button.outerWidth();
