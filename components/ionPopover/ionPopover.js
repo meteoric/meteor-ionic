@@ -11,8 +11,8 @@ IonPopover = {
     var $body = $('.ionic-body').length ? $('.ionic-body') : $('body');
     var $button = $(button);
 
+    var windowHeight = window.innerHeight;
     var bodyWidth = $body.outerWidth();
-    var bodyHeight = $body.outerHeight();
     var bodyPosition = $body.offset();
     var buttonPosition = $button.offset();
     var buttonWidth = $button.outerWidth();
@@ -38,7 +38,7 @@ IonPopover = {
       popoverCSS.left = bodyWidth - popoverWidth - POPOVER_BODY_PADDING;
     }
 
-    var shouldBeBelowButton = buttonPosition.top + buttonHeight + popoverHeight > bodyHeight;
+    var shouldBeBelowButton = buttonPosition.top + buttonHeight + popoverHeight > windowHeight;
     if (shouldBeBelowButton) {
       popoverCSS.top = buttonPosition.top - bodyPosition.top - popoverHeight;
       $popover.addClass('popover-bottom');
