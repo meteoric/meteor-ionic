@@ -25,7 +25,10 @@ Platform = {
     }
   },
   get: function() {
-    return (Session.get('platformOverride') || '').toLowerCase();
+    var $ionicBody = $('.ionic-body');
+    if ($ionicBody.hasClass('platform-ios')) return 'ios';
+    if ($ionicBody.hasClass('platform-android')) return 'android';
+    return 'web';
   }
 };
 
