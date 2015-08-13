@@ -1,10 +1,10 @@
-Template.ionSubheaderBar.rendered = function () {
+Template.ionSubheaderBar.onRendered(function () {
   Session.set('hasSubheader', true);
-};
+});
 
-Template.ionSubheaderBar.destroyed = function () {
+Template.ionSubheaderBar.onDestroyed(function () {
   Session.set('hasSubheader', false);
-};
+});
 
 Template.ionSubheaderBar.helpers({
   classes: function () {

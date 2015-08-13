@@ -1,4 +1,4 @@
-Template.ionNavBar.created = function () {
+Template.ionNavBar.onCreated(function () {
   this.data = this.data || {};
 
   if (Platform.isAndroid()) {
@@ -17,9 +17,9 @@ Template.ionNavBar.created = function () {
   } else {
     this.transitionDuration = 200;
   }
-};
+});
 
-Template.ionNavBar.rendered = function () {
+Template.ionNavBar.onRendered(function () {
   Session.set('hasHeader', true);
 
   IonHeaderBar.alignTitle.call(this);
@@ -89,11 +89,11 @@ Template.ionNavBar.rendered = function () {
       }
     }
   };
-};
+});
 
-Template.ionNavBar.destroyed = function () {
+Template.ionNavBar.onDestroyed(function () {
   Session.set('hasHeader', false);
-};
+});
 
 Template.ionNavBar.helpers({
   classes: function () {

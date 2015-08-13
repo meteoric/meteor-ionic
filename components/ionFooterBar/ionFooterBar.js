@@ -1,10 +1,10 @@
-Template.ionFooterBar.rendered = function () {
+Template.ionFooterBar.onRendered(function () {
   Session.set('hasFooter', true);
-};
+});
 
-Template.ionFooterBar.destroyed = function () {
+Template.ionFooterBar.onDestroyed(function () {
   Session.set('hasFooter', false);
-};
+});
 
 Template.ionFooterBar.helpers({
   classes: function () {

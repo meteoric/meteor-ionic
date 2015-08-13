@@ -65,13 +65,13 @@ Template.ionBody.helpers({
   }
 });
 
-Template.ionBody.rendered = function () {
+Template.ionBody.onRendered(function () {
   window.addEventListener('statusTap', function() {
     $('.content.overflow-scroll').animate({
       scrollTop: 0
     }, 500);
   });
-};
+});
 
 Template.ionBody.events({
   'click [data-ion-modal]': function (event, template) {

@@ -1,10 +1,10 @@
-Template.ionSubfooterBar.rendered = function () {
+Template.ionSubfooterBar.onRendered(function () {
   Session.set('hasSubfooter', true);
-};
+});
 
-Template.ionSubfooterBar.destroyed = function () {
+Template.ionSubfooterBar.onDestroyed(function () {
   Session.set('hasSubfooter', false);
-};
+});
 
 Template.ionSubfooterBar.helpers({
   classes: function () {

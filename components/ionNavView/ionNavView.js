@@ -2,7 +2,7 @@ IonNavigation = {
   skipTransitions: false
 };
 
-Template.ionNavView.created = function () {
+Template.ionNavView.onCreated(function () {
   this.data = this.data || {};
   Session.setDefault('ionNavDirection', 'forward');
 
@@ -22,9 +22,9 @@ Template.ionNavView.created = function () {
   } else {
     this.transitionDuration = 320;
   }
-};
+});
 
-Template.ionNavView.rendered = function () {
+Template.ionNavView.onRendered(function () {
   var template = this;
 
   this.find('[data-nav-container]')._uihooks = {
@@ -64,7 +64,7 @@ Template.ionNavView.rendered = function () {
       }, template.transitionDuration);
     }
   };
-};
+});
 
 Template.ionNavView.helpers({
   transition: function () {

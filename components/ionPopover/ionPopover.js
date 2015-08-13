@@ -69,17 +69,17 @@ IonPopover = {
   }
 };
 
-Template.ionPopover.rendered = function () {
+Template.ionPopover.onRendered(function () {
   $(window).on('keyup.ionPopover', function(event) {
     if (event.which == 27) {
       IonPopover.hide();
     }
   });
-};
+});
 
-Template.ionPopover.destroyed = function () {
+Template.ionPopover.onDestroyed(function () {
   $(window).off('keyup.ionPopover');
-};
+});
 
 Template.ionPopover.events({
   // Handle clicking the backdrop

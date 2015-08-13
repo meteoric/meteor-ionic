@@ -80,16 +80,16 @@ $(document).delegate('.modal', IonModal.transitionEndEvent, function(e) {
   }
 });
 
-Template.ionModal.created = function () {
+Template.ionModal.onCreated(function () {
   this.data = this.data || {};
   this.customTemplate = this.data.customTemplate || false;
   this.title = this.data.title;
   this.title = this.data.closeText;
   this.focusFirstInput = _.isUndefined(this.data.focusFirstInput) ? true : this.data.focusFirstInput;
   this.animation = this.data.animation || 'slide-in-up';
-};
+});
 
-Template.ionModal.rendered = function () {
+Template.ionModal.onRendered(function () {
   if (this.focusFirstInput) {
     Meteor.setTimeout(function () {
       if (!this._domrange) return;
@@ -102,13 +102,13 @@ Template.ionModal.rendered = function () {
       IonModal.close();
     }
   });
-};
+});
 
-Template.ionModal.destroyed = function () {
+Template.ionModal.onDestroyed(function () {
   if (!IonModal.views.length) {
     $(window).off('keyup.ionModal');
   }
-};
+});
 
 Template.ionModal.helpers({
   barClass: function () {

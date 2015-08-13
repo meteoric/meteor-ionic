@@ -17,11 +17,11 @@ Template.ionNavBackButton.events({
   }
 });
 
-Template.ionNavBackButton.created = function () {
+Template.ionNavBackButton.onCreated(function () {
   this.data = this.data || {};
-};
+});
 
-Template.ionNavBackButton.rendered = function () {
+Template.ionNavBackButton.onRendered(function () {
   this.backUrl = null;
 
   this.data = this.data || {};
@@ -39,7 +39,7 @@ Template.ionNavBackButton.rendered = function () {
     this.backUrl = backRoute.path(Template.parentData(1));
   }
 
-};
+});
 
 Template.ionNavBackButton.helpers({
   classes: function () {

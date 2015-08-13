@@ -76,17 +76,17 @@ IonActionSheet = {
   }
 };
 
-Template.ionActionSheet.rendered = function () {
+Template.ionActionSheet.onRendered(function () {
   $(window).on('keyup.ionActionSheet', function(event) {
     if (event.which == 27) {
       IonActionSheet.cancel();
     }
   });
-};
+});
 
-Template.ionActionSheet.destroyed = function () {
+Template.ionActionSheet.onDestroyed(function () {
   $(window).off('keyup.ionActionSheet');
-};
+});
 
 Template.ionActionSheet.events({
   // Handle clicking the backdrop
