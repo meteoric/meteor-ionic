@@ -43,6 +43,7 @@ IonKeyboard = {
 };
 
 window.addEventListener('native.keyboardshow', function (event) {
+  // return;
 
   // TODO: Android is having problems
   if (Platform.isAndroid()) {
@@ -60,12 +61,21 @@ window.addEventListener('native.keyboardshow', function (event) {
     //   // $(el).css({bottom: keyboardHeight});
     //   $('.content').css({bottom: keyboardHeight});
     // }
-});
+// });
 
-  $('.new-post-footer').each(function (index, el) {
-    $(el).data('ionkeyboard.bottom', $(el).css('bottom'));
-    $(el).css({bottom: keyboardHeight});
+  $('[data-keyboard-attach]').each(function (index, el) {
+    $(el).velocity({
+      bottom: keyboardHeight
+    }, {
+      duration: 200
+    });
   });
+
+
+  // $('.new-post-footer').each(function (index, el) {
+  //   $(el).data('ionkeyboard.bottom', $(el).css('bottom'));
+  //   $(el).css({bottom: keyboardHeight});
+  // });
 
   // Move the bottom of the content area(s) above the top of the keyboard
   // $('.content.overflow-scroll').each(function (index, el) {
@@ -79,6 +89,7 @@ window.addEventListener('native.keyboardshow', function (event) {
 });
 
 window.addEventListener('native.keyboardhide', function (event) {
+  // return;
 
   // TODO: Android is having problems
   if (Platform.isAndroid()) {
@@ -89,6 +100,14 @@ window.addEventListener('native.keyboardhide', function (event) {
   $('body').removeClass('keyboard-open');
 
   // event.stopPropagation();
+
+  $('[data-keyboard-attach]').each(function (index, el) {
+    $(el).velocity({
+      bottom: 0
+    }, {
+      duration: 200
+    });
+  });
 
   // Detach any elements that were attached
   // $('[data-keyboard-attach]').each(function (index, el) {
