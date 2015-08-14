@@ -1,5 +1,25 @@
+function transitionEndEventName () {
+    var i,
+        undefined,
+        el = document.createElement('div'),
+        transitions = {
+            'transition':'transitionend',
+            'OTransition':'otransitionend',  // oTransitionEnd in very old Opera
+            'MozTransition':'transitionend',
+            'WebkitTransition':'webkitTransitionEnd'
+        };
+
+    for (i in transitions) {
+        if (transitions.hasOwnProperty(i) && el.style[i] !== undefined) {
+            return transitions[i];
+        }
+    }
+
+    //TODO: throw 'TransitionEnd event is not supported in this browser'; 
+}
+
 IonActionSheet = {
-  transitionEndEvent: 'transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd',
+  transitionEndEvent: transitionEndEventName(),
 
   show: function (options) {
     this.template = Template.ionActionSheet;
@@ -67,6 +87,9 @@ IonActionSheet = {
 
     $wrapper.on(this.transitionEndEvent, function () {
       $('body').removeClass('action-sheet-open');
+
+      // added this because of https://github.com/meteor/meteor/issues/3828
+      $('.action-sheet-backdrop').remove();
       Blaze.remove(this.view);
 
       if (typeof(callback) === 'function') {
