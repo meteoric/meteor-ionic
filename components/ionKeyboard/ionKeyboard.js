@@ -54,8 +54,8 @@ window.addEventListener('native.keyboardshow', function (event) {
   // event.stopPropagation();
 
   // Attach any elements that want to be attached
-  $('[data-keyboard-attach]').each(function (index, el) {
-    $(el).data('ionkeyboard.bottom', $(el).css('bottom'));
+  // $('[data-keyboard-attach]').each(function (index, el) {
+  //   $(el).data('ionkeyboard.bottom', $(el).css('bottom'));
     // if ($('.comment-item').length < 2) {
     //   // $(el).css({bottom: keyboardHeight});
     //   $('.content').css({bottom: keyboardHeight});
@@ -72,17 +72,9 @@ window.addEventListener('native.keyboardshow', function (event) {
   //   $(el).data('ionkeyboard.bottom', $(el).css('bottom'));
   //   $(el).css({bottom: keyboardHeight});
   // });
-  
-  // window.scrollTo(0,0);
-
-  _.defer(function() {
-    // console.log("scrollup");
-    // window.scrollTo(0, 0);
-    // window.scrollTo(0,document.body.scrollHeight);
-  });
 
   // Scroll to the focused element
-  scrollToFocusedElement(null, keyboardHeight);
+  // scrollToFocusedElement(null, keyboardHeight);
 
 });
 
@@ -99,12 +91,12 @@ window.addEventListener('native.keyboardhide', function (event) {
   // event.stopPropagation();
 
   // Detach any elements that were attached
-  $('[data-keyboard-attach]').each(function (index, el) {
-    $(el).css({bottom: $(el).data('ionkeyboard.bottom')});
-  });
+  // $('[data-keyboard-attach]').each(function (index, el) {
+  //   $(el).css({bottom: $(el).data('ionkeyboard.bottom')});
+  // });
 
-  $('.content.overflow-scroll').each(function (index, el) {
-    $(el).css({bottom: $(el).data('ionkeyboard.bottom')});
-  });
+  // $('.content.overflow-scroll').each(function (index, el) {
+  //   $(el).css({bottom: $(el).data('ionkeyboard.bottom')});
+  // });
 
 });
