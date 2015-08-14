@@ -75,5 +75,13 @@ Template.ionItem.helpers({
         return FlowRouter.path(path);
       }
     }
+  },
+
+  attrs: function() {
+    var ret = {};
+    if (this.id) {
+      ret.id = this.id;
+    }
+    return ret;
   }
 });
