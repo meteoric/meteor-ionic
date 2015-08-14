@@ -3,7 +3,7 @@ Template.ionTabs.onCreated(function () {
 });
 
 Template.ionTabs.onRendered(function () {
-  if ((this.data.class && this.data.class === 'tabs-top') || this.data.style === 'android') {
+  if ((this.data.class && this.data.class.indexOf('tabs-top') > -1) || this.data.style === 'android' || ( !this.data.style && Platform.isAndroid())) {
     Session.set('hasTabsTop', true);
   } else {
     Session.set('hasTabs', true);

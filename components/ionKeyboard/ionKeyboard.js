@@ -43,6 +43,7 @@ IonKeyboard = {
 };
 
 window.addEventListener('native.keyboardshow', function (event) {
+
   // TODO: Android is having problems
   if (Platform.isAndroid()) {
     return;
@@ -63,20 +64,19 @@ window.addEventListener('native.keyboardshow', function (event) {
     $(el).css({bottom: keyboardHeight});
   });
 
-  $('.content.overflow-scroll').on('focus', 'input,textarea', function(event) {
-    var contentOffset = $(event.delegateTarget).offset().top;
-    var padding = 10;
-    var scrollTo = $(event.delegateTarget).scrollTop() + $(this).offset().top - (contentOffset + padding);
-    $(event.delegateTarget).scrollTop(scrollTo);
-  });
+  // Scroll to the focused element
+  scrollToFocusedElement(null, keyboardHeight);
+
 });
 
 window.addEventListener('native.keyboardhide', function (event) {
+
   // TODO: Android is having problems
   if (Platform.isAndroid()) {
     return;
   }
-  
+
+  // $('input, textarea').blur();
   $('body').removeClass('keyboard-open');
 
   // Detach any elements that were attached
@@ -88,4 +88,5 @@ window.addEventListener('native.keyboardhide', function (event) {
   $('.content.overflow-scroll').each(function (index, el) {
     $(el).css({bottom: $(el).data('ionkeyboard.bottom')});
   });
+
 });
