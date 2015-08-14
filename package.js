@@ -1,7 +1,6 @@
 Package.describe({
   name: "meteoric:ionic:forked:howon",
   summary: "Ionic components for Meteor. No Angular!",
-  version: "0.1.17",
   version: "0.1.19",
   git: "https://github.com/meteoric/meteor-ionic.git"
 });
