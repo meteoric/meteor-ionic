@@ -58,6 +58,8 @@ window.addEventListener('native.keyboardshow', function (event) {
     }, {
       duration: 170
     });
+
+    $('.content').css('padding-bottom', keyboardHeight);
   });
 });
 
@@ -75,5 +77,7 @@ window.addEventListener('native.keyboardhide', function (event) {
     }, {
       duration: 0
     });
+
+    $('.content').css('padding-bottom', '0px');
   });
 });
