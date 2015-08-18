@@ -85,8 +85,15 @@ Template.ionBody.events({
   },
 
   'click [data-nav-direction]': function (event, template) {
-    $('[data-nav-container]').addClass('nav-view-direction-' + $(event.target).data('nav-direction'));
-    $('[data-navbar-container]').addClass('nav-bar-direction-' + $(event.target).data('nav-direction'));
+    var direction = $(event.currentTarget).data('nav-direction');
+    $('[data-nav-container]').addClass('nav-view-direction-' + direction);
+    $('[data-navbar-container]').addClass('nav-bar-direction-' + direction);
+    if (!_.contains(['back', 'forward'], direction)) {
+      setTimeout(function() {
+        $('[data-nav-container]').removeClass('nav-view-direction-' + direction);
+        $('[data-navbar-container]').removeClass('nav-bar-direction-' + direction);
+      }, 500);
+    }
   },
 
   'click [data-ion-menu-toggle]': function (event, template) {
