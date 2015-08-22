@@ -1,4 +1,9 @@
 Template.ionItem.helpers({
+  idAttribute: function () {
+    if (this.idAttr) {
+      return this.idAttr;
+    }
+  },
   itemClasses: function () {
     var classes = ['item'];
 
