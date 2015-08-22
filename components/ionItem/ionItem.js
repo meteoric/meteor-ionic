@@ -1,7 +1,7 @@
 Template.ionItem.helpers({
   idAttribute: function () {
-    if (this.idAttr) {
-      return this.idAttr;
+    if (this.id) {
+      return this.id;
     }
   },
   itemClasses: function () {
