@@ -1,13 +1,13 @@
 Package.describe({
-  name: "meteoric:ionic",
+  name: "meteoric:ionic:forked:howon",
   summary: "Ionic components for Meteor. No Angular!",
   version: "0.1.19",
   git: "https://github.com/meteoric/meteor-ionic.git"
 });
 
-Cordova.depends({
-  'com.ionic.keyboard': '1.0.4'
-});
+// Cordova.depends({
+//   'com.ionic.keyboard': '1.0.4'
+// });
 
 Package.onUse(function(api) {
   api.versionsFrom("1.0");

@@ -90,12 +90,18 @@ Template.ionModal.created = function () {
 };
 
 Template.ionModal.rendered = function () {
-  if (this.focusFirstInput) {
-    Meteor.setTimeout(function () {
-      if (!this._domrange) return;
-      this.$('input:first').focus();
-    }.bind(this), 600);
-  }
+  // HOWON: getting rid of this. With this, if you click
+  // the input as soon as the newPost modal opens,
+  // it will make the keyboard go away. But how come
+  // it makes submit button go away?
+
+  // if (this.focusFirstInput) {
+  //   Meteor.setTimeout(function () {
+  //     if (!this._domrange) return;
+  //     this.$('input:first').focus();
+  //   }.bind(this), 600);
+  // }
+
   $(window).on('keyup.ionModal', function(event) {
     event.stopImmediatePropagation();
     if (event.which == 27) {
