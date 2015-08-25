@@ -236,7 +236,7 @@ To get a nice Ionic styled list item wrap your content in a `ionItem` block temp
 ```
 {{#ionList class="my-class"}}
   {{#each times}}
-    {{#ionItem buttonRight=true avatar=true}}
+    {{#ionItem buttonRight=true avatar=true class="my-class" id="my-id"}}
       <img src="https://randomuser.me/api/portraits/thumb/men/27.jpg">
       <h2>John Smith</h2>
       <p>(555) 555-1212</p>
