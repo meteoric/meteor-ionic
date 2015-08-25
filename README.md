@@ -66,7 +66,7 @@ You can also keep track of the various other repos from the [Meteoric team](http
   * [ ] ion-delete-button
   * [ ] ion-reorder-button
   * [ ] ion-option-button
-  * [x] collection-repeat (not needed with Blaze/Spacebars)
+  * [ ] collection-repeat
 * [x] Loading
 * [x] Modal
 * [x] Navigation (requires [iron:router](https://github.com/EventedMind/iron-router) integration)
