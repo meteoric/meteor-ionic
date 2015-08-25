@@ -20,6 +20,10 @@ Template.ionRadio.helpers({
       attrs.disabled = true;
     }
 
+    if (this.checked) {
+      attrs.checked = true;
+    }
+
     return attrs;
   }
 })
