@@ -364,6 +364,7 @@ Template.ionSpinner.rendered = function() {
   var animations = {
 
     android: function(ele) {
+
       var rIndex = 0;
       var rotateCircle = 0;
       var startTime;
@@ -400,7 +401,7 @@ Template.ionSpinner.rendered = function() {
           startTime = Date.now();
         }
 
-        ionic.requestAnimationFrame(run);
+        window.requestAnimationFrame(run);
       }
 
       return function() {
@@ -437,12 +438,12 @@ Template.ionSpinner.rendered = function() {
     // building up the svg element and appending it.
     $element.html(container.innerHTML);
 
-    start(spinnerName);
+    start(spinnerName, $element);
 
   };
 
-  function start(spinnerName) {
-    animations[spinnerName] && animations[spinnerName]($element[0])();
+  function start(spinnerName, ele) {
+    animations[spinnerName] && animations[spinnerName](ele[0])();
   };
 
 
