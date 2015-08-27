@@ -52,6 +52,10 @@ Template.ionSpinner.rendered = function() {
     dur: DURATION
   };
 
+  //get icon name and element from blaze template
+  var iconName = this.firstNode.className.split(' ').pop();
+  var iconElement = this.firstNode;
+
   function createSvgElement(tagName, data, parent, spinnerName) {
     var ele = document.createElement(SHORTCUTS[tagName] || tagName);
     var k, x, y;
@@ -410,9 +414,6 @@ Template.ionSpinner.rendered = function() {
     return 1 / 2 * (t * t * t + 2);
   }
 
-
-  var iconName = this.firstNode.className.split(' ').pop();
-  var iconElement = this.firstNode;
 
   init();
 
