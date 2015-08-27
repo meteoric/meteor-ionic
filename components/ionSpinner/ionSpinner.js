@@ -12,7 +12,9 @@ Template.ionSpinner.helpers({
   },
 
   icon: function() {
-    return this.icon || "ios";
+   iconName = "spinner-" + (this.icon || 'ios');  
+
+   return iconName;
   }
 });
 
@@ -53,8 +55,13 @@ Template.ionSpinner.rendered = function() {
   };
 
   //get icon name and element from blaze template
-  var iconName = this.firstNode.className.split(' ').pop();
+  if (this.data){
+    iconName 
+  }
+
   var iconElement = this.firstNode;
+
+  var iconName = this.data ? this.data.icon : 'ios';
 
   function createSvgElement(tagName, data, parent, spinnerName) {
     var ele = document.createElement(SHORTCUTS[tagName] || tagName);
@@ -414,6 +421,7 @@ Template.ionSpinner.rendered = function() {
     return 1 / 2 * (t * t * t + 2);
   }
 
+  console.log(this);
 
   init();
 
