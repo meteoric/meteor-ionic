@@ -101,6 +101,9 @@ Package.onUse(function(api) {
     "components/ionSlideBox/ionSlideBox.html",
     "components/ionSlideBox/ionSlideBox.js",
 
+    "components/ionSpinner/ionSpinner.html",
+    "components/ionSpinner/ionSpinner.js",
+
     "components/ionSlide/ionSlide.html",
     "components/ionSlide/ionSlide.js",
 
