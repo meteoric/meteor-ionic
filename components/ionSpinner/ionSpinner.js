@@ -55,10 +55,7 @@ Template.ionSpinner.rendered = function() {
   };
 
   //get icon name and element from blaze template
-  if (this.data){
-    iconName 
-  }
-
+ 
   var iconElement = this.firstNode;
 
   var iconName = this.data ? this.data.icon : 'ios';
