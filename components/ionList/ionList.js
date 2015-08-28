@@ -23,8 +23,9 @@ Template.ionList.helpers({
 
 
 Template.ionList.rendered = function() {
-    var list = this.$('.list')[0];
+    var list = this.$('.list')[0]; 
     new Slip(list);
+   //TODO: ensure not creating a slip list if unnecessary
 };
 
 
@@ -51,6 +52,7 @@ Template.ionList.events({
         originalIndex = e.originalEvent.detail.originalIndex
 
         if (spliceIndex != originalIndex) {
+           
             template.data.collection.find({}, {
                 sort: {
                     order: 1
