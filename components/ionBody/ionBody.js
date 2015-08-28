@@ -90,6 +90,27 @@ Template.ionBody.events({
     }
     IonSideMenu.snapper.close();
   },
+  'click [data-ion-list-toggle]': function (event, template) {
+    var direction;
+    var $el = $(event.target);
+    if ($el.data('ion-list-toggle') !== '') {
+      direction = $el.data('ion-list-toggle');
+    } else {
+      direction = 'left';
+    }
+    template.$('.list').toggleClass('list-' + direction + '-editing');
+    if (template.$('.item-' + direction + '-edit').hasClass('visible')){
+      template.$('.item-' + direction + '-edit').removeClass('active').delay(125).queue(function(next){
+        $(this).removeClass('visible');
+        next();
+      });
+    } else {
+      template.$('.item-' + direction + '-edit').addClass('visible').delay(10).queue(function(next){
+        $(this).addClass('active');
+        next();
+      });
+    }
+  },
 
   'mousedown .button, touchstart .button': function (event, template) {
     $(event.target).addClass('active');
