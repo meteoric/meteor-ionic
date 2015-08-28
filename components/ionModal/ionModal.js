@@ -42,41 +42,66 @@ IonModal = {
       delete this.templateClosed;
 
       var view = (this.view[templateName] || []).slice(-1)[0];
-      if (!view) return;
 
-      var $modalBackdrop = $(view.firstNode());
-      var $modal = $('.modal', $modalBackdrop);
+      if (view) {
+        var $modalBackdrop = $(view.firstNode());
+        var $modal = $('.modal', $modalBackdrop);
+      } else {
+        var $modal = $('.modal');
+        var $modalBackdrop = $modal.parents('.modal-backdrop').get(0);
+      }
 
-      $modal.addClass(this.leaveClasses.join(' '));
-      Meteor.setTimeout(function () {
-        $modal.addClass(this.leaveActiveClass);
-      }.bind(this), 50);
+      if ($modal) {
+        $modal.addClass(this.leaveClasses.join(' '));
+        Meteor.setTimeout(function () {
+          $modal.addClass(this.leaveActiveClass);
+        }.bind(this), 50);
+      }
 
-      $modalBackdrop.fadeOut(500, function() {
-        $('body').removeClass('modal-open');
-      });
+      if ($modalBackdrop) {
+        $modalBackdrop.fadeOut(500, function() {
+          if ($('.modal-backdrop').length) return;
+          $('body').removeClass('modal-open');
+        });
+      }
 
     }.bind(this), 0);
 
   }
 };
 
+var isOpening = function($modal) {
+  return $modal.hasClass(IonModal.enterClasses.join(' ')) || $modal.hasClass(IonModal.enterActiveClasse);
+};
+
+var afterOpen = function($modal) {
+  $modal.removeClass(IonModal.enterClasses.join(' ')).removeClass(IonModal.enterActiveClass);
+  $('body').addClass('modal-open');
+};
+
+var isClosing = function($modal) {
+  return $modal.hasClass(IonModal.leaveClasses.join(' ')) || $modal.hasClass(IonModal.leaveActiveClasse);
+};
+
+var afterClose = function($modal, e) {
+  var firstChild = $modal.children().first();
+  var templateName = getElementModalTemplateName(firstChild);
+  IonModal.views = _.without(IonModal.views, templateName);
+  var view = IonModal.view[templateName].pop();
+  var $modalBackdrop = $(view.firstNode());
+  $modalBackdrop.removeClass('active');
+  $modal.removeClass(IonModal.leaveClasses.join(' ')).removeClass(IonModal.leaveActiveClass).off(IonModal.transitionEndEvent);
+  $('body').removeClass('modal-open');
+  $(e.target).parents('.modal-backdrop').remove();
+  Blaze.remove(view);
+};
+
 $(document).delegate('.modal', IonModal.transitionEndEvent, function(e) {
   var $modal = $(e.currentTarget);
-  if ($modal.hasClass(IonModal.enterClasses.join(' ')) || $modal.hasClass(IonModal.enterActiveClasse)) {
-    $modal.removeClass(IonModal.enterClasses.join(' ')).removeClass(IonModal.enterActiveClass);
-    $('body').addClass('modal-open');
-  } else if ($modal.hasClass(IonModal.leaveClasses.join(' ')) || $modal.hasClass(IonModal.leaveActiveClasse)) {
-    var firstChild = $modal.children().first();
-    var templateName = getElementModalTemplateName(firstChild);
-    IonModal.views = _.without(IonModal.views, templateName);
-    var view = IonModal.view[templateName].pop();
-    var $modalBackdrop = $(view.firstNode());
-    $modalBackdrop.removeClass('active');
-    $modal.removeClass(IonModal.leaveClasses.join(' ')).removeClass(IonModal.leaveActiveClass).off(IonModal.transitionEndEvent);
-    $('body').removeClass('modal-open');
-    $(e.target).parents('.modal-backdrop').remove();
-    Blaze.remove(view);
+  if (isOpening($modal)) {
+    afterOpen($modal);
+  } else if (isClosing($modal)) {
+    afterClose($modal, e);
   }
 });
 

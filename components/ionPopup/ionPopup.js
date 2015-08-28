@@ -1,42 +1,48 @@
 IonPopup = {
   show: function (options) {
-    this.template = Template.ionPopup;
-    this.buttons = [];
 
-    for (var i = 0; i < options.buttons.length; i++) {
-      var button = options.buttons[i];
-      this.buttons.push({
-        text: button.text,
-        type: button.type,
-        index: i,
-        onTap: button.onTap
-      });
-    }
+    setTimeout(function() {
 
-    // Figure out if a template or just a html string was passed
-    var innerTemplate = '';
-    if (options.templateName) {
-      innerTemplate = Template[options.templateName].renderFunction().value;
-    } else if (options.template) {
-      innerTemplate = '<span>' + options.template + '</span>';
-    }
+      this.template = Template.ionPopup;
+      this.buttons = [];
 
-    var data = {
-      class: options.class || '',
-      title: options.title,
-      subTitle: options.subTitle,
-      buttons: this.buttons,
-      buttonsVertical: _.isBoolean(options.buttonsVertical) ? options.buttonsVertical : false,
-      template: innerTemplate
-    };
+      for (var i = 0; i < options.buttons.length; i++) {
+        var button = options.buttons[i];
+        this.buttons.push({
+          text: button.text,
+          type: button.type,
+          index: i,
+          onTap: button.onTap
+        });
+      }
 
-    this.view = Blaze.renderWithData(this.template, data, $('.ionic-body').get(0));
-    $('body').addClass('popup-open');
+      // Figure out if a template or just a html string was passed
+      var innerTemplate = '';
+      if (options.templateName) {
+        innerTemplate = Template[options.templateName].renderFunction().value;
+      } else if (options.template) {
+        innerTemplate = '<span>' + options.template + '</span>';
+      }
 
-    var $backdrop = $(this.view.firstNode());
-    $backdrop.addClass('visible active');
-    var $popup = $backdrop.find('.popup-container');
-    $popup.addClass('popup-showing active');
+      var data = {
+        class: options.class || '',
+        title: options.title,
+        subTitle: options.subTitle,
+        buttons: this.buttons,
+        buttonsVertical: _.isBoolean(options.buttonsVertical) ? options.buttonsVertical : false,
+        template: innerTemplate
+      };
+
+      this.view = Blaze.renderWithData(this.template, data, $('.ionic-body').get(0));
+      $('body').addClass('popup-open');
+
+      var $backdrop = $(this.view.firstNode());
+      $backdrop.addClass('visible active');
+      var $popup = $backdrop.find('.popup-container');
+      $popup.addClass('popup-showing active');
+
+    }.bind(this), 0);
+
   },
 
   alert: function (options) {
@@ -134,6 +140,7 @@ IonPopup = {
   },
 
   close: function () {
+
     var $popup = this._domrange ? $(this.view.firstNode()).find('.popup-container') : $('.popup-container');
     $popup.addClass('popup-hidden').removeClass('active');
 
