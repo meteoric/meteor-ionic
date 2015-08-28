@@ -73,7 +73,7 @@ Template.ionBody.onRendered(function () {
   });
 });
 
-Template.body.events({
+Template.ionBody.events({
   'click [data-ion-modal]': function (event, template) {
     var templateName = $(event.currentTarget).data('ion-modal');
     IonModal.open(templateName, $(event.currentTarget).data());

@@ -19,7 +19,6 @@ Package.onUse(function(api) {
     "tracker",
     "session",
     "jquery",
-    "gwendall:body-events",
   ], "client");
 
   api.addFiles([
