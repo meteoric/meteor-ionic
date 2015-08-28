@@ -1,6 +1,6 @@
 IonHeaderBar = {
   alignTitle: function () {
-    var align = this.alignTitle || 'center';
+    var align = this.data.alignTitle || 'center';
     var $title = this.$('.title');
 
     if (Platform.isAndroid() && !this.alignTitle) {
