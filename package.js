@@ -1,5 +1,5 @@
 Package.describe({
-  name: "meteoric:ionic",
+  name: "jorjordandan:ionic",
   summary: "Ionic components for Meteor. No Angular!",
   version: "0.1.19",
   git: "https://github.com/meteoric/meteor-ionic.git"
@@ -25,7 +25,8 @@ Package.onUse(function(api) {
     "vendor/snap.js",
     "vendor/snap.css",
     "vendor/slick.js",
-    "vendor/slick.css"
+    "vendor/slick.css",
+    "vendor/slip.js"
   ], "client");
 
   api.addFiles([
@@ -58,6 +59,9 @@ Package.onUse(function(api) {
 
     "components/ionList/ionList.html",
     "components/ionList/ionList.js",
+
+    "components/ionListButton/ionListButton.html",
+    "components/ionListButton/ionListButton.js",
 
     "components/ionLoading/ionLoading.html",
     "components/ionLoading/ionLoading.js",
