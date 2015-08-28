@@ -6,6 +6,7 @@ Template.ionListButton.events({
              _id: itemContext._id
         }, function(error, result) { });
 	}
+
 })
 
 Template.ionListButton.helpers({
