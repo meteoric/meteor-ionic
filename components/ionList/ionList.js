@@ -37,9 +37,8 @@ Template.ionList.events({
   'click .item-delete' : function(e, template){
     e.preventDefault();
 
-    target = $(e.target).closest('.item').get(0);
-
-    targetData = Blaze.getData(target.getElementsByClassName('item-content')[0])._id || undefined;
+    var target = $(e.target).closest('.item').get(0);
+    var targetData = Blaze.getData(target.getElementsByClassName('item-content')[0])._id || undefined;
 
     template.data.ionSortable.find({}).forEach(function(item, i) {
       if (item._id === targetData) {
