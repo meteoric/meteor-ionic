@@ -30,6 +30,10 @@ Template.ionItem.helpers({
       classes.push('item-button-left');
     }
 
+    if(Session.get('ionSortable')){
+      classes.push('item-complex', 'item-left-editable');
+    }
+
     if (this.buttonRight) {
       classes.push('item-button-right');
     }
