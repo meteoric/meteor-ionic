@@ -1,12 +1,12 @@
 Platform = {
   isIOS: function () {
     return (!!navigator.userAgent.match(/iPad/i) || !!navigator.userAgent.match(/iPhone/i) || !!navigator.userAgent.match(/iPod/i))
-           || Session.get('platformOverride') === 'iOS';
+    || Session.get('platformOverride') === 'iOS';
   },
 
   isAndroid: function () {
     return navigator.userAgent.indexOf('Android') > 0
-           || Session.get('platformOverride') === 'Android';
+    || Session.get('platformOverride') === 'Android';
   }
 };
 
@@ -98,8 +98,24 @@ Template.ionBody.events({
     } else {
       direction = 'left';
     }
-    template.$('.list').toggleClass('list-' + direction + '-editing');
-    if (template.$('.item-' + direction + '-edit').hasClass('visible')){
+
+    direction = direction.trim(); //just in case..
+
+    switch(direction){
+      case "left":
+      toggleListIcons("left");
+      break;
+      case "right":
+      toggleListIcons("right");
+      break;
+      case "both":
+      toggleListIcons("left");
+      toggleListIcons("right");
+    }
+
+    function toggleListIcons(direction){
+     template.$('.list').toggleClass('list-' + direction + '-editing');
+     if (template.$('.item-' + direction + '-edit').hasClass('visible')){
       template.$('.item-' + direction + '-edit').removeClass('active').delay(125).queue(function(next){
         $(this).removeClass('visible');
         next();
@@ -110,13 +126,16 @@ Template.ionBody.events({
         next();
       });
     }
-  },
 
-  'mousedown .button, touchstart .button': function (event, template) {
-    $(event.target).addClass('active');
-  },
-
-  'mouseup .button, touchend .button': function (event, template) {
-    $(event.target).removeClass('active');
   }
+
+},
+
+'mousedown .button, touchstart .button': function (event, template) {
+  $(event.target).addClass('active');
+},
+
+'mouseup .button, touchend .button': function (event, template) {
+  $(event.target).removeClass('active');
+}
 });

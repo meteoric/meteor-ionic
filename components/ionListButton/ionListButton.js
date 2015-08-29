@@ -6,7 +6,6 @@ Template.ionListButton.helpers({
 
 		var action = this.action || 'delete';
 		var side = this.side || 'left';
-
 		classes.push('item-' + action);
 		classes.push('item-' + side + '-edit');
 
