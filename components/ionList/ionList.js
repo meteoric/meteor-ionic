@@ -9,14 +9,6 @@ Template.ionList.helpers({
       });
     }
 
-    if (this.rightEdit) {
-      classes.push('list-right-editing');
-    }
-
-    if (this.leftEdit) {
-      classes.push('list-left-editing');
-    }
-
     return classes.join(' ');
   }
 });
