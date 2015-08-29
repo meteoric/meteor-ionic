@@ -304,10 +304,7 @@ window['Slip'] = (function(){
                         var move = this.getTotalMovement();
 
                         if (Math.abs(move.y) < this.target.height+20) {
-                            //console.log('set target4')
-                            window.test = this.target
-                            //console.log(this.target.node.getElementsByClassName('item-content'))
-                            this.target.node.getElementsByClassName('item-content')[0].style[transformPrefix] = 'translate(' + move.x + 'px,0) ' + hwLayerMagic + this.target.baseTransform.value;
+                            this.target.node.style[transformPrefix] = 'translate(' + move.x + 'px,0) ' + hwLayerMagic + this.target.baseTransform.value;
                             return false;
                         } else {
                             this.setState(this.states.idle);
@@ -326,17 +323,16 @@ window['Slip'] = (function(){
                         var move = this.getAbsoluteMovement();
                         var swiped = velocity > 0.6 && move.time > 110;
 
-						var direction;
-						if (dx > 0) {
-							direction = "right";
-						} else {
-							direction = "left";
-						}
+                        var direction;
+                        if (dx > 0) {
+                            direction = "right";
+                        } else {
+                            direction = "left";
+                        }
 
                         if (swiped) {
                             if (this.dispatch(this.target.node, 'swipe', {direction: direction, originalIndex: originalIndex})) {
                                 swipeSuccess = true; // can't animate here, leaveState overrides anim
-                                console.log(direction)
                             }
                         }
                         this.setState(this.states.idle);
@@ -744,9 +740,8 @@ window['Slip'] = (function(){
         animateToZero: function(callback, target) {
             // save, because this.target/container could change during animation
             target = target || this.target;
-            //console.log('set target2')
 
-            target.node.style[transitionPrefix] = transformProperty + ' 0.1s ease-out';
+           // target.node.style[transitionPrefix] = transformProperty + ' 5s ease-out';
             target.node.style[transformPrefix] = 'translate(0,0) ' + hwLayerMagic + target.baseTransform.value;
             setTimeout(function(){
                 target.node.style[transitionPrefix] = '';
@@ -761,8 +756,6 @@ window['Slip'] = (function(){
             var emptySpaceTransform = 'translate(0,' + this.target.height + 'px) ' + hwLayerMagic + ' ';
 
             // FIXME: animate with real velocity
-            //console.log('set target')
-            window.test = target
             target.node.style[transitionPrefix] = 'all 0.1s linear';
             target.node.style[transformPrefix] = ' translate(' + (this.getTotalMovement().x > 0 ? '' : '-') + '100%,0) ' + hwLayerMagic + target.baseTransform.value;
 
@@ -774,7 +767,6 @@ window['Slip'] = (function(){
                     });
                     setTimeout(function(){
                         siblings.forEach(function(o){
-                            //console.log('set target1')
                             o.node.style[transitionPrefix] = transformProperty + ' 0.1s ease-in-out';
                             o.node.style[transformPrefix] = 'translate(0,0) ' + hwLayerMagic + o.baseTransform.value;
                         });
