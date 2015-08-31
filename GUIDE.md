@@ -380,9 +380,9 @@ Template.contacts.helpers({
   //other helper methods...
 });
 ```
-You will also need a button somewhere that triggers the reveal animation. To do that, set a `data-ion-list-toggle` attribute on a button or icon, with the value "left", "right" or "both" to indicate which sides you wish to toggle. 
+You will also need a button somewhere that triggers the reveal animation. To do that, set a `data-ion-list-toggle` attribute on a button or icon, with the value `"left"`, `"right"` or `"both"` to indicate which sides you wish to toggle. 
 
-If you want, you can use also the hidable buttons on the `ionItems` for actions other than sorting and deleting. For example, you could add `{{#ionListButton action="share" side="right"}}` and then attach an your own event to the class using `'click .item-share' :` in you event map.
+If you want, you can use also the hidable buttons on `ionItem` for actions other than sorting and deleting. For example, you could add `{{#ionListButton action="share" side="right"}}` and then attach an your own event to the class using `'click .item-share' :` in you event map.
 
 ## Modals
 
