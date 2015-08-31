@@ -60,13 +60,13 @@ You can also keep track of the various other repos from the [Meteoric team](http
   * [x] ion-header-bar
   * [x] ion-footer-bar
 * [x] Keyboard (requires [cordova](http://cordova.apache.org/) integration)
-* [ ] Lists (needs edit/remove/sort functionality)
-  * [ ] ion-list
-  * [ ] ion-item
-  * [ ] ion-delete-button
-  * [ ] ion-reorder-button
+* [X] Lists (needs edit/remove/sort functionality)
+  * [X] ion-list
+  * [X] ion-item
+  * [X] ion-delete-button
+  * [X] ion-reorder-button
   * [ ] ion-option-button
-  * [x] collection-repeat (not needed with Blaze/Spacebars)
+  * [ ] collection-repeat 
 * [x] Loading
 * [x] Modal
 * [x] Navigation (requires [iron:router](https://github.com/EventedMind/iron-router) integration)

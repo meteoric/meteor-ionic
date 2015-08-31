@@ -343,7 +343,9 @@ Lastly you can also pass a raw url by including the `href` attribute.
     {{/each}}
 {{/ionList}}
 ```
-
+###Lists with sort and delete
+To add the ability to sort and delete lists, you need to pass your collection into the `ionList` component, and add the buttons that will be shown inside the list item.
+For example:
 
 ## Modals
 
