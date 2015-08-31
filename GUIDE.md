@@ -380,7 +380,7 @@ Template.contacts.helpers({
   //other helper methods...
 });
 ```
-You will also need a button somewhere that triggers the reveal animation. To do that, set a `data-ion-list-toggle' attribute on a button or icon, with the value "left", "right" or "both" to indicate which sides you wish to toggle.
+You will also need a button somewhere that triggers the reveal animation. To do that, set a `data-ion-list-toggle` attribute on a button or icon, with the value "left", "right" or "both" to indicate which sides you wish to toggle.
 
 ## Modals
 
