@@ -344,8 +344,43 @@ Lastly you can also pass a raw url by including the `href` attribute.
 {{/ionList}}
 ```
 ###Lists with sort and delete
-To add the ability to sort and delete lists, you need to pass your collection into the `ionList` component, and add the buttons that will be shown inside the list item.
-For example:
+
+To add the ability to sort and delete lists, you need to supply your collection to the the`ionSortable` argument of the `ionList` component, and also add the `ionListButtons` components that will be shown inside the list item.
+
+Here is an example from the contacts demo app:
+```
+{{#ionList ionSortable=collection}}
+  {{#each contacts}}
+
+    {{#ionItem path="contacts.show" buttonRight=true avatar=true class="item-icon-right"}}
+    <a class="item-content">
+      <img src="{{avatarUrl}}">
+      {{name.first}} {{name.last}} 
+    </a>
+      {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+
+      {{#ionListButton action="delete" side='left'}}
+        {{>ionIcon icon="ion-minus-circled"}}
+      {{/ionListButton}}
+
+      {{#ionListButton action="reorder" side="right"}}
+        {{>ionIcon icon="drag"}} 
+      {{/ionListButton}}
+
+    {{/ionItem}}
+  {{/each}}
+{{/ionList}}
+```
+In this example, the `collection` argument  in `ionSortable=collection` is a helper method that returns the Contacts collection:
+```
+Template.contacts.helpers({
+  collection: function() {
+    return Contacts; 
+  },
+  //other helper methods...
+});
+```
+You will also need a button somewhere that triggers the icon reveal animation. To do that set a `data-ion-list-toggle' attribute on a button or icon, with the value "left", "right" or "both" to indicate which sides you wish to toggle.
 
 ## Modals
 
