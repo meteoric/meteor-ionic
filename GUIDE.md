@@ -345,7 +345,7 @@ Lastly you can also pass a raw url by including the `href` attribute.
 ```
 ###Lists with sort and delete
 
-To add the ability to sort and delete lists, you need to supply your collection to the the`ionSortable` argument of the `ionList` component, and also add the `ionListButtons` components that will be shown inside the list item.
+To add the ability to sort and delete lists, you need to supply your collection to the the`ionSortable` argument of the `ionList` component, and also add the `ionListButton` components that will be shown inside the list item.
 
 Here is an example from the contacts demo app:
 ```
@@ -380,7 +380,7 @@ Template.contacts.helpers({
   //other helper methods...
 });
 ```
-You will also need a button somewhere that triggers the icon reveal animation. To do that set a `data-ion-list-toggle' attribute on a button or icon, with the value "left", "right" or "both" to indicate which sides you wish to toggle.
+You will also need a button somewhere that triggers the reveal animation. To do that, set a `data-ion-list-toggle' attribute on a button or icon, with the value "left", "right" or "both" to indicate which sides you wish to toggle.
 
 ## Modals
 
