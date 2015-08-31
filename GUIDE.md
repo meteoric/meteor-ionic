@@ -345,7 +345,7 @@ Lastly you can also pass a raw url by including the `href` attribute.
 ```
 ###Lists with sort and delete
 
-To add the ability to sort and delete lists, you need to supply your collection to the the`ionSortable` argument of the `ionList` component, and also add the `ionListButton` components that will be shown inside the list item.
+To add the ability to sort and delete lists, you need to supply your collection to the the `ionSortable` argument of the `ionList` component, and also add the `ionListButton` components that will be shown inside the list item.
 
 Here is an example from the contacts demo app:
 ```
