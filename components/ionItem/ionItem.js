@@ -72,7 +72,7 @@ Template.ionItem.helpers({
         }
 
       } else {
-        return FlowRouter.path(path);
+        return RouterLayer.getPath(path);
       }
     }
   },

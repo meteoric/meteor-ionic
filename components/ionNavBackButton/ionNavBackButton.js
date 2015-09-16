@@ -1,6 +1,6 @@
 IonScrollPositions = {};
 /*
-FlowRouter.onStop(function () {
+RouterLayer.onStop(function () {
   IonScrollPositions[this.route.path(this.params)] = $('.overflow-scroll').scrollTop();
 });*/
 
@@ -10,7 +10,7 @@ Template.ionNavBackButton.events({
     $('[data-navbar-container]').addClass('nav-bar-direction-back');
 
     if (template.backUrl) {
-      FlowRouter.go(template.backUrl);
+      RouterLayer.go(template.backUrl);
     } else {
       window.history.back();
     }
@@ -31,7 +31,7 @@ Template.ionNavBackButton.rendered = function () {
   }
 
   if (this.data.path) {
-    backRoute = FlowRouter.routes[this.data.path]
+    backRoute = RouterLayer.routes[this.data.path]
     if (!backRoute) {
       console.warn("back to nonexistent route: ", this.data.path);
       return;

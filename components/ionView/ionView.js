@@ -3,7 +3,7 @@ Template.ionView.onRendered(function () {
   IonNavigation.skipTransitions = false;
 
   // Reset our scroll position
-  var routePath = FlowRouter.current().path;
+  var routePath = RouterLayer.getPath();
 
   if(IonScrollPositions[routePath]) {
     $('.overflow-scroll').not('.nav-view-leaving .overflow-scroll').scrollTop(IonScrollPositions[routePath]);

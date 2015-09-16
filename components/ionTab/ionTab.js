@@ -1,9 +1,6 @@
 Template.ionTab.events({
   'click': function (event, template) {
-    if (template.data.path) {
-      Session.set('ionTab.current', template.data.path);
-    }
-
+  
     // If the tab's content is being rendered inside of a ionNavView
     // we don't want to slide it in when switching tabs
     IonNavigation.skipTransitions = true;
@@ -27,28 +24,15 @@ Template.ionTab.helpers({
       return this.href;
     }
     
-    var routeExists =_.reject(FlowRouter._routes, function(route) {
-      return route.path === this.path;
-    });
-    // TODO: fix this syntax
-    if (this.path && routeExists.length) {
+    // kept for backwards compatibility
+    if (this.path) {
       return this.path;
     }
   },
 
   isActive: function () {
-    var ionTabCurrent = Session.get('ionTab.current');
-
-    if (this.path && this.path === ionTabCurrent) {
-      return 'active';
-    }
-
-    // The initial case where there is no localStorage value and
-    // no session variable has been set, this attempts to set the correct tab
-    // to active based on the router
-    FlowRouter.watchPathChange();
-    var route = FlowRouter.current();
-    if(route && route.path === this.path){
+    var route = RouterLayer.getPath(true);
+    if(route  === this.path){
       return 'active';
     }
   },

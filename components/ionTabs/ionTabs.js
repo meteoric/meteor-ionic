@@ -8,14 +8,7 @@ Template.ionTabs.onRendered(function () {
   } else {
     Session.set('hasTabs', true);
   }
-
-  this.$('.tabs').children().each(function() {
-    var href = $(this).attr('href');
-    var current = FlowRouter.current().path;
-    if(href === current){
-      Session.set('ionTab.current', href);
-    }
-  });
+  Session.set('ionTab.current', null);
 });
 
 Template.ionTabs.onDestroyed(function () {
