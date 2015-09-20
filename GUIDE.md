@@ -370,6 +370,13 @@ If you'd like to have another element dismiss the modal, add `data-dismiss=modal
 </button>
 ```
 
+To prevent a click outside the modal closing it, pass false to `backdropClickToClose`. For example :
+```
+{{#ionModal title="My Modal" backdropClickToClose=false}}
+    <p>My modal content goes here</p>
+{{/ionModal}}
+```
+
 ## Popups
 
 You show alerts using the `ionPopup` component. This can be done as follows:
