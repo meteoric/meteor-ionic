@@ -26,4 +26,11 @@ Template.ionRadio.helpers({
 
     return attrs;
   }
-})
+});
+
+Template.ionRadio.events({
+  'click': function(e, tmpl) {
+    e.preventDefault();
+    tmpl.$("input")[0].checked = true;
+  }
+});
