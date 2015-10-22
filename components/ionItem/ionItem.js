@@ -38,6 +38,10 @@ Template.ionItem.helpers({
       classes.push('item-button-right');
     }
 
+    if (this.thumbnailLeft) {
+      classes.push('item-thumbnail-left');
+    }
+
     if (this.textWrap) {
       classes.push('item-text-wrap');
     }
