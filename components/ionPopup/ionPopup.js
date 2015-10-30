@@ -64,7 +64,7 @@ IonPopup = {
       templateName: options.templateName,
       buttons: [
         {
-          text: options.cancelText ? options.cancelText : 'Cancel',
+          text: options.cancelText ? options.cancelText : 'Annuler',
           type: options.cancelType ? options.cancelType : 'button-default',
           onTap: function (event, template) {
             if (options.onCancel) options.onCancel(event, template);
