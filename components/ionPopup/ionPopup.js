@@ -25,7 +25,8 @@ IonPopup = {
       title: options.title,
       subTitle: options.subTitle,
       buttons: this.buttons,
-      template: innerTemplate
+      template: innerTemplate,
+      cssClass: options.cssClass || ''
     };
 
     this.view = Blaze.renderWithData(this.template, data, $('.ionic-body').get(0));
