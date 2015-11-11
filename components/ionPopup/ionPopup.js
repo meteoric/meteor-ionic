@@ -36,6 +36,12 @@ IonPopup = {
     $backdrop.addClass('visible active');
     var $popup = $backdrop.find('.popup-container');
     $popup.addClass('popup-showing active');
+
+    return {
+      close: function(){
+        Blaze.remove( this.view )
+      }.bind( this )
+    }
   },
 
   alert: function (options) {
@@ -167,7 +173,7 @@ Template.ionPopup.events({
 
   'click [data-index]': function (event, template) {
     var index = $(event.target).data('index');
-    IonPopup.buttonClicked(index, event, template);
+    IonPopup.buttonClicked.call( template.data, index, event, template);
   }
 
 });
