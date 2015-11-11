@@ -45,7 +45,7 @@ IonPopup = {
   },
 
   alert: function (options) {
-    IonPopup.show({
+    return IonPopup.show({
       title: options.title,
       subTitle: options.subTitle,
       template: options.template,
@@ -64,7 +64,7 @@ IonPopup = {
   },
 
   confirm: function (options) {
-    IonPopup.show({
+    return IonPopup.show({
       title: options.title,
       subTitle: options.subTitle,
       template: options.template,
@@ -104,7 +104,7 @@ IonPopup = {
     template += '<input type="' + options.inputType + '" placeholder="' +
       options.inputPlaceholder + '" name="prompt" >';
 
-    IonPopup.show({
+    return IonPopup.show({
       title: options.title,
       subTitle: options.subTitle,
       template: template,
