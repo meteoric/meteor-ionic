@@ -85,6 +85,7 @@ Template.ionActionSheet.rendered = function () {
 };
 
 Template.ionActionSheet.destroyed = function () {
+  $('body').removeClass('action-sheet-open');
   $(window).off('keyup.ionActionSheet');
 };
 
