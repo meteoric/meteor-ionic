@@ -4,6 +4,12 @@
 
 ### Build [Ionic](http://ionicframework.com/) apps in [Meteor](https://www.meteor.com/)!
 
+## NOTE: This package is no longer being actively maintained. 
+
+If you are interested in maintaining it, contact me through [my Github profile](https://github.com/nickw). Now that Meteor is officially supporting (and actively recommending) React and Angular, I suggest using [Ionic](https://github.com/driftyco/ionic), [Ionic 2](https://github.com/driftyco/ionic2) or [Reapp](https://github.com/reapp) as alternatives for building hybrid mobile apps with Meteor.
+
+## Overview
+
 This is an attempt at **real Ionic and Meteor integration**. This is not just Ionic's CSS framework wrapped in a Meteor package. It aims to be a complete port of [Ionic’s Angular directives](http://ionicframework.com/docs/api/) to [Meteor Blaze](https://www.meteor.com/blaze) templates.
 
 ## Why?
