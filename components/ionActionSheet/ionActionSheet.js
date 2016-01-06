@@ -12,7 +12,14 @@ IonActionSheet = {
         index: i
       });
     }
-
+    var navButtons = [];
+    for (var i = 0; i < options.buttons.length; i++) {
+      var button = options.buttons[i];
+      navButtons.push({
+        text: button.text,
+        index: i
+      });
+    }
     var data = {
       titleText: options.titleText,
       destructiveText: options.destructiveText,
@@ -100,7 +107,10 @@ Template.ionActionSheet.events({
     var index = $(event.target).data('index');
     IonActionSheet.buttonClicked(index);
   },
-
+  'click [data-index]': function (event, template) {
+    var index = $(event.target).data('index');
+    IonActionSheet.navButtonClicked(index);
+  },
   'click [data-destructive]': function (event, template) {
     IonActionSheet.destructiveButtonClicked();
   },
