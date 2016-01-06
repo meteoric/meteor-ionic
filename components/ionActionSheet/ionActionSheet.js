@@ -13,8 +13,8 @@ IonActionSheet = {
       });
     }
     var navButtons = [];
-    for (var i = 0; i < options.buttons.length; i++) {
-      var button = options.buttons[i];
+    for (var i = 0; i < options.navButtons.length; i++) {
+      var button = options.navButtons[i];
       navButtons.push({
         text: button.text,
         index: i
