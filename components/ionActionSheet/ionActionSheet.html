@@ -3,6 +3,11 @@
     <div class="action-sheet-wrapper">
       <div class="action-sheet">
         <div class="action-sheet-group">
+          {{#each navButtons}}
+            <button class="button" data-index="{{index}}">{{{text}}}</button>
+          {{/each}}
+        </div>
+        <div class="action-sheet-group">
           {{#if titleText}}
             <div class="action-sheet-title">
               {{titleText}}
