@@ -1,7 +1,7 @@
 Package.describe({
   name: "meteoric:ionic",
   summary: "Ionic components for Meteor. No Angular!",
-  version: "0.1.19",
+  version: "0.2.0",
   git: "https://github.com/meteoric/meteor-ionic.git"
 });
 
@@ -10,7 +10,7 @@ Cordova.depends({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom("1.0");
+  api.versionsFrom("1.2");
   api.use([
     "templating",
     "underscore",
