@@ -1,0 +1,15 @@
+<template name="ionItemContent">
+    {{#if isAnchor}}
+    <a class="{{class}} ion-item item-content {{#unless itemComplex}} item snap-content {{/unless}}"
+       href="{{url}}"
+       id="{{idAttribute}}"
+       target="{{target}}">
+        {{> UI.contentBlock}}
+    </a>
+    {{else}}
+    <div class="{{class}} ion-item item-content {{#unless itemComplex}} item snap-content {{/unless}}"
+         id="{{idAttribute}}">
+        {{> UI.contentBlock}}
+    </div>
+    {{/if}}
+</template>

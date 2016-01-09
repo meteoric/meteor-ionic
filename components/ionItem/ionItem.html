@@ -1,11 +1,12 @@
 <template name="ionItem">
-  {{#if isAnchor}}
-    <a class="{{itemClasses}}" href="{{url}}" id="{{idAttribute}}" target="{{target}}">
-      {{> UI.contentBlock}}
-    </a>
+  {{#if itemComplex}}
+  <div class="{{class}} item item-complex item-left-editable item-right-editable">
+
+    <!-- Note: Children can only inherit data context. -->
+    <!-- To inherit helper, the basically have to be passed as data context.-->
+    {{> UI.contentBlock isAnchor=isAnchor url=url target=target}}
+  </div>
   {{else}}
-    <div class="{{itemClasses}}" id="{{idAttribute}}">
-      {{> UI.contentBlock}}
-    </div>
+  {{> UI.contentBlock isAnchor=isAnchor url=url target=target class=class}}
   {{/if}}
 </template>

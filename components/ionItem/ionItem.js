@@ -1,48 +1,97 @@
+Template.ionItem.onCreated(function() {
+  this.snapper = null;
+  this.itemComplex = new ReactiveVar(false);
+
+  let parent = this.parent((template) => template.view.name === "Template.ionList", true);
+  if (!parent) { throw "Template.ionItem must be a descendant of Template.ionList."; }
+
+  _.extend(this, {
+    // Props.
+    showDelete: parent.showDelete,
+    showReorder: parent.showReorder,
+    canSwipe: parent.canSwipe,
+
+    // Methods.
+    closeIonItemSiblings: () => {
+      let ionItemSiblings = this.getSiblings().filter(sibling => sibling.view.name === "Template.ionItem");
+      _.each(ionItemSiblings, sibling => !!sibling.snapper && sibling.snapper.close());
+    },
+    dragSetTransitionNone: () => this.$('.item-content').css({ transition: "none" }),
+    dragEndSetTransitionToInitial: () => this.$('.item-content').css({ transition: "initial"}),
+    initDragTransitionHandler: () => {
+      this.snapper.on('drag', this.dragSetTransitionNone);
+      this.snapper.on('end', this.dragEndSetTransitionToInitial);
+    },
+    destroyDragTransitionHandler: () => {
+      this.snapper.off('drag', this.dragSetTransitionNone);
+      this.snapper.off('end', this.dragEndSetTransitionToInitial);
+    },
+    isitemComplex: () => {
+      let complex = !!_.find(this.children(1),
+          elem =>
+          elem.view.name === 'Template.ionItemOptions' ||
+          elem.view.name === 'Template.ionDeleteButton' ||
+          elem.view.name === 'Template.ionReorderButton');
+      return complex;
+    }
+  });
+});
+
+Template.ionItem.onRendered(function() {
+  this.autorun(() => {
+    if (this.canSwipe.get() && !this.showDelete.get() && !this.showReorder.get()) {
+      let ionOptions = this.getChildren()
+          .filter(child => child.view && child.view.name === 'Template.ionItemOptions');
+      let ionOptionsWidth = ionOptions.reduce((width, child) => width + child.width(), 0);
+      if (!this.snapper) {
+        this.snapper = new Snap({
+          element: this.$('.item-content').get(0),
+          disable: 'left',
+          minPosition: -ionOptionsWidth
+        });
+      }
+
+      this.snapper.settings({
+        element: this.$('.item-content').get(0),  // In case the child template ionItemContent got changed.
+        minPosition: -ionOptionsWidth
+      });
+      this.snapper.enable();
+
+      this.snapper.on('start', () => {
+        this.closeIonItemSiblings();
+      });
+
+      this.initDragTransitionHandler();
+    } else {
+      if (this.snapper) {
+        this.destroyDragTransitionHandler();
+        this.snapper.disable();
+        this.snapper.close();
+      }
+    }
+  });
+
+  this.autorun(() => {
+    this.itemComplex.set(this.isitemComplex());
+  });
+});
+
+Template.ionItem.onDestroyed(function() {
+  if (!!this.snapper) {
+    this.destroyDragTransitionHandler();
+    this.snapper.disable();
+    this.snapper.close();
+  }
+});
+
 Template.ionItem.helpers({
   idAttribute: function () {
     if (this.id) {
       return this.id;
     }
   },
-  itemClasses: function () {
-    var classes = ['item'];
-
-    if (this.class) {
-      var customClasses = this.class.split(' ');
-      _(customClasses).each(function (customClass) {
-        classes.push(customClass);
-      });
-    }
-
-    if (this.avatar) {
-      classes.push('item-avatar' + (this.avatar === 'right' ? '-right' : ''));
-    }
-
-    if (this.iconLeft) {
-      classes.push('item-icon-left');
-    }
-
-    if (this.iconRight) {
-      classes.push('item-icon-right');
-    }
-
-    if (this.buttonLeft) {
-      classes.push('item-button-left');
-    }
-
-    if(Session.get('ionSortable')){
-      classes.push('item-complex', 'item-left-editable');
-    }
-
-    if (this.buttonRight) {
-      classes.push('item-button-right');
-    }
-
-    if (this.textWrap) {
-      classes.push('item-text-wrap');
-    }
-
-    return classes.join(' ');
+  itemComplex: function() {
+    return Template.instance().itemComplex.get();
   },
 
   isAnchor: function () {

@@ -1,94 +1,56 @@
-Template.ionList.helpers({
-  classes: function () {
-    var classes = ['list'];
-
-    if (this.class) {
-      var customClasses = this.class.split(' ');
-      _(customClasses).each(function (customClass) {
-        classes.push(customClass);
-      });
-    }
-
-    return classes.join(' ');
-  }
+Template.ionList.onCreated(function() {
+  this.showDelete = new ReactiveVar(false);
+  this.showReorder = new ReactiveVar(false);
+  this.canSwipe = new ReactiveVar(false);
 });
 
+Template.ionList.onRendered(function() {
+  this.autorun(() => {
+    if (Template.instance().showReorder.get()) {
+      IonSideMenu.disable();
+      if (!this.slip) {
+        var list = this.$('.list')[0];
+        this.slip = new Slip(list);
+      }
+    } else {
+      IonSideMenu.enable();
+    }
+  });
 
-Template.ionList.rendered = function() {
-
- if (this.data && this.data.ionSortable){
-  Session.set("ionSortable", true );
-  var list = this.$('.list')[0]; 
-  new Slip(list);
-}
-
-};
-
+  this.autorun(() => {
+    if (!!Template.currentData()) {
+      this.canSwipe.set(!!Template.currentData().canSwipe);
+      this.showReorder.set(!!Template.currentData().showReorder);
+      this.showDelete.set(!!Template.currentData().showDelete);
+    }
+  });
+});
 
 Template.ionList.events({
   'click .item-delete' : function(e, template){
     e.preventDefault();
-
-    var target = $(e.target).closest('.item').get(0);
-    var targetData = Blaze.getData(target.getElementsByClassName('item-content')[0])._id || undefined;
-
-    template.data.ionSortable.find({}).forEach(function(item, i) {
-      if (item._id === targetData) {
-        template.data.ionSortable._collection.remove({
-          _id: item._id
-        }, function(error, result) { });
-      }
-    });
   },
   'slip:swipe .list, slip:beforeswipe .list, slip:beforewait .list, slip:afterswipe .list': function(e, template) {
     e.preventDefault();
   },
   'slip:beforereorder .list': function(e, template) {
-    if (e.originalEvent.target.className.indexOf('instant') == -1) {
+    // Two case to consider:
+    // 1. instant class is in ionItem. In which case, we allow reorder, but we don't show the dragging animation.
+    // 2. This thing still shows the animation ven when reorder is disabled. Element goes back to orig spot, but could
+    //    easily mislead the user.
+    if (e.originalEvent.target.className.indexOf('instant') !== -1 ||
+        !template.showReorder.get()) {
       e.preventDefault();
     }
   },
   'slip:reorder .list': function(e, template) {
-    spliceIndex = e.originalEvent.detail.spliceIndex
-    originalIndex = e.originalEvent.detail.originalIndex
+    let toIndex = e.originalEvent.detail.spliceIndex;
+    let fromIndex = e.originalEvent.detail.originalIndex;
 
-    if (spliceIndex != originalIndex) {
-
-      template.data.ionSortable.find({}, {
-        sort: {
-          order: 1
-        }
-      }).forEach(function(item, i) {
-        template.data.ionSortable._collection.pauseObservers()
-        if (item._id == Blaze.getData(e.target.getElementsByClassName('item-content')[0])._id) {
-          temp = template.data.ionSortable.update({
-            _id: item._id
-          }, {
-            $set: {
-              order: spliceIndex
-            }
-          })
-        } else {
-          if (spliceIndex > originalIndex) {
-            newOrder = ((spliceIndex >= i) && (originalIndex < i)) ? (i - 1) : i
-          } else if (spliceIndex == '0') {
-            newOrder = (originalIndex > i) ? (i + 1) : i
-          } else {
-            newOrder = ((spliceIndex <= i) && (originalIndex > i)) ? (i + 1) : i
-          }
-
-          temp = template.data.ionSortable.update({
-            _id: item._id
-          }, {
-            $set: {
-              order: newOrder
-            }
-          })
-        }
-        template.data.ionSortable._collection.resumeObservers()
-      })
-
+    let index_change = toIndex !== fromIndex;
+    let sortable = index_change && template.showReorder.get() && !!template.data.onReorder;
+    if (sortable) {
+      template.data.onReorder(Template.instance().children()[fromIndex], fromIndex, toIndex);
     }
   }
-
 });

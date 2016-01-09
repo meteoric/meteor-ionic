@@ -1,9 +1,11 @@
 Package.describe({
   name: "jandres:ionic",
   summary: "Ionic components for Meteor. No Angular!",
-  version: "0.1.20",
-  git: "https://github.com/meteoric/meteor-ionic.git"
+  version: "0.1.39",
+  git: "https://github.com/JoeyAndres/meteor-ionic.git"
 });
+
+
 
 Cordova.depends({
   'ionic-plugin-keyboard': '1.0.8'
@@ -12,21 +14,32 @@ Cordova.depends({
 Package.onUse(function(api) {
   api.versionsFrom("1.0");
   api.use([
+    "fourseven:scss@3.3.3"
+  ]);
+
+  api.use([
+    "jandres:template-extension@4.0.4",
+    "ecmascript@0.1.6",
     "templating",
     "underscore",
+    "reactive-var",
     "fastclick",
     "iron:router@1.0.0",
     "tracker",
     "session",
-    "jquery"
+    "jquery",
+    "jandres:snapjs@2.0.1",
+    "fourseven:scss@3.3.3"
   ], "client");
 
   api.addFiles([
-    "vendor/snap.js",
-    "vendor/snap.css",
     "vendor/slick.js",
     "vendor/slick.css",
     "vendor/slip.js"
+  ], "client");
+
+  api.addFiles([
+    "styles/main.scss"
   ], "client");
 
   api.addFiles([
@@ -42,6 +55,9 @@ Package.onUse(function(api) {
     "components/ionContent/ionContent.html",
     "components/ionContent/ionContent.js",
 
+    "components/ionDeleteButton/ionDeleteButton.html",
+    "components/ionDeleteButton/ionDeleteButton.js",
+
     "components/ionFooterBar/ionFooterBar.html",
     "components/ionFooterBar/ionFooterBar.js",
 
@@ -53,6 +69,12 @@ Package.onUse(function(api) {
 
     "components/ionItem/ionItem.html",
     "components/ionItem/ionItem.js",
+
+    "components/ionItemOptions/ionItemOptions.html",
+    "components/ionItemOptions/ionItemOptions.js",
+
+    "components/ionItemContent/ionItemContent.html",
+    "components/ionItemContent/ionItemContent.js",
 
     "components/ionKeyboard/ionKeyboard.js",
     "components/ionKeyboard/ionInputFocus.js",
@@ -72,6 +94,9 @@ Package.onUse(function(api) {
     "components/ionNavBar/ionNavBar.html",
     "components/ionNavBar/ionNavBar.js",
 
+    "components/ionOptionButton/ionOptionButton.html",
+    "components/ionOptionButton/ionOptionButton.js",
+
     "components/ionNavBackButton/ionNavBackButton.html",
     "components/ionNavBackButton/ionNavBackButton.js",
 
@@ -89,6 +114,9 @@ Package.onUse(function(api) {
 
     "components/ionRadio/ionRadio.html",
     "components/ionRadio/ionRadio.js",
+
+    "components/ionReorderButton/ionReorderButton.html",
+    "components/ionReorderButton/ionReorderButton.js",
 
     "components/ionSideMenu/ionSideMenu.html",
     "components/ionSideMenu/ionSideMenu.js",

@@ -4,13 +4,11 @@
 
 ### Build [Ionic](http://ionicframework.com/) apps in [Meteor](https://www.meteor.com/)!
 
-## NOTE: This package is no longer being actively maintained. 
-
-If you are interested in maintaining it, contact me through [my Github profile](https://github.com/nickw). Now that Meteor is officially supporting (and actively recommending) React and Angular, I suggest using [Ionic](https://github.com/driftyco/ionic), [Ionic 2](https://github.com/driftyco/ionic2) or [Reapp](https://github.com/reapp) as alternatives for building hybrid mobile apps with Meteor.
-
 ## Overview
 
 This is an attempt at **real Ionic and Meteor integration**. This is not just Ionic's CSS framework wrapped in a Meteor package. It aims to be a complete port of [Ionic’s Angular directives](http://ionicframework.com/docs/api/) to [Meteor Blaze](https://www.meteor.com/blaze) templates.
+
+Note: This is a forked of meteoric:ionic, which is now not maintained. In response, I decided to fork it, and maintain this package for my own. I have written acceptance test on [JoeyAndres/ionic-demo](https://github.com/JoeyAndres/ionic-demo), which is a fork of meteoric/demo.
 
 ## Why?
 [Ionic](http://ionicframework.com/) is arguably the most comprehensive, polished, cross-platform mobile framework available. But unfortunately a large portion of its functionality comes from Angular directives. [I'm not a fan of trying to force-fit Angular into Meteor](https://medium.com/space-camp/your-meteor-app-probably-doesnt-need-angular-13986a0323f6), so I wanted to see if I could rewrite Ionic specifically for Meteor.
@@ -22,13 +20,26 @@ Check out the [GUIDE.md](GUIDE.md) for a guide on how to get started.
 
 **Beta** See the TODO section below to see which Angular Directives have been ported to Blaze.
 
-## Dependencies
-Rather than include compiled or CDN versions of Ionic's CSS Framework we’ve extraced it into two separate packages:
+## Install
 
-- [meteoric:ionicons-sass](http://github.com/meteoric/ionicons-sass) Ionic’s Ionicons set wrapped for Meteor.
-- [meteoric:ionic-sass](http://github.com/meteoric/ionic-sass) The base Ionic CSS Framework wrapped for Meteor.
+```bash
+meteor add jandres:ionic
+```
+
+## Dependencies
+
+- [seba:ionic-sass](https://github.com/sebakerckhof/meteor-ionic-sass/) Ionic's scss only package and currently up to date with ionic v1.1.0
 
 ## Examples
+
+### Demo of all components
+The demo app of various ionic components
+
+[Demo](http://jandres-meteor-ionic.meteor.com/) |  [Code](https://github.com/JoeyAndres/ionic-demo)
+
+## Pre-fork Examples
+
+The following are examples prior to this fork.
 
 ### Contacts App
 A simple CRUD app to manage contacts.
@@ -39,13 +50,6 @@ A simple CRUD app to manage contacts.
 A [Product Hunt](http://producthunt.com) clone built in Meteor Ionic. (In Progress)
 
 [Demo](http://meteorhunt.meteor.com/) |  [Code](https://github.com/meteoric/meteorhunt)
-
-### Demo of all components
-The demo app of various meteoric components
-
-[Demo](http://meteor-ionic.meteor.com/) |  [Code](https://github.com/meteoric/demo)
-
-You can also keep track of the various other repos from the [Meteoric team](https://github.com/meteoric)
 
 ## TODO
 
@@ -67,15 +71,15 @@ You can also keep track of the various other repos from the [Meteoric team](http
   * [x] ion-footer-bar
 * [x] Keyboard (requires [cordova](http://cordova.apache.org/) integration)
 * [ ] Lists (needs edit/remove/sort functionality)
-  * [ ] ion-list
-  * [ ] ion-item
-  * [ ] ion-delete-button
-  * [ ] ion-reorder-button
-  * [ ] ion-option-button
+  * [x] ion-list
+  * [x] ion-item
+  * [x] ion-delete-button
+  * [x] ion-reorder-button
+  * [x] ion-option-button
   * [ ] collection-repeat
 * [x] Loading
 * [x] Modal
-* [x] Navigation (requires [iron:router](https://github.com/EventedMind/iron-router) integration)
+* [x] Navigation (requires [iron:router](https://github.com/EventedMind/iron-router) integration)a
   * [x] ion-nav-view
   * [x] ion-view
   * [x] ion-nav-bar
@@ -101,6 +105,10 @@ You can also keep track of the various other repos from the [Meteoric team](http
 * [x] Tabs (requires [iron:router](https://github.com/EventedMind/iron-router) integration)
   * [x] ion-tabs
   * [x] ion-tab
+  
+### Code Style Change: 
+These are code styles that I want to impose on this forked repo.
+* Get rid of all session variables [ ]
 
 ## License
 [MIT License](https://github.com/meteoric/meteor-ionic/blob/master/LICENSE)

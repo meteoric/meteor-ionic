@@ -1,6 +1,6 @@
 IonHeaderBar = {
   alignTitle: function () {
-    var align = this.data.alignTitle || 'center';
+    var align = this.alignTitle;
     var $title = this.$('.title');
 
     if (Platform.isAndroid() && !this.alignTitle) {
@@ -49,9 +49,9 @@ IonHeaderBar = {
   }
 };
 
-Template.ionHeaderBar.created = function () {
-  this.data = this.data || {};
-};
+Template.ionHeaderBar.onCreated(function() {
+  this.alignTitle = this.data? (this.data.alignTitle || 'center') : 'center';
+});
 
 Template.ionHeaderBar.rendered = function () {
   Session.set('hasHeader', true);

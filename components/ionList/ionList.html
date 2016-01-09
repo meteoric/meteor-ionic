@@ -1,5 +1,8 @@
 <template name="ionList">
-  <div class="{{classes}}" data-snap-ignore="true">
+  <div class="{{class}} list
+  {{#if showDelete}} list-left-editing {{/if}}
+  {{#if showReorder}} list-right-editing {{/if}}
+  ">
     {{> UI.contentBlock}}
   </div>
 </template>

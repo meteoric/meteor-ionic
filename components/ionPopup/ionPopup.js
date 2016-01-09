@@ -144,17 +144,17 @@ IonPopup = {
   }
 };
 
-Template.ionPopup.rendered = function () {
+Template.ionPopup.onRendered(function() {
   $(window).on('keyup.ionPopup', function(event) {
-    if (event.which == 27) {
+    if (event.which == KeyboardEvent.code["Escape"]) {
       IonPopup.close();
     }
   });
-};
+});
 
-Template.ionPopup.destroyed = function () {
+Template.ionPopup.onDestroyed(function() {
   $(window).off('keyup.ionPopup');
-};
+});
 
 Template.ionPopup.events({
   // Handle clicking the backdrop
