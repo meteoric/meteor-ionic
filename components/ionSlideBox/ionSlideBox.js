@@ -5,6 +5,7 @@ Template.ionSlideBox.created = function () {
   this.slideInterval = this.data.slideInterval || 4000;
   this.showPager = typeof this.data.showPager != 'undefined' ? this.data.showPager : true;
   this.initialSlide = this.data.initialSlide || Session.get('ion-slide-initial-slide') || 0;
+  this.preventPropagation = this.data.preventPropagation || true;
 };
 
 Template.ionSlideBox.rendered = function () {
@@ -29,3 +30,11 @@ Template.ionSlideBox.destroyed = function () {
   var $slideBox = this.$('.ion-slide-box');
   if ($slideBox.hasClass('slick-initialized')) $slideBox.slick('unslick');
 };
+
+Template.ionSlideBox.events({
+  'touchmove .ion-slide-box': function(event, template) {
+    if (template.preventPropagation) {
+      event.stopPropagation();
+    }
+  }
+});
