@@ -35,7 +35,7 @@ meteor add jandres:ionic
 ### Demo of all components
 The demo app of various ionic components
 
-[Demo](http://jandres-meteor-ionic.meteor.com/) |  [Code](https://github.com/JoeyAndres/ionic-demo)
+[Demo](http://jandres-ionic.meteor.com/) |  [Code](https://github.com/JoeyAndres/ionic-demo)
 
 ## Pre-fork Examples
 
