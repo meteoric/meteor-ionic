@@ -2,8 +2,7 @@ Template.ionContent.onCreated(function() {
     this.ionSideMenuContainerParent = this.parent((t) => t.view.name === "Template.ionSideMenuContainer", true);
 
     _.extend(this, {
-        hasBouncing: (!!this.ionSideMenuContainerParent && this.ionSideMenuContainerParent.hasBouncing) || new ReactiveVar(null),
-        itemComplex: parent.itemComplex
+        hasBouncing: (!!this.ionSideMenuContainerParent && this.ionSideMenuContainerParent.hasBouncing) || new ReactiveVar(null)
     });
 
     this.autorun(() => {
