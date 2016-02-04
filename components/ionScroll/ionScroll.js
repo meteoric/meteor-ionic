@@ -13,17 +13,17 @@ Template.ionScroll.onCreated(function() {
     this.hasBouncing = new ReactiveVar(true);
 
     _.extend(this, {
-        set_direction: direction => direction !== this.direction.get() && this.direction.set(_.isUndefined(direction) ? 'y' : direction),
-        set_locking: locking => locking !== this.locking.get() && this.locking.set(_.isUndefined(locking) ? true : locking),
-        set_paging: paging => paging !== this.paging.get() && this.paging.set(!!paging),
-        set_onRefresh: onRefresh => onRefresh !== this.onRefresh.get() && this.onRefresh.set(onRefresh),
-        set_onScroll: onScroll => onScroll !== this.onScroll.get() && this.onScroll.set(onScroll),
-        set_scrollBarX: scrollBarX => scrollBarX !== this.scrollBarX.get() && this.scrollBarX.set(_.isUndefined(scrollBarX) ? true : scrollBarX),
-        set_scrollBarY: scrollBarY => scrollBarY !== this.scrollBarY.get() && this.scrollBarY.set(_.isUndefined(scrollBarY) ? true : scrollBarY),
-        set_zooming: zooming => zooming !== this.zooming.get() && this.zooming.set(zooming),
-        set_minZoom: minZoom => minZoom !== this.minZoom.get() && this.minZoom.set(_.isUndefined(minZoom) ? minZoom : 0.5),
-        set_maxZoom: maxZoom => maxZoom !== this.maxZoom.get() && this.maxZoom.set(_.isUndefined(maxZoom) ? maxZoom : 3),
-        set_hasBouncing: hasBouncing => hasBouncing !== this.hasBouncing.get() && this.hasBouncing.set(_.isUndefined(hasBouncing) ? true: hasBouncing)  // todo: Make this platform dependent.
+        set_direction: direction => this.direction.set(_.isUndefined(direction) ? 'y' : direction),
+        set_locking: locking => this.locking.set(_.isUndefined(locking) ? true : locking),
+        set_paging: paging => this.paging.set(!!paging),
+        set_onRefresh: onRefresh => this.onRefresh.set(onRefresh),
+        set_onScroll: onScroll => this.onScroll.set(onScroll),
+        set_scrollBarX: scrollBarX => this.scrollBarX.set(_.isUndefined(scrollBarX) ? true : scrollBarX),
+        set_scrollBarY: scrollBarY => this.scrollBarY.set(_.isUndefined(scrollBarY) ? true : scrollBarY),
+        set_zooming: zooming => this.zooming.set(zooming),
+        set_minZoom: minZoom => this.minZoom.set(_.isUndefined(minZoom) ? minZoom : 0.5),
+        set_maxZoom: maxZoom => this.maxZoom.set(_.isUndefined(maxZoom) ? maxZoom : 3),
+        set_hasBouncing: hasBouncing => this.hasBouncing.set(_.isUndefined(hasBouncing) ? true: hasBouncing)  // todo: Make this platform dependent.
     });
 
     this.autorun(() => {
@@ -50,12 +50,12 @@ Template.ionScroll.onRendered(function() {
 
         this.autorun(() => {
             scroller.options = _.extend(scroller.options, {
-                scrollX: !!this.direction.get() && this.direction.get().indexOf('x') !== -1,
-                scrollY: !!this.direction.get() && this.direction.get().indexOf('y') !== -1,
+                scrollX: this.direction.get().indexOf('x') !== -1,
+                scrollY: this.direction.get().indexOf('y') !== -1,
                 freeScroll: !this.locking.get(),
                 zoomMin: this.minZoom.get(),
                 zoomMax: this.maxZoom.get(),
-                bounce: !!this.hasBouncing.get()
+                bounce: this.hasBouncing.get()
             });
 
             // todo: add a removeEvent or .off

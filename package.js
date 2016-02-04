@@ -25,7 +25,7 @@ Package.onUse(function(api) {
     "tracker",
     "session",
     "jquery",
-    "raix:iscroll",
+    "raix:iscroll@0.0.3",
     "jandres:snapjs@2.0.2",
     "fourseven:scss@3.3.3"
   ], "client");
