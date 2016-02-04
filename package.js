@@ -1,7 +1,7 @@
 Package.describe({
   name: "jandres:ionic",
   summary: "Ionic components for Meteor. No Angular!",
-  version: "0.1.41",
+  version: "0.1.43",
   git: "https://github.com/JoeyAndres/meteor-ionic.git"
 });
 
@@ -13,9 +13,6 @@ Cordova.depends({
 
 Package.onUse(function(api) {
   api.versionsFrom("1.0");
-  api.use([
-    "fourseven:scss@3.3.3"
-  ]);
 
   api.use([
     "jandres:template-extension@4.0.4",
@@ -28,6 +25,7 @@ Package.onUse(function(api) {
     "tracker",
     "session",
     "jquery",
+    "jandres:iscroll-zoom@5.1.4",
     "jandres:snapjs@2.0.2",
     "fourseven:scss@3.3.3"
   ], "client");
@@ -117,6 +115,9 @@ Package.onUse(function(api) {
 
     "components/ionReorderButton/ionReorderButton.html",
     "components/ionReorderButton/ionReorderButton.js",
+
+    "components/ionScroll/ionScroll.html",
+    "components/ionScroll/ionScroll.js",
 
     "components/ionSideMenu/ionSideMenu.html",
     "components/ionSideMenu/ionSideMenu.js",
