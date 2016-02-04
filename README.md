@@ -92,7 +92,7 @@ A [Product Hunt](http://producthunt.com) clone built in Meteor Ionic. (In Progre
 * [x] Popover
 * [x] Popup
 * [ ] Scroll
-  * [ ] ion-scroll
+  * [x] ion-scroll: Need to modify iscroll (massive re-engineering and cleanup) to add features.
   * [ ] ion-infinite-scroll
 * [x] Side Menus
   * [x] ion-side-menus
@@ -108,7 +108,7 @@ A [Product Hunt](http://producthunt.com) clone built in Meteor Ionic. (In Progre
   
 ### Code Style Change: 
 These are code styles that I want to impose on this forked repo.
-* Get rid of all session variables [ ]
+* [ ] Get rid of all session variables
 
 ## License
 [MIT License](https://github.com/meteoric/meteor-ionic/blob/master/LICENSE)
