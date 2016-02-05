@@ -25,7 +25,7 @@ Package.onUse(function(api) {
     "tracker",
     "session",
     "jquery",
-    "jandres:iscroll-zoom@5.1.4",
+    "jandres:iscroll-zoom@5.1.6",
     "jandres:snapjs@2.0.2",
     "fourseven:scss@3.3.3"
   ], "client");

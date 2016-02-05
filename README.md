@@ -92,7 +92,7 @@ A [Product Hunt](http://producthunt.com) clone built in Meteor Ionic. (In Progre
 * [x] Popover
 * [x] Popup
 * [ ] Scroll
-  * [x] ion-scroll: Need to modify iscroll (massive re-engineering and cleanup) to add features.
+  * [x] ion-scroll
   * [ ] ion-infinite-scroll
 * [x] Side Menus
   * [x] ion-side-menus

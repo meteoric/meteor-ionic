@@ -65,7 +65,8 @@ Template.ionScroll.onRendered(function() {
                 zoom: this.zooming.get(),
                 zoomMin: this.minZoom.get(),
                 zoomMax: this.maxZoom.get(),
-                bounce: this.hasBouncing.get()
+                bounce: this.hasBouncing.get(),
+                eventPassthrough: true
             });
 
             this.scroller.refresh();
