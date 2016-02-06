@@ -28,8 +28,8 @@ Template.ionScroll.onCreated(function() {
         set_scrollBarX: scrollBarX => this.scrollBarX.set(_.isUndefined(scrollBarX) ? true : scrollBarX),
         set_scrollBarY: scrollBarY => this.scrollBarY.set(_.isUndefined(scrollBarY) ? true : scrollBarY),
         set_zooming: zooming => this.zooming.set(!!zooming),
-        set_minZoom: minZoom => this.minZoom.set(_.isUndefined(minZoom) ? minZoom : 0.5),
-        set_maxZoom: maxZoom => this.maxZoom.set(_.isUndefined(maxZoom) ? maxZoom : 3),
+        set_minZoom: minZoom => this.minZoom.set(_.isUndefined(minZoom) ? 0.5 : minZoom),
+        set_maxZoom: maxZoom => this.maxZoom.set(_.isUndefined(maxZoom) ? 3 : maxZoom),
         set_hasBouncing: hasBouncing => this.hasBouncing.set(_.isUndefined(hasBouncing) ? true: hasBouncing)  // todo: Make this platform dependent.
     });
 
@@ -53,7 +53,10 @@ Template.ionScroll.onCreated(function() {
 
 Template.ionScroll.onRendered(function() {
     if (!this.nativeScrolling.get()) {  // todo: make this reactive? Is there a use case?
-        this.scroller = new IScroll(this.$(".scroller-wrapper").get(0));
+        this.scroller = new IScroll(this.$(".scroller-wrapper").get(0), {
+            mouseWheel: true,
+            wheelAction: 'zoom'
+        });
 
         if (!!this.onScroll.get()) { this.scroller.on('scroll', this.onScroll.get()); }
 
@@ -65,8 +68,7 @@ Template.ionScroll.onRendered(function() {
                 zoom: this.zooming.get(),
                 zoomMin: this.minZoom.get(),
                 zoomMax: this.maxZoom.get(),
-                bounce: this.hasBouncing.get(),
-                eventPassthrough: true
+                bounce: this.hasBouncing.get()
             });
 
             this.scroller.refresh();
