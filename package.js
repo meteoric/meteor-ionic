@@ -1,7 +1,7 @@
 Package.describe({
   name: "jandres:ionic",
   summary: "Ionic components for Meteor. No Angular!",
-  version: "0.1.45",
+  version: "0.1.46",
   git: "https://github.com/JoeyAndres/meteor-ionic.git"
 });
 
@@ -26,7 +26,7 @@ Package.onUse(function(api) {
     "session",
     "jquery",
     "jandres:iscroll-zoom@5.1.9",
-    "jandres:snapjs@2.0.6",
+    "jandres:snapjs@2.0.8",
     "fourseven:scss@3.3.3"
   ], "client");
 
