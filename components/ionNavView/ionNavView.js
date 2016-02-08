@@ -25,46 +25,11 @@ Template.ionNavView.created = function () {
 };
 
 Template.ionNavView.rendered = function () {
-  var template = this;
   var container = this.find('[data-nav-container]');
-
+  $('[data-nav-container]').attr('nav-view-direction', 'forward');
   container._uihooks = {
-    insertElement: function(node, next) {
-      var $node = $(node);
-      if (!template.transition || !$node.hasClass('view') || IonNavigation.skipTransitions) {
-        container.insertBefore(node, next);
-        return;
-      }
-
-      $node.addClass('nav-view-entering nav-view-stage');
-      container.insertBefore(node, next);
-      Meteor.setTimeout(function() {
-        $node.removeClass('nav-view-stage').addClass('nav-view-active');
-      }, 0);
-
-      Meteor.setTimeout(function () {
-        $(this).removeClass('nav-view-entering');
-        $('[data-nav-container]').removeClass('nav-view-direction-back').addClass('nav-view-direction-forward');
-      }, template.transitionDuration);
-    },
-
-    removeElement: function(node) {
-      var $node = $(node);
-      if (!template.transition || !$node.hasClass('view') || IonNavigation.skipTransitions) {
-        $node.remove();
-        return;
-      }
-
-      $node.addClass('nav-view-leaving nav-view-stage');
-      Meteor.setTimeout(function() {
-        $node.removeClass('nav-view-stage').addClass('nav-view-active');
-      }, 0);
-
-      Meteor.setTimeout(function () {
-        $node.remove();
-        Session.set('ionNavDirection', 'forward');
-      }, template.transitionDuration);
-    }
+    // Override onDestroyed so that it won't remove itself immediately.
+    removeElement: function(node) {}
   };
 };
 

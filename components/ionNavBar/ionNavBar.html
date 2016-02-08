@@ -1,5 +1,7 @@
 <template name="ionNavBar">
-  <div class="{{classes}} nav-bar-block nav-bar-transition-{{transition}} nav-bar-direction-forward" data-navbar-container>
+  <div class="{{classes}} nav-bar-block navbar-container" data-navbar-container
+       nav-bar-transition="{{transition}}"
+       nav-bar-direction="forward">
     {{> yield "headerButtonLeft"}}
     {{> yield "headerTitle"}}
     {{> yield "headerButtonRight"}}

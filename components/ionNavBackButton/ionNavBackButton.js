@@ -6,11 +6,11 @@ Router.onStop(function () {
 
 Template.ionNavBackButton.events({
   'click': function (event, template) {
-    $('[data-nav-container]').addClass('nav-view-direction-back');
-    $('[data-navbar-container]').addClass('nav-bar-direction-back');
+    $('[data-nav-container]').attr('nav-view-direction', 'back');
+    $('[data-navbar-container]').attr('nav-bar-direction', 'back');
     
     //get most up-to-date url, if it exists
-    backUrl = template.getBackUrl()
+    backUrl = template.getBackUrl();
     if (backUrl) {
       Router.go(backUrl);
     } else {
@@ -19,11 +19,11 @@ Template.ionNavBackButton.events({
   }
 });
 
-Template.ionNavBackButton.created = function () {
+Template.ionNavBackButton.onCreated(function () {
   this.data = this.data || {};
-};
+});
 
-Template.ionNavBackButton.rendered = function () {
+Template.ionNavBackButton.onRendered(function () {
   var self = this;
   this.getBackUrl = function () {
     var backUrl = null;
@@ -44,7 +44,9 @@ Template.ionNavBackButton.rendered = function () {
     }
     return backUrl;
   };
-};
+
+
+});
 
 Template.ionNavBackButton.helpers({
   classes: function () {

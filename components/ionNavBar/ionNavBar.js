@@ -39,6 +39,7 @@ Template.ionNavBar.rendered = function () {
         return;
       }
 
+      $node.attr('nav-bar', 'entering');
       if ($node.hasClass('title')) {
         container.insertBefore(node, next);
         $node.addClass('title-entering title-stage');
@@ -52,7 +53,7 @@ Template.ionNavBar.rendered = function () {
 
         Meteor.setTimeout(function () {
           $(this).removeClass('title-entering');
-          $('[data-navbar-container]').removeClass('nav-bar-direction-back').addClass('nav-bar-direction-forward');
+          $('[data-navbar-container]').attr('nav-bar-direction', 'forward');
         }, template.transitionDuration + 16);
       }
 
@@ -76,6 +77,7 @@ Template.ionNavBar.rendered = function () {
         return;
       }
 
+      $node.attr('nav-bar', 'leaving');
       if ($node.hasClass('title')) {
         $node.addClass('title-leaving title-stage');
         Meteor.setTimeout(function() {

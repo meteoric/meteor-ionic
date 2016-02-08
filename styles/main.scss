@@ -1,3 +1,8 @@
+@import '{jandres:meteoric-sass}/scss/ionic.scss';
+@import '{jandres:meteoric-sass}/scss/ionicons/ionicons.scss';
+
+@import "_transitions.scss";
+
 .snap-drawers {
   .snap-drawer-left {}
   .item-options.snap-drawer.snap-drawer-right {

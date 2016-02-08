@@ -1,5 +1,6 @@
 <template name="ionNavView">
-  <div data-nav-container class="nav-view-transition-{{transition}} nav-view-direction-forward">
+  <div data-nav-container class="{{class}}"
+       nav-view-transition="{{transition}}" nav-view-direction="forward">
     {{> UI.contentBlock}}
   </div>
 </template>

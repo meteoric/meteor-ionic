@@ -27,7 +27,11 @@ Package.onUse(function(api) {
     "jquery",
     "jandres:iscroll-zoom@5.1.9",
     "jandres:snapjs@2.0.8",
-    "fourseven:scss@3.3.3"
+    "fourseven:scss@3.3.3",
+
+    "jandres:meteoric-sass",
+
+    "cwaring:modernizr"
   ], "client");
 
   api.addFiles([
@@ -37,10 +41,13 @@ Package.onUse(function(api) {
   ], "client");
 
   api.addFiles([
+    "styles/_transitions.scss",
     "styles/main.scss"
   ], "client");
 
   api.addFiles([
+    "lib/utility.js",
+
     "components/ionActionSheet/ionActionSheet.html",
     "components/ionActionSheet/ionActionSheet.js",
 
