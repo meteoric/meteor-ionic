@@ -1,63 +1,87 @@
-// For some reason, animation works on more complex content i.e. ionList with ionItems in complex state. Transition
-// don't work in such cases.
-@mixin nav-view-transitions($transition-duration) {
-  &[nav-view-direction="forward"] [nav-view="entering"] {
-    @include animation(nav-view-direction-entering-forward $transition-duration);
+@import '{jandres:meteoric-sass}/scss/_mixins.scss';
+@import '{jandres:meteoric-sass}/scss/_variables.scss';
+
+[nav-view-transition] {
+  /**
+   * Transition states:
+   * 1. stage: Set the initial position of the not yet existent view.
+   * 2. entering: Triggers animation toward translate3d(0, 0, 0), centering the view.
+   * 3. active: Keeps the translate3d(0, 0, 0) for the rest of the states, until leaving.
+   * 4. leaving: Transitions out.
+   */
+
+  [nav-view="stage"] {  opacity: 0;  }
+  &[nav-view-direction="back"] [nav-view="stage"] {
+    @include translate3d(-100%, 0px, 0px);
+  }
+  &[nav-view-direction="forward"] [nav-view="stage"] {
+    @include translate3d(100%, 0px, 0px);
   }
 
-  @-webkit-keyframes nav-view-direction-entering-forward {
-    from {  -webkit-transform: translate3d(100%, 0px, 0px);  }
-    to {  -webkit-transform: translate3d(0%, 0px, 0px);  }
-  }
-  @keyframes nav-view-direction-entering-forward {
-    from {  transform: translate3d(100%, 0px, 0px);  }
-    to {  transform: translate3d(0%, 0px, 0px);  }
+  [nav-view="entering"] {  opacity: 1;  }
+  &[nav-view-direction="back"] [nav-view="entering"],
+  &[nav-view-direction="forward"] [nav-view="entering"]{
+    @include translate3d(0px, 0px, 0px);
   }
 
-  &[nav-view-direction="back"] [nav-view="entering"] {
-    @include animation(nav-view-direction-entering-backward $transition-duration);
-  }
-
-  @-webkit-keyframes nav-view-direction-entering-backward {
-    from {  -webkit-transform: translate3d(-100%, 0px, 0px);  }
-    to {  -webkit-transform: translate3d(0%, 0px, 0px);  }
-  }
-  @keyframes nav-view-direction-entering-backward {
-    from {  transform: translate3d(-100%, 0px, 0px);  }
-    to {  transform: translate3d(0%, 0px, 0px);  }
-  }
-
-  &[nav-view-direction="forward"] [nav-view="leaving"] {
-    @include animation(nav-view-direction-leaving-forward $transition-duration);
-  }
-
-  @-webkit-keyframes nav-view-direction-leaving-forward {
-    from {  -webkit-transform: translate3d(0%, 0px, 0px);  }
-    to {  -webkit-transform: translate3d(-100%, 0px, 0px);  }
-  }
-  @keyframes nav-view-direction-leaving-forward {
-    from {  transform: translate3d(0%, 0px, 0px);  }
-    to {  transform: translate3d(-100%, 0px, 0px);  }
-  }
-
+  [nav-view="leaving"] {  opacity: 0;  }
   &[nav-view-direction="back"] [nav-view="leaving"] {
-    @include animation(nav-view-direction-leaving-backward $transition-duration);
+    @include translate3d(100%, 0px, 0px);
+  }
+  &[nav-view-direction="forward"] [nav-view="leaving"] {
+    @include translate3d(-100%, 0px, 0px);
   }
 
-  @-webkit-keyframes nav-view-direction-leaving-backward {
-    from {  -webkit-transform: translate3d(0%, 0px, 0px);  }
-    to {  -webkit-transform: translate3d(100%, 0px, 0px);  }
-  }
-  @keyframes nav-view-direction-leaving-backward {
-    from {  transform: translate3d(0%, 0px, 0px);  }
-    to {  transform: translate3d(100%, 0px, 0px);  }
+  &[nav-view-direction="back"],
+  &[nav-view-direction="forward"] {
+    [nav-view="active"] {
+      @include translate3d(0px, 0px, 0px);
+    }
   }
 }
 
-[nav-view-transition="ios"] {
-  @include nav-view-transitions($ios-transition-duration);
-}
+[nav-bar-transition] {
+  [nav-bar="leaving"] {
+    z-index: 11;
+    .bar.bar-header {  background: transparent;  }
+  }
 
-[nav-view-transition="android"] {
-  @include nav-view-transitions($android-transition-duration);
+  [nav-bar="leaving"], [nav-bar="stage"] {
+    .buttons, .title {
+      opacity: 0.0;
+    }
+  }
+  [nav-bar="entering"], [nav-bar="active"] {
+    .buttons, .title {
+      opacity: 1.0;
+    }
+  }
+  &[nav-bar-direction="back"] {
+    [nav-bar="stage"] .back-text, .title {
+      @include translate3d(-50%, 0px, 0px);
+    }
+    [nav-bar="entering"],
+    [nav-bar="active"] {
+      .back-text, .title {
+        @include translate3d(0px, 0px, 0px);
+      }
+    }
+    [nav-bar="leaving"] .back-text, .title {
+      @include translate3d(50%, 0px, 0px);
+    }
+  }
+  &[nav-bar-direction="forward"] {
+    [nav-bar="stage"] .back-text, .title {
+      @include translate3d(50%, 0px, 0px);
+    }
+    [nav-bar="entering"],
+    [nav-bar="active"] {
+      .back-text, .title {
+        @include translate3d(0px, 0px, 0px);
+      }
+    }
+    [nav-bar="leaving"] .back-text, .title {
+      @include translate3d(-50%, 0px, 0px);
+    }
+  }
 }

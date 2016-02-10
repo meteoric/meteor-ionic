@@ -8,7 +8,7 @@ Template.ionNavBackButton.events({
   'click': function (event, template) {
     $('[data-nav-container]').attr('nav-view-direction', 'back');
     $('[data-navbar-container]').attr('nav-bar-direction', 'back');
-    
+
     //get most up-to-date url, if it exists
     backUrl = template.getBackUrl();
     if (backUrl) {
@@ -29,13 +29,13 @@ Template.ionNavBackButton.onRendered(function () {
     var backUrl = null;
 
     self.data = self.data || {};
-  
+
     if (self.data.href) {
       backUrl = self.data.href;
     }
-  
+
     if (self.data.path) {
-      backRoute = Router.routes[self.data.path]
+      backRoute = Router.routes[self.data.path];
       if (!backRoute) {
         console.warn("back to nonexistent route: ", self.data.path);
         return;
@@ -44,8 +44,6 @@ Template.ionNavBackButton.onRendered(function () {
     }
     return backUrl;
   };
-
-
 });
 
 Template.ionNavBackButton.helpers({

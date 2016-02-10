@@ -16,20 +16,19 @@ Template.ionNavView.created = function () {
   if (this.data && this.data.transition) {
     this.transition = this.data.transition;
   }
-
-  if (this.transition === 'ios') {
-    this.transitionDuration = 450;
-  } else {
-    this.transitionDuration = 320;
-  }
 };
 
 Template.ionNavView.rendered = function () {
   var container = this.find('[data-nav-container]');
   $('[data-nav-container]').attr('nav-view-direction', 'forward');
   container._uihooks = {
-    // Override onDestroyed so that it won't remove itself immediately.
-    removeElement: function(node) {}
+    // Override onDestroyed so that's children won't remove themselves immediately.
+    removeElement: function(node) {
+      // Worst case scenario. Remove if exceeded maximum transition duration.
+      Meteor.setTimeout(() => {
+        node.remove();
+      }, METEORIC.maximum_transition_duration);
+    }
   };
 };
 

@@ -26,7 +26,7 @@ Template.ionContent.helpers({
             classes.push('overflow-scroll');
         }
 
-        if (Session.get('hasHeader')) {
+        if (METEORIC.has_header.get()) {
             classes.push('has-header');
         }
 

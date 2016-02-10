@@ -1,9 +1,16 @@
 <template name="ionNavBar">
-  <div class="{{classes}} nav-bar-block navbar-container" data-navbar-container
-       nav-bar-transition="{{transition}}"
-       nav-bar-direction="forward">
-    {{> yield "headerButtonLeft"}}
-    {{> yield "headerTitle"}}
-    {{> yield "headerButtonRight"}}
-  </div>
+    <div class="{{class}} nav-bar-container" data-navbar-container
+         nav-bar-transition="{{transition}}">
+        {{> Template.dynamic template=ionNavBarTemplate}}
+
+        <div class="nav-bar-block" nav-bar="cached">
+            <div class="bar bar-header {{class}}"></div>
+        </div>
+    </div>
+</template>
+
+<template name="_ionNavBar">
+    <div class="nav-bar-block">
+        {{>ionHeaderBar}}
+    </div>
 </template>
