@@ -15,6 +15,8 @@ Template.ionContent.onCreated(function() {
 });
 
 Template.ionContent.helpers({
+    has_header: function() { return METEORIC.has_header.get(); },
+
     classes: function () {
         var classes = ['content'];
 
@@ -24,10 +26,6 @@ Template.ionContent.helpers({
 
         if (this.scroll !== false) {
             classes.push('overflow-scroll');
-        }
-
-        if (METEORIC.has_header.get()) {
-            classes.push('has-header');
         }
 
         if (Session.get('hasSubheader')) {

@@ -1,3 +1,11 @@
+/**
+ * ionNavBar
+ *
+ * ionNavBar and _ionNavBar are created to overcome Meteor's templating limitations. By utilizing Template.dynamic
+ * in blaze, we can force ionNavBar to destroy _ionNavBar, enabling css transitions and none of that javascript
+ * animation.
+ */
+
 let _ionNavBar_Destroyed = new ReactiveVar(false);
 
 Template.ionNavBar.onCreated(function() {
@@ -11,14 +19,10 @@ Template.ionNavBar.onCreated(function() {
 
     this.ionNavBarTemplate = new ReactiveVar('_ionNavBar');
 
-    $(window).on('statechange', e => {
-        this.ionNavBarTemplate.set('');
-    });
+    $(window).on('statechange', e => this.ionNavBarTemplate.set(''));
 
     this.autorun(() => {
-        if (_ionNavBar_Destroyed.get()) {
-            this.ionNavBarTemplate.set('_ionNavBar');
-        }
+        if (_ionNavBar_Destroyed.get()) { this.ionNavBarTemplate.set('_ionNavBar'); }
     });
 });
 

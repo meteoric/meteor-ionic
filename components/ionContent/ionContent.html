@@ -1,5 +1,8 @@
 <template name="ionContent">
-  <div class="scroll-content ionic-scroll">
+  <div class="
+  scroll-content
+  ionic-scroll
+  {{#if has_header}}has-header{{/if}}">
     <div class="{{classes}}">
       {{> UI.contentBlock}}
     </div>
