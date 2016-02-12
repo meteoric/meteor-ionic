@@ -19,23 +19,13 @@ IonHeaderBar = {
 
     positionTitle: function () {
         var $title = this.$('.title');
-        var $leftButton = $('.button.pull-left');
-        var $rightButton = $('.button.pull-right');
+        var $leftButton = this.$('.buttons').eq(0);
+        var $rightButton = this.$('.buttons').eq(1);
 
         // Find out which button is wider,
         // use that to offset the title on both sides
-        var leftButtonWidth = 0;
-        var rightButtonWidth = 0;
-        if ($leftButton.length) {
-            $leftButton.each(function(index, element){
-                leftButtonWidth += $(element).outerWidth();
-            });
-        }
-        if ($rightButton.length) {
-            $rightButton.each(function(index, element){
-                rightButtonWidth += $(element).outerWidth();
-            });
-        }
+        let leftButtonWidth = $leftButton.outerWidth();
+        let rightButtonWidth = $rightButton.outerWidth();
 
         // If we're on Android, we only care about the left button
         var margin;

@@ -27,9 +27,6 @@ Template.ionNavBar.onCreated(function() {
 });
 
 Template.ionNavBar.onRendered(function() {
-    IonHeaderBar.alignTitle.call(this);
-    IonHeaderBar.positionTitle.call(this);
-
     let container = this.$('.nav-bar-container');
     container.attr('nav-bar-direction', 'forward');
 
