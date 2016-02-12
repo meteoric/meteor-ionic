@@ -67,8 +67,6 @@ Template._ionNavBar.onCreated(function () {
 
 Template._ionNavBar.onRendered(function () {
     // Reset nav-bar-direction.
-    $('[data-navbar-container]').attr('nav-bar-direction', 'forward');
-
     let navBarBlock = this.find('.nav-bar-block');
     navBarBlock._uihooks = {
         // Override onDestroyed so that's children won't remove themselves immediately.

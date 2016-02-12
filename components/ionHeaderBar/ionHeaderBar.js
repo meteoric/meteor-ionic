@@ -50,7 +50,7 @@ IonHeaderBar = {
 };
 
 Template.ionHeaderBar.onCreated(function() {
-    this.alignTitle = this.data? (this.data.alignTitle || 'center') : 'center';
+    this.alignTitle = this.data? this.data.alignTitle : null;
 });
 
 Template.ionHeaderBar.onRendered(function () {
