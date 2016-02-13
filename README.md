@@ -1,5 +1,7 @@
 ![Meteoric Logo](meteoric-logo.png)
 
+[![Gitter](https://badges.gitter.im/JoeyAndres/meteor-ionic.svg)](https://gitter.im/JoeyAndres/meteor-ionic?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 # meteor-ionic
 
 ### Build [Ionic](http://ionicframework.com/) apps in [Meteor](https://www.meteor.com/)!
