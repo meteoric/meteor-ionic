@@ -1,7 +1,7 @@
 Package.describe({
   name: "jandres:ionic",
   summary: "Ionic components for Meteor. No Angular!",
-  version: "0.1.47-alpha2",
+  version: "0.1.47-alpha3",
   git: "https://github.com/JoeyAndres/meteor-ionic.git"
 });
 
@@ -45,6 +45,7 @@ Package.onUse(function(api) {
 
   api.addFiles([
     "lib/utility.js",
+    "lib/polyfill.js",
 
     "components/ionActionSheet/ionActionSheet.html",
     "components/ionActionSheet/ionActionSheet.js",

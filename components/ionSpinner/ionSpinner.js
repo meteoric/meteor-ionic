@@ -1,4 +1,3 @@
-
 Template.ionSpinner.helpers({
   classes: function() {
     classes = [];
@@ -22,7 +21,7 @@ Template.ionSpinner.helpers({
 // spinner names is in the init function at the bottom of this file.
 // Almost all of the rest of the code is from the ionic version. 
 
-Template.ionSpinner.rendered = function() {
+Template.ionSpinner.onRendered(function() {
 
 
   var TRANSLATE32 = 'translate(32,32)';
@@ -64,6 +63,7 @@ Template.ionSpinner.rendered = function() {
   function createSvgElement(tagName, data, parent, spinnerName) {
     var ele = document.createElement(SHORTCUTS[tagName] || tagName);
     var k, x, y;
+
     for (k in data) {
 
       if (Array.isArray(data[k])) {
@@ -364,6 +364,9 @@ Template.ionSpinner.rendered = function() {
   var animations = {
 
     android: function(ele) {
+      var self = this;
+
+      this.stop = false;
 
       var rIndex = 0;
       var rotateCircle = 0;
@@ -372,6 +375,8 @@ Template.ionSpinner.rendered = function() {
       var circleEle = ele.querySelector('circle');
 
       function run() {
+        if (self.stop) return;
+
         var v = easeInOutCubic(Date.now() - startTime, 650);
         var scaleX = 1;
         var translateX = 0;
@@ -401,7 +406,7 @@ Template.ionSpinner.rendered = function() {
           startTime = Date.now();
         }
 
-        window.requestAnimationFrame(run);
+        window.requestAnimFrame(run);
       }
 
       return function() {
@@ -425,7 +430,7 @@ Template.ionSpinner.rendered = function() {
   function init() {
 
     var spinnerName = iconName;
-    var $element = $(iconElement);
+    var $element = this.$(iconElement);
     var container = iconElement;
     createSvgElement('svg', {
       viewBox: '0 0 64 64',
@@ -439,12 +444,9 @@ Template.ionSpinner.rendered = function() {
     $element.html(container.innerHTML);
 
     start(spinnerName, $element);
-
   };
 
   function start(spinnerName, ele) {
     animations[spinnerName] && animations[spinnerName](ele[0])();
   };
-
-
-}
+});
