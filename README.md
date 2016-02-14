@@ -30,7 +30,7 @@ meteor add jandres:ionic
 
 ## Dependencies
 
-- [seba:ionic-sass](https://github.com/sebakerckhof/meteor-ionic-sass/) Ionic's scss only package and currently up to date with ionic v1.1.0
+- [jandres:meteoric-sass](https://github.com/JoeyAndres/meteoric-sass/) Ionic's scss only package and currently up to date with ionic v1.2.4
 
 ## Examples
 
