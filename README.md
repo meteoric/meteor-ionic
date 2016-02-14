@@ -93,9 +93,9 @@ A [Product Hunt](http://producthunt.com) clone built in Meteor Ionic. (In Progre
 * [x] Platform
 * [x] Popover
 * [x] Popup
-* [ ] Scroll
+* [x] Scroll
   * [x] ion-scroll
-  * [ ] ion-infinite-scroll
+  * [x] ion-infinite-scroll
 * [x] Side Menus
   * [x] ion-side-menus
   * [x] ion-side-menu-content
@@ -110,8 +110,7 @@ A [Product Hunt](http://producthunt.com) clone built in Meteor Ionic. (In Progre
   
 ### Code Style Change: 
 These are code styles that I want to impose on this forked repo.
-* [ ] Get rid of all session variables
-* [ ] Child template explicitly declares required data, and parent/router pass those data. Throw error otherwise.
+* [ ] Get rid of all session variables.
 
 ## License
 [MIT License](https://github.com/meteoric/meteor-ionic/blob/master/LICENSE)

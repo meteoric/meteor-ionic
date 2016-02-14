@@ -1,0 +1,12 @@
+<template name="ionInfiniteScroll">
+    {{#if enable}}
+    <ion-infinite-scroll
+            class="
+                {{#if active}} active {{/if}}
+                ">
+        {{#if spinner}}
+        {{> ionSpinner icon=spinner}}
+        {{/if}}
+    </ion-infinite-scroll>
+    {{/if}}
+</template>

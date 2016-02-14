@@ -1,6 +1,8 @@
 Template.ionContent.onCreated(function() {
     this.ionSideMenuContainerParent = this.parent((t) => t.view.name === "Template.ionSideMenuContainer", true);
 
+    this.scroller = null;
+
     _.extend(this, {
         hasBouncing: (!!this.ionSideMenuContainerParent && this.ionSideMenuContainerParent.hasBouncing) || new ReactiveVar(null)
     });
@@ -15,7 +17,7 @@ Template.ionContent.onCreated(function() {
 });
 
 Template.ionContent.helpers({
-    has_header: function() { return METEORIC.has_header.get(); },
+    hasHeader: function() { return METEORIC.hasHeader.get(); },
 
     classes: function () {
         var classes = ['content'];

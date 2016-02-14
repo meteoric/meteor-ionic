@@ -1,7 +1,7 @@
 Package.describe({
   name: "jandres:ionic",
   summary: "Ionic components for Meteor. No Angular!",
-  version: "0.1.47-alpha3",
+  version: "0.1.48",
   git: "https://github.com/JoeyAndres/meteor-ionic.git"
 });
 
@@ -70,6 +70,9 @@ Package.onUse(function(api) {
 
     "components/ionIcon/ionIcon.html",
     "components/ionIcon/ionIcon.js",
+
+    "components/ionInfiniteScroll/ionInfiniteScroll.html",
+    "components/ionInfiniteScroll/ionInfiniteScroll.js",
 
     "components/ionItem/ionItem.html",
     "components/ionItem/ionItem.js",

@@ -32,24 +32,20 @@ body {
 
 .scroller-wrapper {
   position: absolute;
-  z-index: 1;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background: #ccc;
   overflow: hidden;
 }
 
-.scroller-wrapper > * {
+.scroller-wrapper > *:first-child {
   -webkit-transform-origin: 0 0;
   -moz-transform-origin: 0 0;
   -ms-transform-origin: 0 0;
   -o-transform-origin: 0 0;
   transform-origin: 0 0;
 
-  position: absolute;
-  z-index: 1;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
