@@ -111,6 +111,7 @@ A [Product Hunt](http://producthunt.com) clone built in Meteor Ionic. (In Progre
 ### Code Style Change: 
 These are code styles that I want to impose on this forked repo.
 * [ ] Get rid of all session variables
+* [ ] Child template explicitly declares required data, and parent/router pass those data. Throw error otherwise.
 
 ## License
 [MIT License](https://github.com/meteoric/meteor-ionic/blob/master/LICENSE)
