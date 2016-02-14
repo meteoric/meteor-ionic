@@ -1,6 +1,17 @@
+let default_icon = () => Platform.isAndroid() ? 'android' : 'ios';
+
+Template.ionSpinner.onCreated(function() {
+  this.iconName = new ReactiveVar(default_icon());
+
+  this.autorun(() => {
+    if (!Template.currentData()) return;  // If no data-context, don't do a thing.
+    this.iconName.set(!!Template.currentData().icon ? Template.currentData().icon : default_icon());
+  });
+});
+
 Template.ionSpinner.helpers({
   classes: function() {
-    classes = [];
+    let classes = [];
     if (this.class) {
       var customClasses = this.class.split(' ');
       _(customClasses).each(function(customClass) {
@@ -11,9 +22,7 @@ Template.ionSpinner.helpers({
   },
 
   icon: function() {
-   iconName = "spinner-" + (this.icon || 'ios');  
-
-   return iconName;
+   return Template.instance().iconName.get();
   }
 });
 
@@ -22,8 +31,6 @@ Template.ionSpinner.helpers({
 // Almost all of the rest of the code is from the ionic version. 
 
 Template.ionSpinner.onRendered(function() {
-
-
   var TRANSLATE32 = 'translate(32,32)';
   var STROKE_OPACITY = 'stroke-opacity';
   var ROUND = 'round';
@@ -57,8 +64,6 @@ Template.ionSpinner.onRendered(function() {
 
   var iconElement = this.firstNode;
   this.data = this.data || {};
-  iconName = this.data.icon || 'ios';
-
 
   function createSvgElement(tagName, data, parent, spinnerName) {
     var ele = document.createElement(SHORTCUTS[tagName] || tagName);
@@ -425,11 +430,8 @@ Template.ionSpinner.onRendered(function() {
     return 1 / 2 * (t * t * t + 2);
   }
 
-  init();
-
-  function init() {
-
-    var spinnerName = iconName;
+  let init = () => {
+    var spinnerName = this.iconName.get();
     var $element = this.$(iconElement);
     var container = iconElement;
     createSvgElement('svg', {
@@ -449,4 +451,6 @@ Template.ionSpinner.onRendered(function() {
   function start(spinnerName, ele) {
     animations[spinnerName] && animations[spinnerName](ele[0])();
   };
+
+  init();
 });
