@@ -18,6 +18,7 @@ Template.registerHelper('isAndroid', function () {
   return Platform.isAndroid();
 });
 
+// todo: This is a duplicate of METEORIC.PLATFORM, what to do?? Do we put the Meteor.isCordova test there?
 Template.ionBody.helpers({
   platformClasses: function () {
     var classes = ['grade-a'];
