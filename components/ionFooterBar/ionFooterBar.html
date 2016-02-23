@@ -1,5 +1,7 @@
 <template name="ionFooterBar">
-  <div class="{{classes}}">
-    {{> UI.contentBlock}}
-  </div>
+    <div class="bar bar-footer {{classes}}">
+        <div class="buttons">{{> yield "footerButtonLeft"}}</div>
+        <div class="title">{{> yield "footerTitle"}}</div>
+        <div class="buttons">{{> yield "footerButtonRight"}}</div>
+    </div>
 </template>

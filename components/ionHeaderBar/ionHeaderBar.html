@@ -1,7 +1,7 @@
 <template name="ionHeaderBar">
   <div class="bar bar-header {{classes}}">
     <div class="buttons">{{> yield "headerButtonLeft"}}</div>
-    {{> yield "headerTitle"}}
+    <div class="title">{{> yield "headerTitle"}}</div>
     <div class="buttons">{{> yield "headerButtonRight"}}</div>
   </div>
 </template>
