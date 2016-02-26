@@ -70,10 +70,6 @@ Template.ionNavBackButton.helpers({
   },
 
   text: function () {
-    if (this.text) {
       return this.text;
-    } else if(this.text !== false) {
-      return 'Back';
-    }
   }
 });

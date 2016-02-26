@@ -19,6 +19,8 @@ Template.ionContent.onCreated(function() {
 Template.ionContent.helpers({
     hasHeader: function() { return METEORIC.hasHeader.get(); },
 
+    hasFooter: function() { return METEORIC.hasFooter.get(); },
+
     classes: function () {
         var classes = ['content'];
 
