@@ -1,9 +1,30 @@
 <template name="ionContent">
-  <ion-content class="scroll-content ionic-scroll
-    {{#if hasHeader}}has-header{{/if}}
-    {{#if hasFooter}}has-footer{{/if}}">
-      <div class="{{classes}}">
-          {{> UI.contentBlock}}
-      </div>
-  </ion-content>
+    {{#if scroll}}
+    <ion-content class="scroll-content
+                        ionic-scroll
+                        {{#if hasHeader}}has-header{{/if}}
+                        {{#if hasFooter}}has-footer{{/if}}">
+        {{#ionScroll
+          class=classes
+          direction=direction
+          locking=locking
+          padding=padding
+          overflowScroll=overflowScroll
+          scrollbarX=scrollbarX
+          scrollbarY=scrollbarY
+          startX=starX
+          startY=startY
+          onScroll=onScroll
+          onScrollComplete=onScrollComplete
+          hasBouncing=hasBouncing
+          scrollEventInterval=scrollEventInterval
+          stopPropagation=false}}
+        {{> Template.contentBlock}}
+        {{/ionScroll}}
+    </ion-content>
+    {{else}}
+    <ion-content>
+        {{> Template.contentBlock}}
+    </ion-content>
+    {{/if}}
 </template>

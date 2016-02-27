@@ -1,8 +1,9 @@
 <template name="ionScroll">
-    <div class="{{nativeScrollingClass}}
-                {{class}}
-                scroller-wrapper"
-         style="{{style}} width: 100%; height: 100%;">
-        {{> UI.contentBlock}}
+    <div class="{{class}}
+                {{#if nativeScrolling}} overflow-scroll {{else}} meteoric-scroller-container {{/if}}"
+         style="{{style}}">
+        <div class="meteoric-scroller-x">
+            <div class="meteoric-scroller-y">{{> UI.contentBlock}}</div>
+        </div>
     </div>
 </template>

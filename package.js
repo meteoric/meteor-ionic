@@ -25,7 +25,6 @@ Package.onUse(function(api) {
     "tracker",
     "session",
     "jquery",
-    "jandres:iscroll-zoom@5.1.9",
     "jandres:snapjs@2.0.8",
     "fourseven:scss@3.3.3",
 
@@ -35,7 +34,11 @@ Package.onUse(function(api) {
   api.addFiles([
     "vendor/slick.js",
     "vendor/slick.css",
-    "vendor/slip.js"
+    "vendor/slip.js",
+
+    "vendor/Animate.js",
+    "vendor/EasyScroller.js",
+    "vendor/Scroller.js"
   ], "client");
 
   api.addFiles([
