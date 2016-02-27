@@ -453,6 +453,17 @@ window['Slip'] = (function() {
                         });
                     },
 
+                    onStart: function() {
+                        var scroller = this.options.scroller;
+                        if (!!scroller) {
+                            this.baseScrollerPos = {x: scroller.__scrollLeft, y: scroller.__scrollTop };
+                            scroller.scrollTo(0, 0);
+
+                            var scrollable = scroller.__container;
+                            scrollable.scrollTop = this.baseScrollerPos.y;
+                        }
+                    },
+
                     onMove: setPosition,
 
                     onLeave: function() {
@@ -490,6 +501,15 @@ window['Slip'] = (function() {
                                 }
                             }
                         }
+
+                        var scroller = this.options.scroller;
+                        if (!!scroller) {
+                            var scrollable = scroller.__container;
+                            var newScrollTop = scrollable.scrollTop;
+                            scrollable.scrollTop = 0;
+                            scroller.scrollTo(0, newScrollTop);
+                        }
+
                         this.setState(this.states.idle);
                         return false;
                     },
@@ -678,8 +698,9 @@ window['Slip'] = (function() {
             }
 
             //check for a scrollable parent
-            var scrollContainer = targetNode.parentNode;
-            while (scrollContainer) {
+            var scroller = this.options.scroller;
+            var scrollContainer = scroller ? scroller.__container : targetNode.parentNode;
+            while (scrollContainer && !scroller) {
                 if (scrollContainer.scrollHeight > scrollContainer.clientHeight && window.getComputedStyle(scrollContainer)['overflow-y'] != 'visible') break;
                 else scrollContainer = scrollContainer.parentNode;
             }
@@ -690,12 +711,14 @@ window['Slip'] = (function() {
                 scrollContainer: scrollContainer,
                 baseTransform: getTransform(targetNode),
             };
+
             return true;
         },
 
         startAtPosition: function(pos) {
             this.startPosition = this.previousPosition = this.latestPosition = pos;
             this.setState(this.states.undecided);
+            this.state.onStart && this.state.onStart.call(this);
         },
 
         updatePosition: function(e, pos) {
@@ -726,6 +749,7 @@ window['Slip'] = (function() {
             if (this.state.onMove) {
                 if (this.state.onMove.call(this) === false) {
                     e.preventDefault();
+                    e.stopPropagation();
                 }
             }
 
