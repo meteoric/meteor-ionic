@@ -25,7 +25,7 @@ Package.onUse(function(api) {
     "tracker",
     "session",
     "jquery",
-    "jandres:snapjs@2.0.8",
+    "jandres:snapjs@2.0.9",
     "fourseven:scss@3.3.3",
 
     "jandres:meteoric-sass@1.2.4"
