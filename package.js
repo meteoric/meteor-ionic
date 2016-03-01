@@ -1,7 +1,7 @@
 Package.describe({
   name: "jandres:ionic",
   summary: "Ionic components for Meteor. No Angular!",
-  version: "0.1.51",
+  version: "0.1.52",
   git: "https://github.com/JoeyAndres/meteor-ionic.git"
 });
 
@@ -71,9 +71,6 @@ Package.onUse(function(api) {
 
     "components/ionHeaderBar/ionHeaderBar.html",
     "components/ionHeaderBar/ionHeaderBar.js",
-
-    "components/ionIcon/ionIcon.html",
-    "components/ionIcon/ionIcon.js",
 
     "components/ionInfiniteScroll/ionInfiniteScroll.html",
     "components/ionInfiniteScroll/ionInfiniteScroll.js",
