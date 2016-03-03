@@ -32,14 +32,13 @@ Template.ionInfiniteScroll.onRendered(function() {
             let scrollHeight = () => parentTemplate.$('.meteoric-scroller-container').get(0).scrollHeight;
             let maxScrollHeight = () => calculateMaxValue(scrollHeight());
             let clientHeight = () => parentTemplate.$('.meteoric-scroller-container').get(0).clientHeight;
-            let scrollTop = () => scroller.scroller.__scrollTop;
+            let scrollTop = () => scroller.__scrollTop;
 
             // @see https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollHeight
             let reachedBottom = () => scrollTop() > maxScrollHeight() - clientHeight();
             let onInfinite = () => {
                 this.isLoading.set(true);
-                _.isFunction(this.onInfinite) ? this.onInfinite() : () => {
-                };
+                _.isFunction(this.onInfinite) ? this.onInfinite() : () => {};
             };
             let checkInfiniteBounds = () => {
                 if (this.isLoading.get()) return;
@@ -59,7 +58,7 @@ Template.ionInfiniteScroll.onRendered(function() {
             };
 
             // ft-scroll scrolling.
-            scroller.scroller.options.scrolling = onScrollHandler;
+            $(scroller.options.el).on('scroll', onScrollHandler);  // todo: make a controller.
 
             // todo: Native scrolling.
             // $overflowScrollContainer.scroll(e => onScrollHandler());

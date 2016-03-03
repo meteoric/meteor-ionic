@@ -70,29 +70,29 @@ Template.ionScroll.onCreated(function() {
 Template.ionScroll.onRendered(function() {
     let nativeScrolling = this.overflowScroll.get();  // todo: make this reactive? Is there a use case?
     if (!nativeScrolling) {
-        let innerWrapper = this.$(".meteoric-scroller-x").get(0);
-        this._scroller = new EasyScroller(innerWrapper);
+        let innerWrapper = this.$(".scroll").get(0);
+        this._scroller = new meteoric.views.Scroll({ el: innerWrapper });
 
         this.autorun(() => {
-            this._scroller.scroller.options.locking = !this.locking.get();
-            this._scroller.scroller.options.paging = this.paging.get();
-            this._scroller.scroller.options.scrollingX = this.direction.get().indexOf('x') !== -1;
-            this._scroller.scroller.options.scrollingY = this.direction.get().indexOf('y') !== -1;
-            this._scroller.scroller.options.zooming = this.zooming.get();
-            this._scroller.scroller.options.minZoom = this.minZoom.get();
-            this._scroller.scroller.options.maxZoom = this.maxZoom.get();
-            this._scroller.scroller.options.bouncing = this.hasBouncing.get();
-            this._scroller.options.stopPropagation = this.stopPropagation.get();
+            this._scroller.options.locking = !this.locking.get();
+            this._scroller.options.paging = this.paging.get();
+            this._scroller.options.scrollingX = this.direction.get().indexOf('x') !== -1;
+            this._scroller.options.scrollingY = this.direction.get().indexOf('y') !== -1;
+            this._scroller.options.zooming = this.zooming.get();
+            this._scroller.options.minZoom = this.minZoom.get();
+            this._scroller.options.maxZoom = this.maxZoom.get();
+            this._scroller.options.bouncing = this.hasBouncing.get();
         });
 
         this.autorun(() => {
-            this._scroller.scroller.scrollTo(parseInt(this.startX.get(), 10), parseInt(this.startY.get(), 10), true);
+            this._scroller.scrollTo(parseInt(this.startX.get(), 10), parseInt(this.startY.get(), 10), true);
         });
 
-        this._scroller.options.scrolling = () =>
+
+        $(innerWrapper).on('scroll', () =>
             _.isFunction(this.onScroll) ?
                 METEORIC.UTILITY.throttle(this.onScroll, this.scrollEventInterval.get()) :
-                e => {};
+                e => {});
         this._scroller.options.scrollingComplete = () =>
             _.isFunction(this.onScrollComplete) ? this.onScrollComplete : e => {};
 
