@@ -67,7 +67,10 @@ Package.onUse(function (api) {
         'lib/views/sideMenuView.js',
         'lib/views/sliderView.js',
         'lib/views/slidesView.js',
-        'lib/views/toggleView.js'
+        'lib/views/toggleView.js',
+
+        // Controller.
+        'lib/controller/spinnerController.js'
     ], "client");
 
     api.addFiles([
