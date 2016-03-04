@@ -70,7 +70,8 @@ Package.onUse(function (api) {
         'lib/views/toggleView.js',
 
         // Controller.
-        'lib/controller/spinnerController.js'
+        'lib/controller/spinnerController.js',
+        'lib/controller/scrollController.js'
     ], "client");
 
     api.addFiles([

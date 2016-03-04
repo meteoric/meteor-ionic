@@ -41,8 +41,7 @@ Template.ionScroll.onCreated(function() {
 
     this.stopPropagation = new ReactiveVar(ionScrollDefault.stopPropagation);
 
-    this._scroller = null;
-    this.scroller = new ReactiveVar(null);
+    this.controller = null;
 
     this.autorun(() => {
         let td = Template.currentData();
@@ -69,35 +68,53 @@ Template.ionScroll.onCreated(function() {
 
 Template.ionScroll.onRendered(function() {
     let nativeScrolling = this.overflowScroll.get();  // todo: make this reactive? Is there a use case?
-    if (!nativeScrolling) {
-        let innerWrapper = this.$(".scroll").get(0);
-        this._scroller = new meteoric.views.Scroll({ el: innerWrapper });
+    let innerWrapper = this.$(".scroll").get(0);
 
-        this.autorun(() => {
-            this._scroller.options.locking = !this.locking.get();
-            this._scroller.options.paging = this.paging.get();
-            this._scroller.options.scrollingX = this.direction.get().indexOf('x') !== -1;
-            this._scroller.options.scrollingY = this.direction.get().indexOf('y') !== -1;
-            this._scroller.options.zooming = this.zooming.get();
-            this._scroller.options.minZoom = this.minZoom.get();
-            this._scroller.options.maxZoom = this.maxZoom.get();
-            this._scroller.options.bouncing = this.hasBouncing.get();
-        });
+    var scrollViewOptions = {
+        el: innerWrapper,
+        locking: !this.locking.get(),
+        bouncing: this.hasBouncing.get(),
+        paging: this.paging.get(),
+        scrollbarX: true,
+        scrollbarY: true,
+        scrollingX: this.direction.get().indexOf('x') !== -1,
+        scrollingY: this.direction.get().indexOf('y') !== -1,
+        zooming: this.zooming.get(),
+        maxZoom: this.minZoom.get(),
+        minZoom: this.maxZoom.get(),
+        preventDefault: true,
+        nativeScrolling: nativeScrolling
+    };
 
-        this.autorun(() => {
-            this._scroller.scrollTo(parseInt(this.startX.get(), 10), parseInt(this.startY.get(), 10), true);
-        });
 
+    this.controller = new meteoric.controller.ionicScroll({
+        onScroll: _.isFunction(this.onScroll) ?
+            METEORIC.UTILITY.throttle(this.onScroll, this.scrollEventInterval.get()) :
+            e => {}
+    }, scrollViewOptions, Meteor.setTimeout);
 
-        $(innerWrapper).on('scroll', () =>
-            _.isFunction(this.onScroll) ?
-                METEORIC.UTILITY.throttle(this.onScroll, this.scrollEventInterval.get()) :
-                e => {});
-        this._scroller.options.scrollingComplete = () =>
-            _.isFunction(this.onScrollComplete) ? this.onScrollComplete : e => {};
+    /*  TODO: Use case for reactive? Original is not.
+    this.autorun(() => {
+     this._scroller.options.locking = !this.locking.get();
+     this._scroller.options.paging = this.paging.get();
+     this._scroller.options.scrollingX = this.direction.get().indexOf('x') !== -1;
+     this._scroller.options.scrollingY = this.direction.get().indexOf('y') !== -1;
+     this._scroller.options.zooming = this.zooming.get();
+     this._scroller.options.minZoom = this.minZoom.get();
+     this._scroller.options.maxZoom = this.maxZoom.get();
+     this._scroller.options.bouncing = this.hasBouncing.get();
+     });*/
 
-        this.scroller.set(this._scroller);
-    }
+     this.autorun(() => {
+         this.controller.scrollTo(parseInt(this.startX.get(), 10), parseInt(this.startY.get(), 10), true);
+     });
+
+     this.controller.scrollView.options.scrollingComplete = () =>
+         _.isFunction(this.onScrollComplete) ? this.onScrollComplete : e => {};
+});
+
+Template.ionScroll.onDestroyed(function() {
+    this.controller.destroy();
 });
 
 Template.ionScroll.helpers({
