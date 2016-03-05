@@ -71,7 +71,8 @@ Package.onUse(function (api) {
 
         // Controller.
         'lib/controller/spinnerController.js',
-        'lib/controller/scrollController.js'
+        'lib/controller/scrollController.js',
+        'lib/controller/infiniteScrollController.js'
     ], "client");
 
     api.addFiles([

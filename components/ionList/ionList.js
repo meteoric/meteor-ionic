@@ -11,7 +11,7 @@ Template.ionList.onRendered(function() {
             IonSideMenu.disable();
             if (!this.slip) {
                 var list = this.$('.list')[0];
-                this.slip = new Slip(list, { scroller: parent.scroller.get().scroller });
+                this.slip = new Slip(list, { scroller: parent.controller.scroller });
             }
         } else {
             IonSideMenu.enable();

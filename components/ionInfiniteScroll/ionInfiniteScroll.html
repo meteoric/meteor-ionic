@@ -1,11 +1,8 @@
 <template name="ionInfiniteScroll">
     {{#if enable}}
-    <ion-infinite-scroll
-            class="
-                {{#if active}} active {{/if}}
-                ">
+    <ion-infinite-scroll class="{{#if active}} active {{/if}}">
         {{#if spinner}}
-        {{> ionSpinner icon=spinner}}
+        {{> ionSpinner icon=spinner}}  <!-- todo: Make this "settable".-->
         {{/if}}
     </ion-infinite-scroll>
     {{/if}}

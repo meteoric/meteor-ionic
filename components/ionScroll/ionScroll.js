@@ -41,7 +41,8 @@ Template.ionScroll.onCreated(function() {
 
     this.stopPropagation = new ReactiveVar(ionScrollDefault.stopPropagation);
 
-    this.controller = null;
+    this._controller = null;
+    this.controller = new ReactiveVar(null);
 
     this.autorun(() => {
         let td = Template.currentData();
@@ -87,7 +88,7 @@ Template.ionScroll.onRendered(function() {
     };
 
 
-    this.controller = new meteoric.controller.ionicScroll({
+    this._controller = new meteoric.controller.ionicScroll({
         onScroll: _.isFunction(this.onScroll) ?
             METEORIC.UTILITY.throttle(this.onScroll, this.scrollEventInterval.get()) :
             e => {}
@@ -106,18 +107,21 @@ Template.ionScroll.onRendered(function() {
      });*/
 
      this.autorun(() => {
-         this.controller.scrollTo(parseInt(this.startX.get(), 10), parseInt(this.startY.get(), 10), true);
+         this._controller.scrollTo(parseInt(this.startX.get(), 10), parseInt(this.startY.get(), 10), true);
      });
 
-     this.controller.scrollView.options.scrollingComplete = () =>
+     this._controller.scrollView.options.scrollingComplete = () =>
          _.isFunction(this.onScrollComplete) ? this.onScrollComplete : e => {};
+
+    this.controller.set(this._controller);
 });
 
 Template.ionScroll.onDestroyed(function() {
-    this.controller.destroy();
+    this._controller.destroy();
 });
 
 Template.ionScroll.helpers({
     // todo: handle native-scroll-view
-    nativeScrolling: function() { return Template.instance().overflowScroll.get(); }
+    nativeScrolling: function() { return Template.instance().overflowScroll.get(); },
+    direction: function() { return Template.instance().direction.get(); }
 });
