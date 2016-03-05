@@ -6,8 +6,8 @@ let ionScrollDefault = {
     onRefresh: null,
     onScroll: null,
     onScrollComplete: null,  // Note: This was not documented in ionic website, but whatever.
-    scrollBarX: true,
-    scrollBarY: true,
+    scrollbarX: true,
+    scrollbarY: true,
     startX: '0',
     startY: '0',
     zooming: false,
@@ -29,8 +29,8 @@ Template.ionScroll.onCreated(function() {
     this.onRefresh = new ReactiveVar(ionScrollDefault.onRefresh);
     this.onScroll = new ReactiveVar(ionScrollDefault.onScroll);
     this.onScrollComplete = new ReactiveVar(ionScrollDefault.onScrollComplete);
-    this.scrollBarX = new ReactiveVar(ionScrollDefault.scrollBarX);
-    this.scrollBarY = new ReactiveVar(ionScrollDefault.scrollBarY);
+    this.scrollbarX = new ReactiveVar(ionScrollDefault.scrollbarX);
+    this.scrollbarY = new ReactiveVar(ionScrollDefault.scrollbarY);
     this.startX = new ReactiveVar(ionScrollDefault.startX);
     this.startY = new ReactiveVar(ionScrollDefault.startY);
     this.zooming = new ReactiveVar(ionScrollDefault.zooming);
@@ -54,8 +54,8 @@ Template.ionScroll.onCreated(function() {
         this.onRefresh.set(td.onRefresh || ionScrollDefault.onRefresh);
         this.onScroll.set(td.onScroll || ionScrollDefault.onScroll);
         this.onScrollComplete.set(td.onScrollComplete || ionScrollDefault.onScrollComplete);
-        this.scrollBarX.set(!_.isUndefined(td.scrollBarX) ? td.scrollBarX : ionScrollDefault.scrollBarX);
-        this.scrollBarY.set(!_.isUndefined(td.scrollBarY) ? td.scrollBarY : ionScrollDefault.scrollBarY);
+        this.scrollbarX.set(!_.isUndefined(td.scrollbarX) ? td.scrollbarX : ionScrollDefault.scrollbarX);
+        this.scrollbarY.set(!_.isUndefined(td.scrollbarY) ? td.scrollbarY : ionScrollDefault.scrollbarY);
         this.startX.set(!_.isUndefined(td.startX) ? td.startX : ionScrollDefault.startX);
         this.startY.set(!_.isUndefined(td.startY) ? td.startY : ionScrollDefault.startY);
         this.zooming.set(!_.isUndefined(td.zooming) ? td.zooming : ionScrollDefault.zooming);
@@ -69,30 +69,43 @@ Template.ionScroll.onCreated(function() {
 
 Template.ionScroll.onRendered(function() {
     let nativeScrolling = this.overflowScroll.get();  // todo: make this reactive? Is there a use case?
-    let innerWrapper = this.$(".scroll").get(0);
+    let $element = this.$("ion-scroll");
 
     var scrollViewOptions = {
-        el: innerWrapper,
+        el: $element[0],
         locking: !this.locking.get(),
         bouncing: this.hasBouncing.get(),
         paging: this.paging.get(),
-        scrollbarX: true,
-        scrollbarY: true,
+        scrollbarX: this.scrollbarX.get(),
+        scrollbarY: this.scrollbarY.get(),
         scrollingX: this.direction.get().indexOf('x') !== -1,
         scrollingY: this.direction.get().indexOf('y') !== -1,
         zooming: this.zooming.get(),
-        maxZoom: this.minZoom.get(),
-        minZoom: this.maxZoom.get(),
+        minZoom: this.minZoom.get(),
+        maxZoom: this.maxZoom.get(),
         preventDefault: true,
         nativeScrolling: nativeScrolling
     };
 
+    if (this.paging.get()) {
+        scrollViewOptions.speedMultiplier = 0.8;
+        scrollViewOptions.bouncing = false;
+    }
 
     this._controller = new meteoric.controller.ionicScroll({
         onScroll: _.isFunction(this.onScroll) ?
             meteoric.Utils.throttle(this.onScroll, this.scrollEventInterval.get()) :
             e => {}
     }, scrollViewOptions, Meteor.setTimeout);
+
+    this.autorun(() => {
+        this._controller.scrollTo(parseInt(this.startX.get(), 10), parseInt(this.startY.get(), 10), true);
+    });
+
+    this._controller.scrollView.options.scrollingComplete = () =>
+        _.isFunction(this.onScrollComplete) ? this.onScrollComplete : e => {};
+
+    this.controller.set(this._controller);
 
     /*  TODO: Use case for reactive? Original is not.
     this.autorun(() => {
@@ -105,15 +118,6 @@ Template.ionScroll.onRendered(function() {
      this._scroller.options.maxZoom = this.maxZoom.get();
      this._scroller.options.bouncing = this.hasBouncing.get();
      });*/
-
-     this.autorun(() => {
-         this._controller.scrollTo(parseInt(this.startX.get(), 10), parseInt(this.startY.get(), 10), true);
-     });
-
-     this._controller.scrollView.options.scrollingComplete = () =>
-         _.isFunction(this.onScrollComplete) ? this.onScrollComplete : e => {};
-
-    this.controller.set(this._controller);
 });
 
 Template.ionScroll.onDestroyed(function() {
@@ -123,5 +127,6 @@ Template.ionScroll.onDestroyed(function() {
 Template.ionScroll.helpers({
     // todo: handle native-scroll-view
     nativeScrolling: function() { return Template.instance().overflowScroll.get(); },
-    direction: function() { return Template.instance().direction.get(); }
+    direction: function() { return Template.instance().direction.get(); },
+    paging: function() { return Template.instance().paging.get(); }
 });
