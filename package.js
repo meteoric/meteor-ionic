@@ -58,6 +58,8 @@ Package.onUse(function (api) {
         'lib/utils/keyboard.js',
         'lib/utils/viewport.js',
 
+        "lib/utility.js",
+
         // Views
         'lib/views/view.js',
         'lib/views/scrollView.js',
@@ -76,10 +78,6 @@ Package.onUse(function (api) {
     ], "client");
 
     api.addFiles([
-        "lib/utility.js",
-        "lib/polyfill.js",
-        "lib/platform.js",
-
         "components/ionActionSheet/ionActionSheet.html",
         "components/ionActionSheet/ionActionSheet.js",
 
@@ -194,8 +192,6 @@ Package.onUse(function (api) {
         "components/ionView/ionView.html",
         "components/ionView/ionView.js"
     ], "client");
-
-    api.export("Platform");
 
     api.export("IonActionSheet");
     api.export("IonBackdrop");

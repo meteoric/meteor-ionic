@@ -90,7 +90,7 @@ Template.ionScroll.onRendered(function() {
 
     this._controller = new meteoric.controller.ionicScroll({
         onScroll: _.isFunction(this.onScroll) ?
-            METEORIC.UTILITY.throttle(this.onScroll, this.scrollEventInterval.get()) :
+            meteoric.Utils.throttle(this.onScroll, this.scrollEventInterval.get()) :
             e => {}
     }, scrollViewOptions, Meteor.setTimeout);
 

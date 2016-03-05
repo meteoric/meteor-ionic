@@ -44,13 +44,13 @@ Template.ionFooterBar.onCreated(function() {
 });
 
 Template.ionFooterBar.onRendered(function () {
-  METEORIC.hasFooter.set(true);
+  meteoric.hasFooter.set(true);
   IonFooterBar.alignTitle.call(this);
   IonFooterBar.positionTitle.call(this);
 });
 
 Template.ionFooterBar.onDestroyed(function () {
-  METEORIC.hasFooter.set(false);
+  meteoric.hasFooter.set(false);
 });
 
 Template.ionFooterBar.helpers({

@@ -49,9 +49,9 @@ Template.ionContent.onCreated(function() {
 });
 
 Template.ionContent.helpers({
-    hasHeader: function() { return METEORIC.hasHeader.get(); },
+    hasHeader: function() { return meteoric.hasHeader.get(); },
 
-    hasFooter: function() { return METEORIC.hasFooter.get(); },
+    hasFooter: function() { return meteoric.hasFooter.get(); },
 
     classes: function () {
         var classes = ['content'];

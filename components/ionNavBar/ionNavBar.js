@@ -37,7 +37,7 @@ Template.ionNavBar.onRendered(function() {
             // Worst case scenario. Remove if exceeded maximum transition duration.
             Meteor.setTimeout(() => {
                 node.remove();
-            }, METEORIC.maximum_transition_duration);
+            }, meteoric.maximum_transition_duration);
         }
     };
 });
@@ -71,7 +71,7 @@ Template._ionNavBar.onRendered(function () {
             // Worst case scenario. Remove if exceeded maximum transition duration.
             Meteor.setTimeout(() => {
                 node.remove();
-            }, METEORIC.maximum_transition_duration);
+            }, meteoric.maximum_transition_duration);
         }
     };
 
@@ -94,11 +94,11 @@ Template._ionNavBar.onRendered(function () {
     Meteor.setTimeout(() => {
         this.entering = true;
         $navBarBlock.attr('nav-bar', 'entering');
-        $headerBar.one(METEORIC.UTILITY.transitionend_events.join(' '), activate_view);
+        $headerBar.one(meteoric.Utils.transitionend_events.join(' '), activate_view);
     }, 0);
 
     // Worst case scenario, transitionend did not occur. Just place view in.
-    this.activate_view_timeout_id = Meteor.setTimeout(activate_view, METEORIC.maximum_transition_duration);
+    this.activate_view_timeout_id = Meteor.setTimeout(activate_view, meteoric.maximum_transition_duration);
 });
 
 Template._ionNavBar.onDestroyed(function () {
@@ -130,9 +130,9 @@ Template._ionNavBar.onDestroyed(function () {
     Meteor.setTimeout(() => {
         this.leaving = true;
         $navBarBlock.attr('nav-bar', 'leaving');
-        $headerBar.one(METEORIC.UTILITY.transitionend_events.join(' '), deactivate_view);
+        $headerBar.one(meteoric.Utils.transitionend_events.join(' '), deactivate_view);
     }, 0);
 
     // Worst case scenario, transitionend did not occur. Just remove the view.
-    this.deactivate_view_timeout_id = Meteor.setTimeout(deactivate_view, METEORIC.maximum_transition_duration);
+    this.deactivate_view_timeout_id = Meteor.setTimeout(deactivate_view, meteoric.maximum_transition_duration);
 });

@@ -27,7 +27,7 @@ Template.ionNavView.rendered = function () {
       // Worst case scenario. Remove if exceeded maximum transition duration.
       Meteor.setTimeout(() => {
         node.remove();
-      }, METEORIC.maximum_transition_duration);
+      }, meteoric.maximum_transition_duration);
     }
   };
 };
