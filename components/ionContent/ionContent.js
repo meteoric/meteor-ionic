@@ -73,14 +73,26 @@ Template.ionContent.onRendered(function() {
             // Use JS scrolling
             scrollViewOptions = {
                 el: $element[0],
-                locking: !this.locking.get(),
+                locking: this.locking.get(),
                 bouncing: this.hasBouncing.get(),
                 scrollbarX: this.scrollbarX.get(),
                 scrollbarY: this.scrollbarY.get(),
                 scrollingX: this.direction.get().indexOf('x') !== -1,
                 scrollingY: this.direction.get().indexOf('y') !== -1,
+                scrollEventInterval: this.scrollEventInterval.get(),
                 scrollingComplete: onScrollComplete
             };
+
+            this.autorun(() => {
+                if (!this._controller) return;
+                this._controller.scrollView.options.locking = this.locking.get();
+                this._controller.scrollView.options.scrollbarX = this.scrollbarX.get();
+                this._controller.scrollView.options.scrollbarY = this.scrollbarY.get();
+                this._controller.scrollView.options.scrollingX = this.direction.get().indexOf('x') !== -1;
+                this._controller.scrollView.options.scrollingY = this.direction.get().indexOf('y') !== -1;
+                this._controller.scrollView.options.scrollEventInterval = this.scrollEventInterval.get();
+                this._controller.scrollView.options.bouncing = this.hasBouncing.get();
+            });
         }
 
         // init scroll controller with appropriate options

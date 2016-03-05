@@ -73,7 +73,7 @@ Template.ionScroll.onRendered(function() {
 
     var scrollViewOptions = {
         el: $element[0],
-        locking: !this.locking.get(),
+        locking: this.locking.get(),
         bouncing: this.hasBouncing.get(),
         paging: this.paging.get(),
         scrollbarX: this.scrollbarX.get(),
@@ -99,6 +99,19 @@ Template.ionScroll.onRendered(function() {
     }, scrollViewOptions, Meteor.setTimeout);
 
     this.autorun(() => {
+        this._controller.scrollView.options.locking = this.locking.get();
+        this._controller.scrollView.options.paging = this.paging.get();
+        this._controller.scrollView.options.scrollbarX = this.scrollbarX.get();
+        this._controller.scrollView.options.scrollbarY = this.scrollbarY.get();
+        this._controller.scrollView.options.scrollingX = this.direction.get().indexOf('x') !== -1;
+        this._controller.scrollView.options.scrollingY = this.direction.get().indexOf('y') !== -1;
+        this._controller.scrollView.options.zooming = this.zooming.get();
+        this._controller.scrollView.options.minZoom = this.minZoom.get();
+        this._controller.scrollView.options.maxZoom = this.maxZoom.get();
+        this._controller.scrollView.options.bouncing = this.hasBouncing.get();
+    });
+
+    this.autorun(() => {
         this._controller.scrollTo(parseInt(this.startX.get(), 10), parseInt(this.startY.get(), 10), true);
     });
 
@@ -106,18 +119,6 @@ Template.ionScroll.onRendered(function() {
         _.isFunction(this.onScrollComplete) ? this.onScrollComplete : e => {};
 
     this.controller.set(this._controller);
-
-    /*  TODO: Use case for reactive? Original is not.
-    this.autorun(() => {
-     this._scroller.options.locking = !this.locking.get();
-     this._scroller.options.paging = this.paging.get();
-     this._scroller.options.scrollingX = this.direction.get().indexOf('x') !== -1;
-     this._scroller.options.scrollingY = this.direction.get().indexOf('y') !== -1;
-     this._scroller.options.zooming = this.zooming.get();
-     this._scroller.options.minZoom = this.minZoom.get();
-     this._scroller.options.maxZoom = this.maxZoom.get();
-     this._scroller.options.bouncing = this.hasBouncing.get();
-     });*/
 });
 
 Template.ionScroll.onDestroyed(function() {
