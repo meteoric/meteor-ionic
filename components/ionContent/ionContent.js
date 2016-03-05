@@ -36,17 +36,17 @@ Template.ionContent.onCreated(function() {
         let td = Template.currentData();
         if (!td) return;
         this.direction.set(td.direction || ionContentDefault.direction);
-        this.locking.set(!!td.locking ? td.locking : ionContentDefault.locking);
-        this.padding.set(!!td.padding ? td.padding : ionContentDefault.padding);
-        this.scroll.set(!!td.scroll ? td.scroll : ionContentDefault.scroll);
-        this.overflowScroll.set(!!td.overflowScroll ? td.overflowScroll : ionContentDefault.overflowScroll);
-        this.scrollbarX.set(!!td.scrollbarX ? td.scrollbarX : ionContentDefault.scrollbarX);
-        this.scrollbarY.set(!!td.scrollbarY ? td.scrollbarY : ionContentDefault.scrollbarY);
+        this.locking.set(!_.isUndefined(td.locking) ? td.locking : ionContentDefault.locking);
+        this.padding.set(!_.isUndefined(td.padding) ? td.padding : ionContentDefault.padding);
+        this.scroll.set(!_.isUndefined(td.scroll) ? td.scroll : ionContentDefault.scroll);
+        this.overflowScroll.set(!_.isUndefined(td.overflowScroll) ? td.overflowScroll : ionContentDefault.overflowScroll);
+        this.scrollbarX.set(!_.isUndefined(td.scrollbarX) ? td.scrollbarX : ionContentDefault.scrollbarX);
+        this.scrollbarY.set(!_.isUndefined(td.scrollbarY) ? td.scrollbarY : ionContentDefault.scrollbarY);
         this.startX.set(!!td.startX ? td.startX : ionContentDefault.startX);
         this.startY.set(!!td.startX ? td.startY : ionContentDefault.startY);
         this.onScroll.set(td.onScroll);
         this.onScrollComplete.set(td.onScrollComplete);
-        this.hasBouncing.set(!!td.hasBouncing ? td.hasBouncing : ionContentDefault.hasBouncing);
+        this.hasBouncing.set(!_.isUndefined(td.hasBouncing) ? td.hasBouncing : ionContentDefault.hasBouncing);
         this.scrollEventInterval.set(!!this.scrollEventInterval ? this.scrollEventInterval : ionContentDefault.scrollEventInterval);
     });
 });
@@ -60,17 +60,15 @@ Template.ionContent.onRendered(function() {
         var scrollViewOptions = {};
 
         // determined in compile phase above
-        if (false) {
+        let nativeScrolling = this.overflowScroll.get();
+        if (nativeScrolling) {
             // use native scrolling
             $element.addClass('overflow-scroll');
 
             scrollViewOptions = {
                 el: $element[0],
-                startX: $scope.$eval($scope.startX) || 0,
-                startY: $scope.$eval($scope.startY) || 0,
                 nativeScrolling: true
             };
-
         } else {
             // Use JS scrolling
             scrollViewOptions = {
@@ -153,17 +151,5 @@ Template.ionContent.helpers({
         return classes.join(' ');
     },
 
-    direction: function() { return Template.instance().direction.get(); },
-    locking: function() { return Template.instance().locking.get(); },
-    padding: function() { return Template.instance().padding.get(); },
-    scroll: function() { return Template.instance().scroll.get(); },
-    overflowScroll: function() { return Template.instance().overflowScroll.get(); },
-    scrollBarX: function() { return Template.instance().scrollbarX.get(); },
-    scrollBarY: function() { return Template.instance().scrollbarY.get(); },
-    startX: function() { return Template.instance().startX.get(); },
-    startY: function() { return Template.instance().startY.get(); },
-    onScroll: function() { return Template.instance().onScroll.get(); },
-    onScrollComplete: function() { return Template.instance().onScrollComplete.get(); },
-    hasBouncing: function() { return Template.instance().hasBouncing.get(); },
-    scrollEventInterval: function() { return Template.instance().scrollEventInterval.get(); }
+    scroll: function() { return Template.instance().scroll.get(); }
 });

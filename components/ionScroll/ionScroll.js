@@ -22,7 +22,7 @@ let ionScrollDefault = {
 };
 
 Template.ionScroll.onCreated(function() {
-    this.overflowScroll = new ReactiveVar(false);
+    this.overflowScroll = new ReactiveVar(ionScrollDefault.overflowScroll);
     this.direction = new ReactiveVar(ionScrollDefault.direction);
     this.locking = new ReactiveVar(ionScrollDefault.locking);
     this.paging = new ReactiveVar(ionScrollDefault.paging);
