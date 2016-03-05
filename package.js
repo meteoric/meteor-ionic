@@ -74,7 +74,10 @@ Package.onUse(function (api) {
         // Controller.
         'lib/controller/spinnerController.js',
         'lib/controller/scrollController.js',
-        'lib/controller/infiniteScrollController.js'
+        'lib/controller/infiniteScrollController.js',
+
+        // Service
+        'lib/service/gesture.js'
     ], "client");
 
     api.addFiles([
