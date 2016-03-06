@@ -19,12 +19,12 @@ Package.onUse(function (api) {
         "templating",
         "underscore",
         "reactive-var",
+        "reactive-dict",
         "fastclick",
         "iron:router@1.0.0",
         "tracker",
         "session",
         "jquery",
-        "jandres:snapjs@2.0.9",
         "fourseven:scss@3.4.1",
 
         "jandres:meteoric-sass@1.2.5"
@@ -44,6 +44,7 @@ Package.onUse(function (api) {
     // @see uild.config.js in ionic@1.2.4
     api.addFiles([
         "lib/meteoric.js",
+        "lib/delegate.js",
 
         // Utils
         'lib/utils/delegateService.js',
@@ -75,9 +76,13 @@ Package.onUse(function (api) {
         'lib/controller/spinnerController.js',
         'lib/controller/scrollController.js',
         'lib/controller/infiniteScrollController.js',
+        'lib/controller/sideMenuController.js',
 
         // Service
-        'lib/service/gesture.js'
+        'lib/service/body.js',
+        'lib/service/gesture.js',
+        'lib/service/platform.js',
+        'lib/service/sideMenuDelegate.js'
     ], "client");
 
     api.addFiles([

@@ -29,7 +29,7 @@ Template.ionContent.onCreated(function() {
     this.hasBouncing = new ReactiveVar(ionContentDefault.hasBouncing);  // tdo: Make platform dependent.
     this.scrollEventInterval = new ReactiveVar(ionContentDefault.scrollEventInterval);
 
-    this._controller = null;
+    this._sideMenuCtrl = null;
     this.controller = new ReactiveVar(null);
 
     this.autorun(() => {
@@ -84,43 +84,43 @@ Template.ionContent.onRendered(function() {
             };
 
             this.autorun(() => {
-                if (!this._controller) return;
-                this._controller.scrollView.options.locking = this.locking.get();
-                this._controller.scrollView.options.scrollbarX = this.scrollbarX.get();
-                this._controller.scrollView.options.scrollbarY = this.scrollbarY.get();
-                this._controller.scrollView.options.scrollingX = this.direction.get().indexOf('x') !== -1;
-                this._controller.scrollView.options.scrollingY = this.direction.get().indexOf('y') !== -1;
-                this._controller.scrollView.options.scrollEventInterval = this.scrollEventInterval.get();
-                this._controller.scrollView.options.bouncing = this.hasBouncing.get();
+                if (!this._sideMenuCtrl) return;
+                this._sideMenuCtrl.scrollView.options.locking = this.locking.get();
+                this._sideMenuCtrl.scrollView.options.scrollbarX = this.scrollbarX.get();
+                this._sideMenuCtrl.scrollView.options.scrollbarY = this.scrollbarY.get();
+                this._sideMenuCtrl.scrollView.options.scrollingX = this.direction.get().indexOf('x') !== -1;
+                this._sideMenuCtrl.scrollView.options.scrollingY = this.direction.get().indexOf('y') !== -1;
+                this._sideMenuCtrl.scrollView.options.scrollEventInterval = this.scrollEventInterval.get();
+                this._sideMenuCtrl.scrollView.options.bouncing = this.hasBouncing.get();
             });
         }
 
         // init scroll controller with appropriate options
-        this._controller = new meteoric.controller.ionicScroll({
+        this._sideMenuCtrl = new meteoric.controller.ionicScroll({
             onScroll: _.isFunction(this.onScroll) ?
                 meteoric.Utils.throttle(this.onScroll, this.scrollEventInterval.get()) :
                 e => {}
         }, scrollViewOptions, Meteor.setTimeout);
 
         this.autorun(() => {
-            this._controller.scrollTo(parseInt(this.startX.get(), 10), parseInt(this.startY.get(), 10), true);
+            this._sideMenuCtrl.scrollTo(parseInt(this.startX.get(), 10), parseInt(this.startY.get(), 10), true);
         });
 
-        this.controller.set(this._controller);
+        this.controller.set(this._sideMenuCtrl);
     }
 
     let self = this;
     function onScrollComplete() {
         let _onScrollComplete = _.isFunction(self.onScrollComplete.get()) ? self.onScrollComplete.get() : () => {};
         _onScrollComplete({
-            scrollTop: self._controller.scrollView.__scrollTop,
-            scrollLeft: self._controller.scrollView.__scrollLeft
+            scrollTop: self._sideMenuCtrl.scrollView.__scrollTop,
+            scrollLeft: self._sideMenuCtrl.scrollView.__scrollLeft
         });
     }
 });
 
 Template.ionContent.onDestroyed(function() {
-    !!this._controller && this._controller.destroy();
+    !!this._sideMenuCtrl && this._sideMenuCtrl.destroy();
 });
 
 Template.ionContent.helpers({

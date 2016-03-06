@@ -18,38 +18,15 @@ Template.ionSideMenuContainer.onCreated(function () {
     if (typeof this.data.dragContent != 'undefined') {
         this.dragContent = this.data.dragContent
     }
-});
 
-Template.ionSideMenuContainer.onRendered(function () {
-    $snapperEl = this.$('.snap-content');
-    if (!$snapperEl) {
-        return;
-    }
+    this.$scope = new ReactiveDict('ionSideMenuScope');
+    this._sideMenuCtrl = null;
+    this.sideMenuCtrl = new ReactiveVar(null);
 
-    var disable;
-    if (this.side == 'both') {
-        disable = 'none';
-    }
-    if (this.side == 'left') {
-        disable = 'right';
-    }
-    if (this.side == 'right') {
-        disable = 'left';
-    }
-
-    IonSideMenu.snapper = new Snap({
-        element: $snapperEl.get(0),
-        disable: disable,
-        touchToDrag: this.dragContent
-    });
-
-    IonSideMenu.enable = () => IonSideMenu.snapper.enable();
-    IonSideMenu.disable = () => IonSideMenu.snapper.disable();
-
-    // Watch hasBounce attribute.
-    this.autorun(() => { IonSideMenu.snapper.settings({ hyperextensible: this.hasBouncing.get() }); });
+    this._sideMenuCtrl = new meteoric.controller.ionicSideMenus(this.$scope);
+    this.sideMenuCtrl.set(this._sideMenuCtrl);
 });
 
 Template.ionSideMenuContainer.onDestroyed(function () {
-    IonSideMenu.snapper = null;
+    $(this._sideMenuCtrl).trigger('$destroy');
 });
