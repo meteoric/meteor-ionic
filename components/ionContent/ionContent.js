@@ -47,7 +47,7 @@ Template.ionContent.onCreated(function() {
         this.onScroll.set(td.onScroll);
         this.onScrollComplete.set(td.onScrollComplete);
         this.hasBouncing.set(!_.isUndefined(td.hasBouncing) ? td.hasBouncing : ionContentDefault.hasBouncing);
-        this.scrollEventInterval.set(!!this.scrollEventInterval ? this.scrollEventInterval : ionContentDefault.scrollEventInterval);
+        this.scrollEventInterval.set(!!td.scrollEventInterval ? td.scrollEventInterval : ionContentDefault.scrollEventInterval);
     });
 });
 
@@ -84,7 +84,7 @@ Template.ionContent.onRendered(function() {
             };
 
             this.autorun(() => {
-                if (!this._controller) return;
+                if (!this.controller.get()) return;
                 this._controller.scrollView.options.locking = this.locking.get();
                 this._controller.scrollView.options.scrollbarX = this.scrollbarX.get();
                 this._controller.scrollView.options.scrollbarY = this.scrollbarY.get();
@@ -97,16 +97,10 @@ Template.ionContent.onRendered(function() {
 
         // init scroll controller with appropriate options
         this._controller = new meteoric.controller.ionicScroll({
-            onScroll: _.isFunction(this.onScroll) ?
-                meteoric.Utils.throttle(this.onScroll, this.scrollEventInterval.get()) :
-                e => {}
+            onScroll: _.isFunction(this.onScroll.get()) ? this.onScroll.get() : e => {}
         }, scrollViewOptions, Meteor.setTimeout);
-
-        this.autorun(() => {
-            this._controller.scrollTo(parseInt(this.startX.get(), 10), parseInt(this.startY.get(), 10), true);
-        });
-
         this.controller.set(this._controller);
+        this._controller.scrollTo(parseInt(this.startX.get(), 10), parseInt(this.startY.get(), 10), true);
     }
 
     let self = this;
