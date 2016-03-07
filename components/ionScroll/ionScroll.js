@@ -41,8 +41,11 @@ Template.ionScroll.onCreated(function() {
 
     this.stopPropagation = new ReactiveVar(ionScrollDefault.stopPropagation);
 
-    this._sideMenuCtrl = null;
-    this.controller = new ReactiveVar(null);
+    this._scrollCtrl = new meteoric.controller.ionicScroll();
+    this.scrollCtrl = new ReactiveVar(null);
+    this.onScopeCreated = function() {
+        this.scope.scrollCtlr = this._scrollCtrl;
+    };
 
     this.autorun(() => {
         let td = Template.currentData();
@@ -92,37 +95,37 @@ Template.ionScroll.onRendered(function() {
         scrollViewOptions.bouncing = false;
     }
 
-    this._sideMenuCtrl = new meteoric.controller.ionicScroll({
+    this._scrollCtrl.init({
         onScroll: _.isFunction(this.onScroll) ?
             meteoric.Utils.throttle(this.onScroll, this.scrollEventInterval.get()) :
             e => {}
     }, scrollViewOptions, Meteor.setTimeout);
 
     this.autorun(() => {
-        this._sideMenuCtrl.scrollView.options.locking = this.locking.get();
-        this._sideMenuCtrl.scrollView.options.paging = this.paging.get();
-        this._sideMenuCtrl.scrollView.options.scrollbarX = this.scrollbarX.get();
-        this._sideMenuCtrl.scrollView.options.scrollbarY = this.scrollbarY.get();
-        this._sideMenuCtrl.scrollView.options.scrollingX = this.direction.get().indexOf('x') !== -1;
-        this._sideMenuCtrl.scrollView.options.scrollingY = this.direction.get().indexOf('y') !== -1;
-        this._sideMenuCtrl.scrollView.options.zooming = this.zooming.get();
-        this._sideMenuCtrl.scrollView.options.minZoom = this.minZoom.get();
-        this._sideMenuCtrl.scrollView.options.maxZoom = this.maxZoom.get();
-        this._sideMenuCtrl.scrollView.options.bouncing = this.hasBouncing.get();
+        this._scrollCtrl.scrollView.options.locking = this.locking.get();
+        this._scrollCtrl.scrollView.options.paging = this.paging.get();
+        this._scrollCtrl.scrollView.options.scrollbarX = this.scrollbarX.get();
+        this._scrollCtrl.scrollView.options.scrollbarY = this.scrollbarY.get();
+        this._scrollCtrl.scrollView.options.scrollingX = this.direction.get().indexOf('x') !== -1;
+        this._scrollCtrl.scrollView.options.scrollingY = this.direction.get().indexOf('y') !== -1;
+        this._scrollCtrl.scrollView.options.zooming = this.zooming.get();
+        this._scrollCtrl.scrollView.options.minZoom = this.minZoom.get();
+        this._scrollCtrl.scrollView.options.maxZoom = this.maxZoom.get();
+        this._scrollCtrl.scrollView.options.bouncing = this.hasBouncing.get();
     });
 
     this.autorun(() => {
-        this._sideMenuCtrl.scrollTo(parseInt(this.startX.get(), 10), parseInt(this.startY.get(), 10), true);
+        this._scrollCtrl.scrollTo(parseInt(this.startX.get(), 10), parseInt(this.startY.get(), 10), true);
     });
 
-    this._sideMenuCtrl.scrollView.options.scrollingComplete = () =>
+    this._scrollCtrl.scrollView.options.scrollingComplete = () =>
         _.isFunction(this.onScrollComplete) ? this.onScrollComplete : e => {};
 
-    this.controller.set(this._sideMenuCtrl);
+    this.scrollCtrl.set(this._scrollCtrl);
 });
 
 Template.ionScroll.onDestroyed(function() {
-    this._sideMenuCtrl.destroy();
+    this._scrollCtrl.destroy();
 });
 
 Template.ionScroll.helpers({

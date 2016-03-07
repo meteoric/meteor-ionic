@@ -31,12 +31,6 @@ Package.onUse(function (api) {
     ], "client");
 
     api.addFiles([
-        "vendor/slick.js",
-        "vendor/slick.css",
-        "vendor/slip.js"
-    ], "client");
-
-    api.addFiles([
         "styles/_transitions.scss",
         "styles/main.scss"
     ], "client");
@@ -73,9 +67,10 @@ Package.onUse(function (api) {
         'lib/views/toggleView.js',
 
         // Controller.
+        'lib/controller/infiniteScrollController.js',
+        'lib/controller/listController.js',
         'lib/controller/spinnerController.js',
         'lib/controller/scrollController.js',
-        'lib/controller/infiniteScrollController.js',
         'lib/controller/sideMenuController.js',
 
         // Service
