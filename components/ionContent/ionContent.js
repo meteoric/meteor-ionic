@@ -49,7 +49,7 @@ Template.ionContent.onCreated(function() {
         this.onScroll.set(td.onScroll);
         this.onScrollComplete.set(td.onScrollComplete);
         this.hasBouncing.set(!_.isUndefined(td.hasBouncing) ? td.hasBouncing : ionContentDefault.hasBouncing);
-        this.scrollEventInterval.set(!!this.scrollEventInterval ? this.scrollEventInterval : ionContentDefault.scrollEventInterval);
+        this.scrollEventInterval.set(!!td.scrollEventInterval ? td.scrollEventInterval : ionContentDefault.scrollEventInterval);
     });
 
     // init scroll controller with appropriate options

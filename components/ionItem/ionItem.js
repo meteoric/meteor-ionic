@@ -93,11 +93,6 @@ Template.ionItem.onDestroyed(function() {
 });
 
 Template.ionItem.helpers({
-  idAttribute: function () {
-    if (this.id) {
-      return this.id;
-    }
-  },
   itemComplex: function() {
     return Template.instance().itemComplex.get();
   },

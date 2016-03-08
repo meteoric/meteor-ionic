@@ -14,7 +14,7 @@ Package.onUse(function (api) {
     api.versionsFrom("1.0");
 
     api.use([
-        "jandres:template-extension@4.0.4",
+        "jandres:template-extension@4.0.5",
         "ecmascript@0.1.6",
         "templating",
         "underscore",
