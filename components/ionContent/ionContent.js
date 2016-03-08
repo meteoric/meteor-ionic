@@ -29,7 +29,7 @@ Template.ionContent.onCreated(function() {
     this.hasBouncing = new ReactiveVar(ionContentDefault.hasBouncing);  // tdo: Make platform dependent.
     this.scrollEventInterval = new ReactiveVar(ionContentDefault.scrollEventInterval);
 
-    this.scrollCtrl = null;
+    this.scrollCtrl = new meteoric.controller.ionicScroll();
     this.onScopeCreated = function() {
         this.scope.scrollCtrl = this.scrollCtrl;
     };
@@ -51,9 +51,6 @@ Template.ionContent.onCreated(function() {
         this.hasBouncing.set(!_.isUndefined(td.hasBouncing) ? td.hasBouncing : ionContentDefault.hasBouncing);
         this.scrollEventInterval.set(!!td.scrollEventInterval ? td.scrollEventInterval : ionContentDefault.scrollEventInterval);
     });
-
-    // init scroll controller with appropriate options
-    this.scrollCtrl = new meteoric.controller.ionicScroll();
 });
 
 Template.ionContent.onRendered(function() {
@@ -124,6 +121,7 @@ Template.ionContent.onRendered(function() {
 });
 
 Template.ionContent.onDestroyed(function() {
+    Object.setPrototypeOf(this.scope, null);
     $(this.scope).trigger('destroy');
 });
 

@@ -100,6 +100,7 @@ Template.ionList.onRendered(function() {
 });
 
 Template.ionList.onDestroyed(function() {
+    Object.setPrototypeOf(this.scope, null);
     $(this.scope).trigger('destroy');
 });
 
