@@ -75,7 +75,7 @@ Template.ionContent.onRendered(function() {
                 nativeScrolling: true
             };
 
-            this.scrollCtrl.init(this.scope, scrollViewOptions);
+            this.scrollCtrl.initialize(this.scope, scrollViewOptions);
         } else {
             // Use JS scrolling
             scrollViewOptions = {
@@ -90,7 +90,7 @@ Template.ionContent.onRendered(function() {
                 scrollingComplete: onScrollComplete
             };
 
-            this.scrollCtrl.init(this.scope, scrollViewOptions);
+            this.scrollCtrl.initialize(this.scope, scrollViewOptions);
 
             this.autorun(() => {
                 if (!this.scrollCtrl) return;
@@ -124,7 +124,7 @@ Template.ionContent.onRendered(function() {
 });
 
 Template.ionContent.onDestroyed(function() {
-    !!this.scrollCtrl && this.scrollCtrl.destroy();
+    $(this.scope).trigger('destroy');
 });
 
 Template.ionContent.helpers({

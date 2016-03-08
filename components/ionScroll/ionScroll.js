@@ -95,7 +95,7 @@ Template.ionScroll.onRendered(function() {
         scrollViewOptions.bouncing = false;
     }
 
-    this._scrollCtrl.init({
+    this._scrollCtrl.initialize({
         onScroll: _.isFunction(this.onScroll) ?
             meteoric.Utils.throttle(this.onScroll, this.scrollEventInterval.get()) :
             e => {}
@@ -125,7 +125,7 @@ Template.ionScroll.onRendered(function() {
 });
 
 Template.ionScroll.onDestroyed(function() {
-    this._scrollCtrl.destroy();
+    $(this.scope).trigger('destroy');
 });
 
 Template.ionScroll.helpers({

@@ -77,6 +77,7 @@ Package.onUse(function (api) {
         'lib/service/body.js',
         'lib/service/gesture.js',
         'lib/service/platform.js',
+        'lib/service/scrollDelegate.js',
         'lib/service/sideMenuDelegate.js'
     ], "client");
 

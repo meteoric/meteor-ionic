@@ -3,8 +3,9 @@ Template.ionList.onCreated(function() {
     this.showReorder = new ReactiveVar(false);
     this.canSwipe = new ReactiveVar(false);
 
-    this.listCtrl = new meteoric.controller.ionicList();
+    this.listCtrl = null;
     this.onScopeCreated = function() {
+        this.listCtrl = new meteoric.controller.ionicList(this.scope);
         this.scope.listCtrl = this.listCtrl;
     };
 
@@ -30,24 +31,21 @@ Template.ionList.onRendered(function() {
             listEl: $element.children()[0],
             scrollEl: scrollCtrl && scrollCtrl.element,
             scrollView: scrollCtrl && scrollCtrl.scrollView,
-            onReorder: function(el, oldIndex, newIndex) {
-                // todo: here we call onReorder callback.
-                /*var itemScope = jqLite(el).scope();
-                if (itemScope && itemScope.$onReorder) {
-                    // Make sure onReorder is called in apply cycle,
-                    // but also make sure it has no conflicts by doing
-                    // $evalAsync
-                    Meteor.setTimeout(function() {
-                        itemScope.$onReorder(oldIndex, newIndex);
-                    });
-                }*/
+            onReorder: (el, oldIndex, newIndex) => {
+                // Make sure onReorder is called in apply cycle,
+                // but also make sure it has no conflicts by doing
+                // $evalAsync
+                Meteor.setTimeout(() => {
+                    this.data.onReorder &&
+                    this.data.onReorder(this.children()[oldIndex], oldIndex, newIndex);
+                });
             },
             canSwipe: function() {
                 return listCtrl.canSwipeItems();
             }
         });
 
-        $($scope).on('$destroy', function() {
+        $($scope).on('destroy', function() {
             if (listView) {
                 listView.deregister && listView.deregister();
                 listView = null;
@@ -101,18 +99,12 @@ Template.ionList.onRendered(function() {
     Meteor.setTimeout(init);
 });
 
+Template.ionList.onDestroyed(function() {
+    $(this.scope).trigger('destroy');
+});
+
 Template.ionList.events({
     'click .item-delete' : function(e, template){
         e.preventDefault();
-    },
-    'slip:reorder .list': function(e, template) {
-        let toIndex = e.originalEvent.detail.spliceIndex;
-        let fromIndex = e.originalEvent.detail.originalIndex;
-
-        let index_change = toIndex !== fromIndex;
-        let sortable = index_change && template.showReorder.get() && !!template.data.onReorder;
-        if (sortable) {
-            template.data.onReorder(Template.instance().children()[fromIndex], fromIndex, toIndex);
-        }
     }
 });
