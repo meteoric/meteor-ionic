@@ -55,6 +55,7 @@ Template.ionContent.onCreated(function() {
 
 Template.ionContent.onRendered(function() {
     let $element = this.$("ion-content");
+    $.data($element.get(0), 'scope', this.scope);
 
     if (this.scroll.get() === "false") {
         //do nothing

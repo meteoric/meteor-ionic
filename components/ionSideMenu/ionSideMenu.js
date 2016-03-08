@@ -14,26 +14,28 @@ Template.ionSideMenu.onCreated(function() {
 
 Template.ionSideMenu.onRendered(function() {
   let $element = this.$("ion-side-menu");
-  let sideMenuCtrl = this.parent(1, true).sideMenuCtrl.get();
-  let $scope = {};
+  let $scope = this.scope;
+  let sideMenuCtrl = $scope.sideMenuCtrl;
   $scope.side = this.side;
 
-  var sideMenu = sideMenuCtrl[$scope.side] = new ionic.views.SideMenu({
-    width: this.width.get(),
-    el: $element[0],
-    isEnabled: true
-  });
+  $(sideMenuCtrl).on('initialized', () => {
+    var sideMenu = sideMenuCtrl[$scope.side] = new ionic.views.SideMenu({
+      width: this.width.get(),
+      el: $element[0],
+      isEnabled: true
+    });
 
-  this.autorun(() => {
-    let val = this.width.get();
-    var numberVal = +val;
-    if (numberVal && numberVal == val) {
-      sideMenu.setWidth(+val);
-    }
-  });
+    this.autorun(() => {
+      let val = this.width.get();
+      var numberVal = +val;
+      if (numberVal && numberVal == val) {
+        sideMenu.setWidth(+val);
+      }
+    });
 
-  this.autorun(() => {
-    sideMenu.setIsEnabled(!!this.isEnabled.get());
+    this.autorun(() => {
+      sideMenu.setIsEnabled(!!this.isEnabled.get());
+    });
   });
 });
 

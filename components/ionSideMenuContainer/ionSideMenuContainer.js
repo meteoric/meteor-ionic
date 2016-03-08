@@ -19,14 +19,18 @@ Template.ionSideMenuContainer.onCreated(function () {
         this.dragContent = this.data.dragContent
     }
 
-    this.$scope = new ReactiveDict('ionSideMenuScope');
-    this._sideMenuCtrl = null;
-    this.sideMenuCtrl = new ReactiveVar(null);
+    this.sideMenuCtrl = new meteoric.controller.ionicSideMenus();
+    this.onScopeCreated = function() {
+        this.scope.sideMenuCtrl = this.sideMenuCtrl;
+    };
+});
 
-    this._sideMenuCtrl = new meteoric.controller.ionicSideMenus(this.$scope);
-    this.sideMenuCtrl.set(this._sideMenuCtrl);
+Template.ionSideMenuContainer.onRendered(function() {
+    let $scope = this.scope;
+    this.sideMenuCtrl.initialize($scope);
 });
 
 Template.ionSideMenuContainer.onDestroyed(function () {
-    $(this._sideMenuCtrl).trigger('$destroy');
+    Object.setPrototypeOf(this.scope, null);
+    $(this.scope).trigger('$destroy');
 });
