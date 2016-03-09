@@ -44,10 +44,3 @@ Template.ionSideMenus.onRendered(function() {
     });
   });
 });
-
-Template.ionSideMenus.onDestroyed(function() {
-  let $scope = this.scope;
-
-  Object.setPrototypeOf($scope, null);
-  $($scope).trigger('$destroy');
-});

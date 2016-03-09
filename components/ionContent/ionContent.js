@@ -121,11 +121,6 @@ Template.ionContent.onRendered(function() {
     }
 });
 
-Template.ionContent.onDestroyed(function() {
-    Object.setPrototypeOf(this.scope, null);
-    $(this.scope).trigger('$destroy');
-});
-
 Template.ionContent.helpers({
     hasHeader: function() { return meteoric.hasHeader.get(); },
 

@@ -99,11 +99,6 @@ Template.ionList.onRendered(function() {
     Meteor.setTimeout(init);
 });
 
-Template.ionList.onDestroyed(function() {
-    Object.setPrototypeOf(this.scope, null);
-    $(this.scope).trigger('$destroy');
-});
-
 Template.ionList.events({
     'click .item-delete' : function(e, template){
         e.preventDefault();

@@ -70,13 +70,6 @@ Template.ionInfiniteScroll.onRendered(function() {
 });
 
 Template.ionInfiniteScroll.onDestroyed(function() {
-    // Prevent trigger to propagate upward.
-    // todo: Make this a method for controllers.
-    Object.setPrototypeOf(this.scope, null);
-    $(this.scope).trigger('$destroy');
-});
-
-Template.ionInfiniteScroll.onDestroyed(function() {
     this.enable.set(false);
 
     this.finishInfiniteScroll && $(window).off('scroll.infiniteScrollComplete', this.finishInfiniteScroll);

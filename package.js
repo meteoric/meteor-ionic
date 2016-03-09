@@ -39,6 +39,7 @@ Package.onUse(function (api) {
     api.addFiles([
         "lib/meteoric.js",
         "lib/delegate.js",
+        "lib/blaze.js",
         "lib/poly.js",
 
         // Utils
@@ -195,7 +196,10 @@ Package.onUse(function (api) {
         "components/ionTab/ionTab.js",
 
         "components/ionView/ionView.html",
-        "components/ionView/ionView.js"
+        "components/ionView/ionView.js",
+
+        "components/menuClose/menuClose.js",
+        "components/menuToggle/menuToggle.js"
     ], "client");
 
     api.export("IonActionSheet");

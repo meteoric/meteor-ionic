@@ -42,27 +42,6 @@ Template.ionBody.events({
     $('[data-navbar-container]').addClass('nav-bar-direction-' + $(event.target).data('nav-direction'));
   },
 
-  'click [data-ion-menu-toggle]': function (event, template) {
-    if (!IonSideMenu.snapper) {
-      return;
-    }
-
-    var direction;
-    var $el = $(event.target);
-
-    if ($el.data('ion-menu-toggle') !== '') {
-      direction = $el.data('ion-menu-toggle');
-    } else {
-      direction = 'left';
-    }
-
-    if(IonSideMenu.snapper.state().state === direction){
-      IonSideMenu.snapper.close();
-    } else {
-      IonSideMenu.snapper.open(direction);
-    }
-  },
-
   'click [data-ion-list-toggle]': function (event, template) {
     var direction;
     var $el = $(event.target);

@@ -121,11 +121,6 @@ Template.ionScroll.onRendered(function() {
         _.isFunction(this.onScrollComplete) ? this.onScrollComplete : e => {};
 });
 
-Template.ionScroll.onDestroyed(function() {
-    Object.setPrototypeOf(this.scope, null);
-    $(this.scope).trigger('$destroy');
-});
-
 Template.ionScroll.helpers({
     // todo: handle native-scroll-view
     nativeScrolling: function() { return Template.instance().overflowScroll.get(); },

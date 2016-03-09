@@ -222,11 +222,6 @@ Template.ionSideMenuContent.onRendered(function() {
     });
 });
 
-Template.ionSideMenuContent.onDestroyed(function() {
-    Object.setPrototypeOf(this.scope, null);
-    $(this.scope).trigger('$destroy');
-});
-
 Template.ionSideMenuContent.helpers({
     classes: function () {
         var classes = ['menu-content', 'snap-content', 'pane'];

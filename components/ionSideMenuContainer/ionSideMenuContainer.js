@@ -31,11 +31,6 @@ Template.ionSideMenuContainer.onRendered(function() {
     $.data($element.get(0), '$ionSideMenusController', this.sideMenuCtrl);
 });
 
-Template.ionSideMenuContainer.onDestroyed(function () {
-    Object.setPrototypeOf(this.scope, null);
-    $(this.scope).trigger('$destroy');
-});
-
 Template.ionSideMenuContainer.events({
     /**
      * menu-close
@@ -46,24 +41,10 @@ Template.ionSideMenuContainer.events({
      *       the ionSideMenusController.
      */
     'click [menu-close]': function (event, template) {
-        let $element = $(event.target);
-        let sideMenuCtrl = $.inheritedData($element[0], '$ionSideMenusController');
-        if (sideMenuCtrl) {
-            /*$ionicHistory.nextViewOptions({
-             historyRoot: true,
-             disableAnimate: true,
-             expire: 300
-             });*/
-            // if no transition in 300ms, reset nextViewOptions
-            // the expire should take care of it, but will be cancelled in some
-            // cases. This directive is an exception to the rules of history.js
-            Meteor.setTimeout( function() {
-                /*$ionicHistory.nextViewOptions({
-                 historyRoot: false,
-                 disableAnimate: false
-                 });*/
-            }, 300);
-            sideMenuCtrl.close();
-        }
+
+    },
+
+    'click [menu-toggle]': function (event, template) {
+
     }
 });
