@@ -45,7 +45,7 @@ Template.ionList.onRendered(function() {
             }
         });
 
-        $($scope).on('destroy', function() {
+        $($scope).on('$destroy', function() {
             if (listView) {
                 listView.deregister && listView.deregister();
                 listView = null;
@@ -101,7 +101,7 @@ Template.ionList.onRendered(function() {
 
 Template.ionList.onDestroyed(function() {
     Object.setPrototypeOf(this.scope, null);
-    $(this.scope).trigger('destroy');
+    $(this.scope).trigger('$destroy');
 });
 
 Template.ionList.events({

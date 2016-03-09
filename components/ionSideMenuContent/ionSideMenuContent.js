@@ -207,7 +207,7 @@ Template.ionSideMenuContent.onRendered(function() {
         var releaseGesture = meteoric.service.ionicGesture.on('release', onDragRelease, $element, gestureOpts);
 
         // Cleanup
-        $($scope).on('destroy', function () {
+        $($scope).on('$destroy', function () {
             if (content) {
                 content.element = null;
                 content = null;
@@ -224,7 +224,7 @@ Template.ionSideMenuContent.onRendered(function() {
 
 Template.ionSideMenuContent.onDestroyed(function() {
     Object.setPrototypeOf(this.scope, null);
-    $(this.scope).trigger('destroy');
+    $(this.scope).trigger('$destroy');
 });
 
 Template.ionSideMenuContent.helpers({

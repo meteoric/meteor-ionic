@@ -39,6 +39,7 @@ Package.onUse(function (api) {
     api.addFiles([
         "lib/meteoric.js",
         "lib/delegate.js",
+        "lib/poly.js",
 
         // Utils
         'lib/utils/delegateService.js',

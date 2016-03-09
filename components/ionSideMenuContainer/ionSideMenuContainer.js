@@ -13,8 +13,6 @@ Template.ionSideMenuContainer.onCreated(function () {
     this.side = this.data.side || 'both';
     this.dragContent = true;
 
-    this.hasBouncing = new ReactiveVar(true);
-
     if (typeof this.data.dragContent != 'undefined') {
         this.dragContent = this.data.dragContent
     }
@@ -28,9 +26,44 @@ Template.ionSideMenuContainer.onCreated(function () {
 Template.ionSideMenuContainer.onRendered(function() {
     let $scope = this.scope;
     this.sideMenuCtrl.initialize($scope);
+
+    let $element = this.$('div');
+    $.data($element.get(0), '$ionSideMenusController', this.sideMenuCtrl);
 });
 
 Template.ionSideMenuContainer.onDestroyed(function () {
     Object.setPrototypeOf(this.scope, null);
     $(this.scope).trigger('$destroy');
+});
+
+Template.ionSideMenuContainer.events({
+    /**
+     * menu-close
+     *
+     * Note: To emulate the attribute menu-close directive. It
+     *       is placed here. Just like the original, only child elements
+     *       of DOM containing the ionSideMenusController can attain
+     *       the ionSideMenusController.
+     */
+    'click [menu-close]': function (event, template) {
+        let $element = $(event.target);
+        let sideMenuCtrl = $.inheritedData($element[0], '$ionSideMenusController');
+        if (sideMenuCtrl) {
+            /*$ionicHistory.nextViewOptions({
+             historyRoot: true,
+             disableAnimate: true,
+             expire: 300
+             });*/
+            // if no transition in 300ms, reset nextViewOptions
+            // the expire should take care of it, but will be cancelled in some
+            // cases. This directive is an exception to the rules of history.js
+            Meteor.setTimeout( function() {
+                /*$ionicHistory.nextViewOptions({
+                 historyRoot: false,
+                 disableAnimate: false
+                 });*/
+            }, 300);
+            sideMenuCtrl.close();
+        }
+    }
 });

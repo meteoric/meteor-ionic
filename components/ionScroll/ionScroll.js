@@ -123,7 +123,7 @@ Template.ionScroll.onRendered(function() {
 
 Template.ionScroll.onDestroyed(function() {
     Object.setPrototypeOf(this.scope, null);
-    $(this.scope).trigger('destroy');
+    $(this.scope).trigger('$destroy');
 });
 
 Template.ionScroll.helpers({
