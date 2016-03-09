@@ -8,6 +8,12 @@ Template.ionInfiniteScroll.onCreated(function() {
 
     this.finishInfiniteScroll = null;
 
+    this.infiniteScrollCtrl = new meteoric.controller.ionInfiniteScroll();
+
+    this.onScopeCreated = function() {
+        this.scope.infiniteScrollCtrl = this.infiniteScrollCtrl;
+    };
+
     this.autorun(() => {
         if (!Template.currentData()) return;  // Don't do a thing if data context don't exist.
         this.onInfinite = Template.currentData().onInfinite;
@@ -18,20 +24,22 @@ Template.ionInfiniteScroll.onCreated(function() {
 });
 
 Template.ionInfiniteScroll.onRendered(function() {
-    let parentTemplate = this.parent(1, true);
+    let $element = this.$('ion-infinite-scroll');
+    let $scope = this.scope;
 
-    this.autorun(() => {
-        if (!parentTemplate.controller.get()) return;
-
-        let element = this.$('ion-infinite-scroll').get(0);
-        let $scope = {};
+    // This gets over the fact that blaze's onRender is equivalent to
+    // postLink (or just link) in angular. The controller was placed
+    // in preLink, thus to emulate, we need to have a callback when parent
+    // is initialized so we can traverse downward.
+    $($scope.scrollCtrl).on('initialized', () => {
         let $attrs = {
             immediateCheck: this.immediateCheck,
             onInfinite: this.onInfinite,
             distance: this.distance
         };
-        var infiniteScrollCtrl = new meteoric.controller.ionInfiniteScroll($scope, $attrs, element, Meteor.setTimeout);
-        var scrollCtrl = infiniteScrollCtrl.scrollCtrl = parentTemplate.controller.get();
+        this.infiniteScrollCtrl.initialize($scope, $attrs, $element.get(0));
+        let infiniteScrollCtrl = this.infiniteScrollCtrl;
+        var scrollCtrl = infiniteScrollCtrl.scrollCtrl = $scope.scrollCtrl;
         var jsScrolling = infiniteScrollCtrl.jsScrolling = !scrollCtrl.isNative();
 
         // if this view is not beneath a scrollCtrl, it can't be injected, proceed w/ native scrolling
@@ -59,8 +67,6 @@ Template.ionInfiniteScroll.onRendered(function() {
             });
         }
     });
-
-    // todo: reactive? We are perfectly capable of such
 });
 
 Template.ionInfiniteScroll.onDestroyed(function() {

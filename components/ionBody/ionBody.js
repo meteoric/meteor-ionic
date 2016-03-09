@@ -18,28 +18,6 @@ Template.registerHelper('isAndroid', function () {
   return Platform.isAndroid();
 });
 
-// todo: This is a duplicate of METEORIC.PLATFORM, what to do?? Do we put the Meteor.isCordova test there?
-Template.ionBody.helpers({
-  platformClasses: function () {
-    var classes = ['grade-a'];
-
-    if (Meteor.isCordova) {
-      classes.push('platform-cordova');
-    }
-    if (Meteor.isClient) {
-      classes.push('platform-web');
-    }
-    if ((Meteor.isCordova && Platform.isIOS()) || Session.get('platformOverride') === 'iOS') {
-      classes.push('platform-ios');
-    }
-    if ((Meteor.isCordova && Platform.isAndroid()) || Session.get('platformOverride') === 'Android') {
-      classes.push('platform-android');
-    }
-
-    return classes.join(' ');
-  }
-});
-
 Template.ionBody.rendered = function () {
   window.addEventListener('statusTap', function() {
     $('.content.overflow-scroll').animate({
@@ -64,33 +42,6 @@ Template.ionBody.events({
     $('[data-navbar-container]').addClass('nav-bar-direction-' + $(event.target).data('nav-direction'));
   },
 
-  'click [data-ion-menu-toggle]': function (event, template) {
-    if (!IonSideMenu.snapper) {
-      return;
-    }
-
-    var direction;
-    var $el = $(event.target);
-
-    if ($el.data('ion-menu-toggle') !== '') {
-      direction = $el.data('ion-menu-toggle');
-    } else {
-      direction = 'left';
-    }
-
-    if(IonSideMenu.snapper.state().state === direction){
-      IonSideMenu.snapper.close();
-    } else {
-      IonSideMenu.snapper.open(direction);
-    }
-  },
-
-  'click [data-ion-menu-close]': function (event, template) {
-    if (!IonSideMenu.snapper) {
-      return;
-    }
-    IonSideMenu.snapper.close();
-  },
   'click [data-ion-list-toggle]': function (event, template) {
     var direction;
     var $el = $(event.target);

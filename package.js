@@ -1,7 +1,7 @@
 Package.describe({
   name: "jandres:ionic",
   summary: "Ionic components for Meteor. No Angular!",
-  version: "0.1.56",
+  version: "0.1.57",
   git: "https://github.com/JoeyAndres/meteor-ionic.git"
 });
 
@@ -14,26 +14,20 @@ Package.onUse(function (api) {
     api.versionsFrom("1.0");
 
     api.use([
-        "jandres:template-extension@4.0.4",
+        "jandres:template-extension@4.0.5",
         "ecmascript@0.1.6",
         "templating",
         "underscore",
         "reactive-var",
+        "reactive-dict",
         "fastclick",
         "iron:router@1.0.0",
         "tracker",
         "session",
         "jquery",
-        "jandres:snapjs@2.0.9",
         "fourseven:scss@3.4.1",
 
         "jandres:meteoric-sass@1.2.5"
-    ], "client");
-
-    api.addFiles([
-        "vendor/slick.js",
-        "vendor/slick.css",
-        "vendor/slip.js"
     ], "client");
 
     api.addFiles([
@@ -44,6 +38,9 @@ Package.onUse(function (api) {
     // @see uild.config.js in ionic@1.2.4
     api.addFiles([
         "lib/meteoric.js",
+        "lib/delegate.js",
+        "lib/blaze.js",
+        "lib/poly.js",
 
         // Utils
         'lib/utils/delegateService.js',
@@ -72,9 +69,18 @@ Package.onUse(function (api) {
         'lib/views/toggleView.js',
 
         // Controller.
+        'lib/controller/infiniteScrollController.js',
+        'lib/controller/listController.js',
         'lib/controller/spinnerController.js',
         'lib/controller/scrollController.js',
-        'lib/controller/infiniteScrollController.js'
+        'lib/controller/sideMenuController.js',
+
+        // Service
+        'lib/service/body.js',
+        'lib/service/gesture.js',
+        'lib/service/platform.js',
+        'lib/service/scrollDelegate.js',
+        'lib/service/sideMenuDelegate.js'
     ], "client");
 
     api.addFiles([
@@ -190,7 +196,11 @@ Package.onUse(function (api) {
         "components/ionTab/ionTab.js",
 
         "components/ionView/ionView.html",
-        "components/ionView/ionView.js"
+        "components/ionView/ionView.js",
+
+        "components/exposeAsideWhen/exposeAsideWhen.js",
+        "components/menuClose/menuClose.js",
+        "components/menuToggle/menuToggle.js"
     ], "client");
 
     api.export("IonActionSheet");

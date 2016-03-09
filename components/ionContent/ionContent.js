@@ -29,8 +29,10 @@ Template.ionContent.onCreated(function() {
     this.hasBouncing = new ReactiveVar(ionContentDefault.hasBouncing);  // tdo: Make platform dependent.
     this.scrollEventInterval = new ReactiveVar(ionContentDefault.scrollEventInterval);
 
-    this._controller = null;
-    this.controller = new ReactiveVar(null);
+    this.scrollCtrl = new meteoric.controller.ionicScroll();
+    this.onScopeCreated = function() {
+        this.scope.scrollCtrl = this.scrollCtrl;
+    };
 
     this.autorun(() => {
         let td = Template.currentData();
@@ -53,6 +55,7 @@ Template.ionContent.onCreated(function() {
 
 Template.ionContent.onRendered(function() {
     let $element = this.$("ion-content");
+    $.data($element.get(0), 'scope', this.scope);
 
     if (this.scroll.get() === "false") {
         //do nothing
@@ -69,6 +72,8 @@ Template.ionContent.onRendered(function() {
                 el: $element[0],
                 nativeScrolling: true
             };
+
+            this.scrollCtrl.initialize(this.scope, scrollViewOptions);
         } else {
             // Use JS scrolling
             scrollViewOptions = {
@@ -83,38 +88,37 @@ Template.ionContent.onRendered(function() {
                 scrollingComplete: onScrollComplete
             };
 
+            this.scrollCtrl.initialize(this.scope, scrollViewOptions);
+
             this.autorun(() => {
-                if (!this.controller.get()) return;
-                this._controller.scrollView.options.locking = this.locking.get();
-                this._controller.scrollView.options.scrollbarX = this.scrollbarX.get();
-                this._controller.scrollView.options.scrollbarY = this.scrollbarY.get();
-                this._controller.scrollView.options.scrollingX = this.direction.get().indexOf('x') !== -1;
-                this._controller.scrollView.options.scrollingY = this.direction.get().indexOf('y') !== -1;
-                this._controller.scrollView.options.scrollEventInterval = this.scrollEventInterval.get();
-                this._controller.scrollView.options.bouncing = this.hasBouncing.get();
+                if (!this.scrollCtrl) return;
+                this.scrollCtrl.scrollView.options.locking = this.locking.get();
+                this.scrollCtrl.scrollView.options.scrollbarX = this.scrollbarX.get();
+                this.scrollCtrl.scrollView.options.scrollbarY = this.scrollbarY.get();
+                this.scrollCtrl.scrollView.options.scrollingX = this.direction.get().indexOf('x') !== -1;
+                this.scrollCtrl.scrollView.options.scrollingY = this.direction.get().indexOf('y') !== -1;
+                this.scrollCtrl.scrollView.options.scrollEventInterval = this.scrollEventInterval.get();
+                this.scrollCtrl.scrollView.options.bouncing = this.hasBouncing.get();
             });
         }
 
-        // init scroll controller with appropriate options
-        this._controller = new meteoric.controller.ionicScroll({
-            onScroll: _.isFunction(this.onScroll.get()) ? this.onScroll.get() : e => {}
-        }, scrollViewOptions, Meteor.setTimeout);
-        this.controller.set(this._controller);
-        this._controller.scrollTo(parseInt(this.startX.get(), 10), parseInt(this.startY.get(), 10), true);
+        this.scope.onScroll = _.isFunction(this.onScroll) ?
+            meteoric.Utils.throttle(this.onScroll, this.scrollEventInterval.get()) :
+            e => {};
+
+        this.autorun(() => {
+            this.scrollCtrl.scrollTo(parseInt(this.startX.get(), 10), parseInt(this.startY.get(), 10), true);
+        });
     }
 
     let self = this;
     function onScrollComplete() {
         let _onScrollComplete = _.isFunction(self.onScrollComplete.get()) ? self.onScrollComplete.get() : () => {};
         _onScrollComplete({
-            scrollTop: self._controller.scrollView.__scrollTop,
-            scrollLeft: self._controller.scrollView.__scrollLeft
+            scrollTop: self.scrollCtrl.scrollView.__scrollTop,
+            scrollLeft: self.scrollCtrl.scrollView.__scrollLeft
         });
     }
-});
-
-Template.ionContent.onDestroyed(function() {
-    !!this._controller && this._controller.destroy();
 });
 
 Template.ionContent.helpers({

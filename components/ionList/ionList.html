@@ -1,8 +1,7 @@
 <template name="ionList">
-  <div class="{{class}} list
-  {{#if showDelete}} list-left-editing {{/if}}
-  {{#if showReorder}} list-right-editing {{/if}}
-  ">
-    {{> UI.contentBlock}}
-  </div>
+  <ion-list class="{{class}}">
+    <div class="list">
+      {{> UI.contentBlock}}
+    </div>
+  </ion-list>
 </template>

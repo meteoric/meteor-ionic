@@ -41,8 +41,10 @@ Template.ionScroll.onCreated(function() {
 
     this.stopPropagation = new ReactiveVar(ionScrollDefault.stopPropagation);
 
-    this._controller = null;
-    this.controller = new ReactiveVar(null);
+    this.scrollCtrl = new meteoric.controller.ionicScroll();
+    this.onScopeCreated = function() {
+        this.scope.scrollCtlr = this.scrollCtrl;
+    };
 
     this.autorun(() => {
         let td = Template.currentData();
@@ -92,37 +94,31 @@ Template.ionScroll.onRendered(function() {
         scrollViewOptions.bouncing = false;
     }
 
-    this._controller = new meteoric.controller.ionicScroll({
+    this.scrollCtrl.initialize({
         onScroll: _.isFunction(this.onScroll) ?
             meteoric.Utils.throttle(this.onScroll, this.scrollEventInterval.get()) :
             e => {}
     }, scrollViewOptions, Meteor.setTimeout);
 
     this.autorun(() => {
-        this._controller.scrollView.options.locking = this.locking.get();
-        this._controller.scrollView.options.paging = this.paging.get();
-        this._controller.scrollView.options.scrollbarX = this.scrollbarX.get();
-        this._controller.scrollView.options.scrollbarY = this.scrollbarY.get();
-        this._controller.scrollView.options.scrollingX = this.direction.get().indexOf('x') !== -1;
-        this._controller.scrollView.options.scrollingY = this.direction.get().indexOf('y') !== -1;
-        this._controller.scrollView.options.zooming = this.zooming.get();
-        this._controller.scrollView.options.minZoom = this.minZoom.get();
-        this._controller.scrollView.options.maxZoom = this.maxZoom.get();
-        this._controller.scrollView.options.bouncing = this.hasBouncing.get();
+        this.scrollCtrl.scrollView.options.locking = this.locking.get();
+        this.scrollCtrl.scrollView.options.paging = this.paging.get();
+        this.scrollCtrl.scrollView.options.scrollbarX = this.scrollbarX.get();
+        this.scrollCtrl.scrollView.options.scrollbarY = this.scrollbarY.get();
+        this.scrollCtrl.scrollView.options.scrollingX = this.direction.get().indexOf('x') !== -1;
+        this.scrollCtrl.scrollView.options.scrollingY = this.direction.get().indexOf('y') !== -1;
+        this.scrollCtrl.scrollView.options.zooming = this.zooming.get();
+        this.scrollCtrl.scrollView.options.minZoom = this.minZoom.get();
+        this.scrollCtrl.scrollView.options.maxZoom = this.maxZoom.get();
+        this.scrollCtrl.scrollView.options.bouncing = this.hasBouncing.get();
     });
 
     this.autorun(() => {
-        this._controller.scrollTo(parseInt(this.startX.get(), 10), parseInt(this.startY.get(), 10), true);
+        this.scrollCtrl.scrollTo(parseInt(this.startX.get(), 10), parseInt(this.startY.get(), 10), true);
     });
 
-    this._controller.scrollView.options.scrollingComplete = () =>
+    this.scrollCtrl.scrollView.options.scrollingComplete = () =>
         _.isFunction(this.onScrollComplete) ? this.onScrollComplete : e => {};
-
-    this.controller.set(this._controller);
-});
-
-Template.ionScroll.onDestroyed(function() {
-    this._controller.destroy();
 });
 
 Template.ionScroll.helpers({

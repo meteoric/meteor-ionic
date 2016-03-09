@@ -13,43 +13,38 @@ Template.ionSideMenuContainer.onCreated(function () {
     this.side = this.data.side || 'both';
     this.dragContent = true;
 
-    this.hasBouncing = new ReactiveVar(true);
-
     if (typeof this.data.dragContent != 'undefined') {
         this.dragContent = this.data.dragContent
     }
+
+    this.sideMenuCtrl = new meteoric.controller.ionicSideMenus();
+    this.onScopeCreated = function() {
+        this.scope.sideMenuCtrl = this.sideMenuCtrl;
+    };
 });
 
-Template.ionSideMenuContainer.onRendered(function () {
-    $snapperEl = this.$('.snap-content');
-    if (!$snapperEl) {
-        return;
-    }
+Template.ionSideMenuContainer.onRendered(function() {
+    let $scope = this.scope;
+    this.sideMenuCtrl.initialize($scope);
 
-    var disable;
-    if (this.side == 'both') {
-        disable = 'none';
-    }
-    if (this.side == 'left') {
-        disable = 'right';
-    }
-    if (this.side == 'right') {
-        disable = 'left';
-    }
-
-    IonSideMenu.snapper = new Snap({
-        element: $snapperEl.get(0),
-        disable: disable,
-        touchToDrag: this.dragContent
-    });
-
-    IonSideMenu.enable = () => IonSideMenu.snapper.enable();
-    IonSideMenu.disable = () => IonSideMenu.snapper.disable();
-
-    // Watch hasBounce attribute.
-    this.autorun(() => { IonSideMenu.snapper.settings({ hyperextensible: this.hasBouncing.get() }); });
+    let $element = this.$('div');
+    $.data($element.get(0), '$ionSideMenusController', this.sideMenuCtrl);
 });
 
-Template.ionSideMenuContainer.onDestroyed(function () {
-    IonSideMenu.snapper = null;
+Template.ionSideMenuContainer.events({
+    /**
+     * menu-close
+     *
+     * Note: To emulate the attribute menu-close directive. It
+     *       is placed here. Just like the original, only child elements
+     *       of DOM containing the ionSideMenusController can attain
+     *       the ionSideMenusController.
+     */
+    'click [menu-close]': function (event, template) {
+
+    },
+
+    'click [menu-toggle]': function (event, template) {
+
+    }
 });
