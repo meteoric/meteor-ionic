@@ -100,7 +100,7 @@ A [Product Hunt](http://producthunt.com) clone built in Meteor Ionic. (In Progre
   * [x] ion-side-menus
   * [x] ion-side-menu-content
   * [x] ion-side-menu
-  * [ ] expose-aside-when (not sure this is needed)
+  * [x] expose-aside-when
   * [x] menu-toggle
   * [x] menu-close
 * [x] Slide Box

@@ -21,6 +21,7 @@ Template.ionSideMenuContent.onRendered(function() {
     let element, $element;
     element = $element = this.$('ion-side-menu-content');
     let $scope = this.scope;
+    let $window = $(window);
     let sideMenuCtrl = $scope.sideMenuCtrl;
 
     $(sideMenuCtrl).on('initialized', () => {
