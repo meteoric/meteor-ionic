@@ -1,0 +1,12 @@
+<template name="ionSlides">
+  <ion-slides class="{{class}}" style="{{style}}">
+    <div class="swiper-container">
+      <div class="swiper-wrapper">{{> UI.contentBlock}}</div>
+      {{#if showPager}}<div class="swiper-pagination"></div>{{/if}}
+    </div>
+  </ion-slides>
+</template>
+
+<template name="ionSlidePage">
+  <div class="swiper-slide">{{> UI.contentBlock}}</div>
+</template>

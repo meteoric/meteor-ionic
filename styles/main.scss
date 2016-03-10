@@ -29,3 +29,9 @@ body {
   font-family: ubuntu, helvetica, arial;
   overflow: hidden; /* this is important to prevent the whole page to bounce */
 }
+
+// Original have position: absolute, collapsing and hiding the content. It looks like a bug.
+// todo: There is two .swiper-wrapper rule in the _slides.scss making me think that this is a bug.
+.swiper-wrapper {
+  position: relative !important;
+}
