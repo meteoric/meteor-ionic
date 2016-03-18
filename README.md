@@ -6,7 +6,7 @@
 
 ## NOTE: This package is no longer being actively maintained. 
 
-If you are interested in maintaining it, contact me through [my Github profile](https://github.com/nickw). Now that Meteor is officially supporting (and actively recommending) React and Angular, I suggest using [Ionic](https://github.com/driftyco/ionic), [Ionic 2](https://github.com/driftyco/ionic2) or [Reapp](https://github.com/reapp) as alternatives for building hybrid mobile apps with Meteor.
+If you are interested in maintaining it, contact me through [my Github profile](https://github.com/nickw). Now that Meteor is officially supporting (and actively recommending) React and Angular, I suggest using [Ionic](https://github.com/driftyco/ionic), [Ionic 2](https://github.com/driftyco/ionic2) or [React-Ionic](https://github.com/pors/reactionic/) as alternatives for building hybrid mobile apps with Meteor.
 
 ## Overview
 
