@@ -3,9 +3,10 @@ Make sure you have the required packages installed:
 
 ```
 iron:router
-fourseven:scss
-jandres:meteoric-sass 
-jandres:ionic
+fourseven:scss@2.0.0
+meteoric:ionic-sass
+meteoric:ionicons-sass
+meteoric:ionic
 ```
 
 ## Blaze Templates

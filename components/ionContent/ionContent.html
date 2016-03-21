@@ -1,15 +1,30 @@
 <template name="ionContent">
+    {{#if scroll}}
     <ion-content class="scroll-content
                         ionic-scroll
-                        {{#unless scroll}} scroll-content-false {{/unless}}
                         {{#if hasHeader}}has-header{{/if}}
                         {{#if hasFooter}}has-footer{{/if}}">
-        {{#if scroll}}
-        <div class="scroll">
-            {{> Template.contentBlock}}
-        </div>
-        {{else}}
-            {{> Template.contentBlock}}
-        {{/if}}
+        {{#ionScroll
+          class=classes
+          direction=direction
+          locking=locking
+          padding=padding
+          overflowScroll=overflowScroll
+          scrollbarX=scrollbarX
+          scrollbarY=scrollbarY
+          startX=starX
+          startY=startY
+          onScroll=onScroll
+          onScrollComplete=onScrollComplete
+          hasBouncing=hasBouncing
+          scrollEventInterval=scrollEventInterval
+          stopPropagation=false}}
+        {{> Template.contentBlock}}
+        {{/ionScroll}}
     </ion-content>
+    {{else}}
+    <ion-content>
+        {{> Template.contentBlock}}
+    </ion-content>
+    {{/if}}
 </template>

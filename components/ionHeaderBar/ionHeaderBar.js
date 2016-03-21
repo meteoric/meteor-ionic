@@ -44,13 +44,13 @@ Template.ionHeaderBar.onCreated(function() {
 });
 
 Template.ionHeaderBar.onRendered(function () {
-    meteoric.hasHeader.set(true);
+    METEORIC.hasHeader.set(true);
     IonHeaderBar.alignTitle.call(this);
     IonHeaderBar.positionTitle.call(this);
 });
 
 Template.ionHeaderBar.onDestroyed(function () {
-    meteoric.hasHeader.set(false);
+    METEORIC.hasHeader.set(false);
 });
 
 Template.ionHeaderBar.helpers({

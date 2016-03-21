@@ -1,5 +1,6 @@
 <template name="ionReorderButton">
-    <div class="item-right-edit item-reorder enable-pointer-events">
+    <div data-prevent-scroll="true" class="item-right-edit item-reorder enable-pointer-events
+                {{#if showReorder}}visible active{{/if}}">
         <ion-reorder-button
                 class="{{class}} button icon button-icon item-right-editable">
         </ion-reorder-button>

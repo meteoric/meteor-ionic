@@ -6,8 +6,8 @@ let ionScrollDefault = {
     onRefresh: null,
     onScroll: null,
     onScrollComplete: null,  // Note: This was not documented in ionic website, but whatever.
-    scrollbarX: true,
-    scrollbarY: true,
+    scrollBarX: true,
+    scrollBarY: true,
     startX: '0',
     startY: '0',
     zooming: false,
@@ -22,15 +22,15 @@ let ionScrollDefault = {
 };
 
 Template.ionScroll.onCreated(function() {
-    this.overflowScroll = new ReactiveVar(ionScrollDefault.overflowScroll);
+    this.overflowScroll = new ReactiveVar(false);
     this.direction = new ReactiveVar(ionScrollDefault.direction);
     this.locking = new ReactiveVar(ionScrollDefault.locking);
     this.paging = new ReactiveVar(ionScrollDefault.paging);
     this.onRefresh = new ReactiveVar(ionScrollDefault.onRefresh);
     this.onScroll = new ReactiveVar(ionScrollDefault.onScroll);
     this.onScrollComplete = new ReactiveVar(ionScrollDefault.onScrollComplete);
-    this.scrollbarX = new ReactiveVar(ionScrollDefault.scrollbarX);
-    this.scrollbarY = new ReactiveVar(ionScrollDefault.scrollbarY);
+    this.scrollBarX = new ReactiveVar(ionScrollDefault.scrollBarX);
+    this.scrollBarY = new ReactiveVar(ionScrollDefault.scrollBarY);
     this.startX = new ReactiveVar(ionScrollDefault.startX);
     this.startY = new ReactiveVar(ionScrollDefault.startY);
     this.zooming = new ReactiveVar(ionScrollDefault.zooming);
@@ -41,10 +41,8 @@ Template.ionScroll.onCreated(function() {
 
     this.stopPropagation = new ReactiveVar(ionScrollDefault.stopPropagation);
 
-    this.scrollCtrl = new meteoric.controller.ionicScroll();
-    this.onScopeCreated = function() {
-        this.scope.scrollCtlr = this.scrollCtrl;
-    };
+    this._scroller = null;
+    this.scroller = new ReactiveVar(null);
 
     this.autorun(() => {
         let td = Template.currentData();
@@ -56,8 +54,8 @@ Template.ionScroll.onCreated(function() {
         this.onRefresh.set(td.onRefresh || ionScrollDefault.onRefresh);
         this.onScroll.set(td.onScroll || ionScrollDefault.onScroll);
         this.onScrollComplete.set(td.onScrollComplete || ionScrollDefault.onScrollComplete);
-        this.scrollbarX.set(!_.isUndefined(td.scrollbarX) ? td.scrollbarX : ionScrollDefault.scrollbarX);
-        this.scrollbarY.set(!_.isUndefined(td.scrollbarY) ? td.scrollbarY : ionScrollDefault.scrollbarY);
+        this.scrollBarX.set(!_.isUndefined(td.scrollBarX) ? td.scrollBarX : ionScrollDefault.scrollBarX);
+        this.scrollBarY.set(!_.isUndefined(td.scrollBarY) ? td.scrollBarY : ionScrollDefault.scrollBarY);
         this.startX.set(!_.isUndefined(td.startX) ? td.startX : ionScrollDefault.startX);
         this.startY.set(!_.isUndefined(td.startY) ? td.startY : ionScrollDefault.startY);
         this.zooming.set(!_.isUndefined(td.zooming) ? td.zooming : ionScrollDefault.zooming);
@@ -71,59 +69,38 @@ Template.ionScroll.onCreated(function() {
 
 Template.ionScroll.onRendered(function() {
     let nativeScrolling = this.overflowScroll.get();  // todo: make this reactive? Is there a use case?
-    let $element = this.$("ion-scroll");
+    if (!nativeScrolling) {
+        let innerWrapper = this.$(".meteoric-scroller-x").get(0);
+        this._scroller = new EasyScroller(innerWrapper);
 
-    var scrollViewOptions = {
-        el: $element[0],
-        locking: this.locking.get(),
-        bouncing: this.hasBouncing.get(),
-        paging: this.paging.get(),
-        scrollbarX: this.scrollbarX.get(),
-        scrollbarY: this.scrollbarY.get(),
-        scrollingX: this.direction.get().indexOf('x') !== -1,
-        scrollingY: this.direction.get().indexOf('y') !== -1,
-        zooming: this.zooming.get(),
-        minZoom: this.minZoom.get(),
-        maxZoom: this.maxZoom.get(),
-        preventDefault: true,
-        nativeScrolling: nativeScrolling
-    };
+        this.autorun(() => {
+            this._scroller.scroller.options.locking = !this.locking.get();
+            this._scroller.scroller.options.paging = this.paging.get();
+            this._scroller.scroller.options.scrollingX = this.direction.get().indexOf('x') !== -1;
+            this._scroller.scroller.options.scrollingY = this.direction.get().indexOf('y') !== -1;
+            this._scroller.scroller.options.zooming = this.zooming.get();
+            this._scroller.scroller.options.minZoom = this.minZoom.get();
+            this._scroller.scroller.options.maxZoom = this.maxZoom.get();
+            this._scroller.scroller.options.bouncing = this.hasBouncing.get();
+            this._scroller.options.stopPropagation = this.stopPropagation.get();
+        });
 
-    if (this.paging.get()) {
-        scrollViewOptions.speedMultiplier = 0.8;
-        scrollViewOptions.bouncing = false;
+        this.autorun(() => {
+            this._scroller.scroller.scrollTo(parseInt(this.startX.get(), 10), parseInt(this.startY.get(), 10), true);
+        });
+
+        this._scroller.options.scrolling = () =>
+            _.isFunction(this.onScroll) ?
+                METEORIC.UTILITY.throttle(this.onScroll, this.scrollEventInterval.get()) :
+                e => {};
+        this._scroller.options.scrollingComplete = () =>
+            _.isFunction(this.onScrollComplete) ? this.onScrollComplete : e => {};
+
+        this.scroller.set(this._scroller);
     }
-
-    this.scrollCtrl.initialize({
-        onScroll: _.isFunction(this.onScroll) ?
-            meteoric.Utils.throttle(this.onScroll, this.scrollEventInterval.get()) :
-            e => {}
-    }, scrollViewOptions, Meteor.setTimeout);
-
-    this.autorun(() => {
-        this.scrollCtrl.scrollView.options.locking = this.locking.get();
-        this.scrollCtrl.scrollView.options.paging = this.paging.get();
-        this.scrollCtrl.scrollView.options.scrollbarX = this.scrollbarX.get();
-        this.scrollCtrl.scrollView.options.scrollbarY = this.scrollbarY.get();
-        this.scrollCtrl.scrollView.options.scrollingX = this.direction.get().indexOf('x') !== -1;
-        this.scrollCtrl.scrollView.options.scrollingY = this.direction.get().indexOf('y') !== -1;
-        this.scrollCtrl.scrollView.options.zooming = this.zooming.get();
-        this.scrollCtrl.scrollView.options.minZoom = this.minZoom.get();
-        this.scrollCtrl.scrollView.options.maxZoom = this.maxZoom.get();
-        this.scrollCtrl.scrollView.options.bouncing = this.hasBouncing.get();
-    });
-
-    this.autorun(() => {
-        this.scrollCtrl.scrollTo(parseInt(this.startX.get(), 10), parseInt(this.startY.get(), 10), true);
-    });
-
-    this.scrollCtrl.scrollView.options.scrollingComplete = () =>
-        _.isFunction(this.onScrollComplete) ? this.onScrollComplete : e => {};
 });
 
 Template.ionScroll.helpers({
     // todo: handle native-scroll-view
-    nativeScrolling: function() { return Template.instance().overflowScroll.get(); },
-    direction: function() { return Template.instance().direction.get(); },
-    paging: function() { return Template.instance().paging.get(); }
+    nativeScrolling: function() { return Template.instance().overflowScroll.get(); }
 });
