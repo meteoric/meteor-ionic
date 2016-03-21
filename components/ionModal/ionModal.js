@@ -87,6 +87,7 @@ Template.ionModal.created = function () {
   this.title = this.data.closeText;
   this.focusFirstInput = _.isUndefined(this.data.focusFirstInput) ? true : this.data.focusFirstInput;
   this.animation = this.data.animation || 'slide-in-up';
+  this.backdropClickToClose = _.isUndefined(this.data.backdropClickToClose) || this.data.backdropClickToClose !== false;
 };
 
 Template.ionModal.rendered = function () {
@@ -159,7 +160,9 @@ Template.ionModal.events({
   // Handle clicking the backdrop
   'click': function (event, template) {
     if ($(event.target).hasClass('modal-backdrop')) {
-      IonModal.close();
+      if (template.backdropClickToClose) {
+        IonModal.close();
+      }
     }
   },
   'click [data-dismiss=modal]': function (event, template) {
