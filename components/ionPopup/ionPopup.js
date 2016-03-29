@@ -25,7 +25,8 @@ IonPopup = {
       title: options.title,
       subTitle: options.subTitle,
       buttons: this.buttons,
-      template: innerTemplate
+      template: innerTemplate,
+      cssClass: options.cssClass || ''
     };
 
     this.view = Blaze.renderWithData(this.template, data, $('.ionic-body').get(0));
@@ -35,10 +36,16 @@ IonPopup = {
     $backdrop.addClass('visible active');
     var $popup = $backdrop.find('.popup-container');
     $popup.addClass('popup-showing active');
+
+    return {
+      close: function(){
+        Blaze.remove( this.view )
+      }.bind( this )
+    }
   },
 
   alert: function (options) {
-    IonPopup.show({
+    return IonPopup.show({
       title: options.title,
       subTitle: options.subTitle,
       template: options.template,
@@ -57,7 +64,7 @@ IonPopup = {
   },
 
   confirm: function (options) {
-    IonPopup.show({
+    return IonPopup.show({
       title: options.title,
       subTitle: options.subTitle,
       template: options.template,
@@ -97,7 +104,7 @@ IonPopup = {
     template += '<input type="' + options.inputType + '" placeholder="' +
       options.inputPlaceholder + '" name="prompt" >';
 
-    IonPopup.show({
+    return IonPopup.show({
       title: options.title,
       subTitle: options.subTitle,
       template: template,
@@ -166,7 +173,7 @@ Template.ionPopup.events({
 
   'click [data-index]': function (event, template) {
     var index = $(event.target).data('index');
-    IonPopup.buttonClicked(index, event, template);
+    IonPopup.buttonClicked.call( template.data, index, event, template);
   }
 
 });
