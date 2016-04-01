@@ -1,7 +1,8 @@
 IonScrollPositions = {};
 
 Router.onStop(function () {
-  IonScrollPositions[this.route.path(this.params)] = $('.overflow-scroll').scrollTop();
+  if (this && this.route && this.route.path)
+    IonScrollPositions[this.route.path(this.params)] = $('.overflow-scroll').scrollTop();
 });
 
 Template.ionNavBackButton.events({
@@ -10,7 +11,7 @@ Template.ionNavBackButton.events({
     $('[data-navbar-container]').addClass('nav-bar-direction-back');
     
     //get most up-to-date url, if it exists
-    backUrl = template.getBackUrl()
+    backUrl = template.getBackUrl();
     if (backUrl) {
       Router.go(backUrl);
     } else {

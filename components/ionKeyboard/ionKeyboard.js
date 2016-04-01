@@ -7,43 +7,42 @@ Meteor.startup(function () {
 IonKeyboard = {
   close: function () {
     if (Meteor.isCordova) {
-      cordova.plugins.Keyboard.close();
+      Keyboard.hide();
     }
   },
 
   show: function () {
     if (Meteor.isCordova) {
-      cordova.plugins.Keyboard.show();
+      Keyboard.show();
     }
   },
 
   hideKeyboardAccessoryBar: function () {
     if (Meteor.isCordova) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      Keyboard.hideFormAccessoryBar(true);
     }
   },
 
   showKeyboardAccessoryBar: function () {
     if (Meteor.isCordova) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
+      Keyboard.hideFormAccessoryBar(false);
     }
   },
 
   disableScroll: function () {
     if (Meteor.isCordova) {
-      cordova.plugins.Keyboard.disableScroll(true);
+      Keyboard.disableScrollingInShrinkView(true);
     }
   },
 
   enableScroll: function () {
     if (Meteor.isCordova) {
-      cordova.plugins.Keyboard.disableScroll(false);
+      Keyboard.disableScrollingInShrinkView(false);
     }
   }
 };
 
-window.addEventListener('native.keyboardshow', function (event) {
-
+window.addEventListener('keyboardHeightWillChange', function (event) {
   // TODO: Android is having problems
   if (Platform.isAndroid()) {
     return;
@@ -52,24 +51,12 @@ window.addEventListener('native.keyboardshow', function (event) {
   $('body').addClass('keyboard-open');
   var keyboardHeight = event.keyboardHeight;
 
-  // Attach any elements that want to be attached
-  $('[data-keyboard-attach]').each(function (index, el) {
-    $(el).data('ionkeyboard.bottom', $(el).css('bottom'));
-    $(el).css({bottom: keyboardHeight});
-  });
-
-  // Move the bottom of the content area(s) above the top of the keyboard
-  $('.content.overflow-scroll').each(function (index, el) {
-    $(el).data('ionkeyboard.bottom', $(el).css('bottom'));
-    $(el).css({bottom: keyboardHeight});
-  });
-
   // Scroll to the focused element
   scrollToFocusedElement(null, keyboardHeight);
 
 });
 
-window.addEventListener('native.keyboardhide', function (event) {
+window.addEventListener('keyboardDidHide', function (event) {
 
   // TODO: Android is having problems
   if (Platform.isAndroid()) {
@@ -78,15 +65,5 @@ window.addEventListener('native.keyboardhide', function (event) {
 
   // $('input, textarea').blur();
   $('body').removeClass('keyboard-open');
-
-  // Detach any elements that were attached
-  $('[data-keyboard-attach]').each(function (index, el) {
-    $(el).css({bottom: $(el).data('ionkeyboard.bottom')});
-  });
-
-  // Reset the content area(s)
-  $('.content.overflow-scroll').each(function (index, el) {
-    $(el).css({bottom: $(el).data('ionkeyboard.bottom')});
-  });
 
 });
