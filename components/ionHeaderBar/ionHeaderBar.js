@@ -19,8 +19,8 @@ IonHeaderBar = {
 
   positionTitle: function () {
     var $title = this.$('.title');
-    var $leftButton = $('.button.pull-left');
-    var $rightButton = $('.button.pull-right');
+    var $leftButton = this.$('.button.pull-left');
+    var $rightButton = this.$('.button.pull-right');
 
     // Find out which button is wider,
     // use that to offset the title on both sides
