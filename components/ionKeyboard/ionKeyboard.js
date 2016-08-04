@@ -72,7 +72,7 @@ window.addEventListener('native.keyboardshow', function (event) {
 window.addEventListener('native.keyboardhide', function (event) {
 
   // TODO: Android is having problems
-  if (Platform.isAndroid()) {
+  if (Platform.isAndroid() || $(body).hasClass('keyboard-open')) {
     return;
   }
 
